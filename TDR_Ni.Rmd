@@ -1,0 +1,209 @@
+---
+title: "TDR"
+author: "ESR"
+date: "21. Januar 2016"
+output: html_document
+---
+```{r eval = FALSE, include=FALSE}
+#import library and functions
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+source('../function.R')
+
+#set db connections
+library(rmongodb)
+# your connection details will likely differ from these defaults
+host <- "127.0.0.1"
+username <- "esrWR"
+password <- "esrWR"
+db <- "OBdata"
+#connect to mongo
+conn <- mongo.create(host=host , db=db)#, username=username, password=password)
+
+```
+
+# Konsistenz von Dämpferwirkung mit TDR und DR Messungen
+## DB einlesen 
+
+```{r}
+# function to build df
+
+buildTDRdf = function(cursor, conn, TDRvar, OBsetupVar){
+  TDR_Data=data.frame()
+  i= 1
+  while(mongo.cursor.next(cursor)){
+  doc = mongo.cursor.value(cursor)
+  ##
+  OBsetup_id <- mongo.bson.value(doc, "OBsetup_id")
+  OBsetup = mongo.find.one(conn, 'OBdata.OBsetup', query = list('_id'= OBsetup_id) )
+  ##
+  df1 <- data.frame(lapply(OBsetupVar, function(x){
+      if(!is.null(mongo.bson.value(OBsetup, x))){
+        return(mongo.bson.value(OBsetup, x))
+      }else{
+        return(NA)
+      }
+    })
+  )
+  df1$tdr_id = i
+  ##
+  df2 <- data.frame(
+    lapply(TDRvar, function(x){
+      if(!is.null(mongo.bson.value(doc, x))){
+        return(mongo.bson.value(doc, x))
+      }else{
+        return(NA)
+      }
+    })
+  )
+  TDR_Data = rbind(TDR_Data,cbind(df1,df2))
+  i=i+1
+  }
+  return(TDR_Data)
+}
+### TDR variables
+TDRvar = list(
+    Author = 'Author',
+    messdatum='measurementDate',
+    padCalc = 'calculatedPadStiffnes',
+    calcQ= 'calcQuality',
+    temp= 'temperature',
+    rail='rail',
+    dir='tdrDirection',
+    freq='tdr.freq',
+    tdr='tdr.value')
+
+OBsetupVar = list( loc='loc',sec='sec', pad = 'pad', FX='MBBMvar',damp = 'damp',dampType = 'dampType' )
+
+
+## Niderwangen TDR
+q1 = list('$and' = list(list('loc' = 'Ni')))
+cursor = mongo.find(conn, 'OBdata.OBsetup', query=q1)
+
+ids = list()
+i=1
+
+while (mongo.cursor.next(cursor)) {
+  OBsetup = mongo.cursor.value(cursor)
+  OBsetup_id <- mongo.bson.value(OBsetup, "_id")
+  ids[[i]]= OBsetup_id
+  # make it a dataframe
+  i=i+1
+}
+
+TDRni = buildTDRdf(mongo.find(conn, 'OBdata.TDR', 
+                              query = list(OBsetup_id = list("$in"=ids))
+                              ), 
+                   conn, 
+                   TDRvar, 
+                   OBsetupVar)
+# 
+# ##FX
+# 
+# q1 = list('$and' = list(
+#   list('MBBMvar' = list("$exists"=TRUE)),
+#   list('damp'= FALSE),
+#   list('pad' = list("$eq"="h")),
+#   list('Schw' = list("$ne"="H"))
+#   )
+#   )
+# cursor = mongo.find(conn, 'OBdata.OBsetup', query=q1)
+# 
+# ids = list()
+# i=1
+# while (mongo.cursor.next(cursor)) {
+#   OBsetup = mongo.cursor.value(cursor)
+#   OBsetup_id <- mongo.bson.value(OBsetup, "_id")
+#   ids[[i]]= OBsetup_id
+#   # make it a dataframe
+#   i=i+1
+# }
+# 
+# TDRfx = buildTDRdf(mongo.find(conn, 'OBdata.TDR', 
+#                               query = list(OBsetup_id = list("$in"=ids)) 
+#                               ), 
+#                    conn, 
+#                    TDRvar, 
+#                    OBsetupVar)
+
+```
+
+Strail vs S&V
+hauptaussage die du im bericht mitnehmen kannst ist dass die wirkung nich mit dem TDR erwartungen entspricht. S&V hätte mehr wirken sollen
+
+### TDR Messungen
+In diesem Abschnitt wird die erwartete wirkung von Schienedämpfer diskutiert aus Betrachtung von gemessen TDR.
+
+MBBM hat imlaufe der 4 Jahren 4 TDR messungen auf alle abschnitten durchgeführt.  Insgesamt wurden 4 TDR messungen durchgeführt
+- Niederwangen ist einen standort mit Beton Schwellen B90 und harte Zwischenlage. Den standort zeigte höhe TDR Werte und war in der entsprechende FX gruppe Zugeordnet
+- Aufgrund die höghe TDR ist eine kleine wirkung von schienedämpfern erwartet
+
+#### S&V
+
+```{r,out.width='1000px'}
+TDRplot(c('v','h'))+
+geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B3'& sec!='B4'),
+          aes(x = freq, y=tdr, group= tdr_id, color= dampType, linetype = sec),
+          size=1,alpha=0.7)+
+  facet_grid(. ~ dir )+
+  guides(linetype = guide_legend(title = 'Abschnitt (vor Dämpfereinbau)   ', title.position = "left"),
+         color = guide_legend(title = 'Schienendämpfer   ', title.position = "left")
+         )
+```
+
+#### strail
+
+```{r,out.width='1000px'}
+TDRplot(c('v','h'))+
+geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B3'& sec!='B2'),
+          aes(x = freq, y=tdr, group= tdr_id, color= dampType, linetype = sec),
+          size=1,alpha=0.7)+
+  facet_grid(. ~ dir )+
+  guides(linetype = guide_legend(title = 'Abschnitt (vor Dämpfereinbau)   ', title.position = "left"),
+         color = guide_legend(title = 'Schienendämpfer   ', title.position = "left")
+         )
+
+```
+
+#### Vossloh
+
+```{r,out.width='1000px'}
+TDRplot(c('v','h'))+
+geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B2'& sec!='B4'),
+          aes(x = freq, y=tdr, group= tdr_id, color= dampType, linetype = sec),
+          size=1,alpha=0.7)+
+  facet_grid(. ~ dir )+
+  guides(linetype = guide_legend(title = 'Abschnitt (vor Dämpfereinbau)   ', title.position = "left"),
+         color = guide_legend(title = 'Schienendämpfer   ', title.position = "left")
+         )
+
+```
+
+#### TATA
+
+```{r ,out.width='1000px'}
+TDRplot(c('v','h'))+
+geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B4'& sec!='B3'& sec!='B2'),
+          aes(x = freq, y=tdr, group= tdr_id, color= dampType, linetype = sec),
+          size=1,alpha=0.7)+
+  facet_grid(. ~ dir )+
+  guides(linetype = guide_legend(title = 'Abschnitt (vor Dämpfereinbau)   ', title.position = "left"),
+         color = guide_legend(title = 'Schienendämpfer   ', title.position = "left")
+         )
+
+```
+
+
+
+#### Vergleich S&V vs. Strailvs vossloh
+
+```{r, out.width='1000px'}
+TDRplot(c('v','h'))+
+geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& damp == TRUE),
+          aes(x = freq, y=tdr, group= tdr_id, color =dampType),
+          size=1,alpha=0.7)+
+  facet_grid(damp ~ dir )+
+    scale_color_discrete(guide=guide_legend(title = 'Schienendämpfer'))
+```
+ Erwartete werte

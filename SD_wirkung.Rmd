@@ -1,0 +1,184 @@
+---
+title: "Dämpferwirkung"
+author: "ESR"
+date: "21. Januar 2016"
+output: html_document
+---
+
+```{r include=FALSE}
+#import library and functions
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(DT)
+source('../function.R')
+load('passby_SPL_DF.Rdata')
+
+#set db connections
+library(rmongodb)
+# your connection details will likely differ from these defaults
+host <- "127.0.0.1"
+username <- "esrWR"
+password <- "esrWR"
+db <- "OBdata"
+#connect to mongo
+conn <- mongo.create(host=host , db=db)#, username=username, password=password)
+
+```
+
+# Schalldruckpegel Differenzen mit Referenzabschnitt
+
+In Dieser Abschnitt werden die Differenzen der Spektren bzw. Levels zwischen  Referenzabschnitt und Dämpferabschnitt untersucht. Ziel ist die dämpferwirkung Abzuschätzen.
+
+**Eine positive Differenz deutet auf eine positive Wirkung der Dämpfern*
+
+```{r}
+## Differenz zwischen Referenz und Abschnitt Bilden
+difference = function(df){
+  lRef = filter(df,A =='B5')$level
+  df = filter(df, A!='B5')
+  df$level = -(df$level-lRef)
+  return(df)
+}
+diffDf = spectDf %>% group_by(passby, band, interval) %>% do(difference(.))
+
+```
+
+## Differenz von Gesamtzugauswertung: alle Abschnitte
+
+Die Differenzen von auswertungsintervall `full` sind für alle Abschnitte vorhanden und werden hier gezeigt
+
+### Spektral
+```{r, fig.width = 14, fig.height=11, out.width='1000px'}
+X =  diffDf%>%filter(band!='tot' & interval.kat == 'full' )
+X$band = as.numeric(X$band)
+SpectPlot(FREQ)+ 
+  geom_line(data = X ,
+            mapping = aes(x = band, y = level, group =interaction(passby,A,interval), color = Zugstyp),size = 1, alpha = 0.7)+
+      geom_boxplot(data = X, aes(x = band, y = level, group= interaction(band, A)),
+                  colour = "black",alpha = 0.7, outlier.colour = NA,size = 0.5)+
+  geom_hline(yintercept=0,size = 1,alpha=0.6)+
+  scale_y_continuous(breaks=-10:10,lim = c(-5,7))+
+  ylab('Spektrum, dBA')+
+facet_wrap(~ A ,ncol=2,scales = 'free_x')
+```
+
+### Levels
+
+```{r  fig.width = 7, fig.height=5, out.width='500px'}
+ggplot(data = diffDf%>%filter(band=='tot'& var == 'leq' & interval.kat == 'full'  ),
+       aes(x = Zugstyp, y = level,  color = Zugstyp))+ 
+  geom_boxplot(alpha = 0.7)+
+  geom_point(size = 4, alpha = 0.7,position='jitter')+
+  geom_hline(yintercept=0,size = 1,alpha=0.6)+
+  scale_y_continuous(breaks=-5:5)+
+  ylab('Level dBA')+
+facet_grid( interval.kat~ A )+ theme_bw()+ theme(legend.position="bottom")
+```
+
+
+## Differenzen Wagenweise: Wagen , Trieb/Wagen: Abschnitt B2
+
+Für den Abschnitt B2 ist es zusätzlich möglich die Differenzen je Auswertungsintervall `n` (je doppel Drehgestell) zu berechnen. Die Resultierende Wirkung sind die Folgende:
+
+### Spektral
+
+#### IC Züghe
+```{r fig.width = 14, fig.height=10, out.width='1000px'}
+
+X = diffDf%>%filter(band!='tot'&  (interval.kat == 'Wagen')& A=='B2' & Zugstyp =='IC' )
+SpectPlot(FREQ)+
+  geom_line(X,
+            mapping = aes(x = as.numeric(band), y = level, group = interaction(passby,A,interval,var), color = Zugstyp),size = 1, alpha = 0.5)+
+    geom_boxplot( data = X,
+                   aes(x = as.numeric(band), y = level,group= interaction(band,A,var)),
+                  colour = "black",alpha = 0.7, outlier.colour = NA,size = 0.8)+
+  geom_hline(yintercept=0,size = 1,alpha=0.6)+
+  scale_y_continuous(breaks=-10:10,lim = c(-8,8))+
+  ylab('Spektrum, dBA')+
+facet_grid( ~ Zugstyp*interval.kat, scales = 'free_x')
+```
+
+#### Regio
+
+```{r fig.width = 14, fig.height=10, out.width='1000px'}
+X = diffDf%>%filter(band!='tot'&  (interval.kat != 'full')& A=='B2' & Zugstyp =='Regio' )
+SpectPlot(FREQ)+
+  geom_line(X,
+            mapping = aes(x = as.numeric(band), y = level, group = interaction(passby,A,interval,var), color = Zugstyp),size = 1, alpha = 0.5)+
+    geom_boxplot( data = X,
+                   aes(x = as.numeric(band), y = level,group= interaction(band,A,var)),
+                  colour = "black",alpha = 0.7, outlier.colour = NA,size = 0.8)+
+  geom_hline(yintercept=0,size = 1,alpha=0.6)+
+  scale_y_continuous(breaks=-10:10,lim = c(-8,8))+
+  ylab('Spektrum, dBA')+
+facet_grid( ~ Zugstyp*interval.kat, scales = 'free_x')
+```
+
+
+### Levels
+
+```{r, fig.width = 7, fig.height=5, out.width='500px'}
+ggplot(data = diffDf%>%
+         filter(band=='tot'&  (interval.kat != 'full')& A=='B2' ),
+       aes(x = Zugstyp, y = level,  color = Zugstyp))+ 
+  geom_point(size = 4, alpha = 0.7 , position='jitter')+
+  geom_boxplot(notch= TRUE,colour = "black",alpha = 0.7,size = 1, outlier.colour = NA)+
+  geom_hline(yintercept=0,size = 1,alpha=0.6)+
+  scale_y_continuous(breaks=-5:5)+
+  ylab('Level dBA')+
+facet_grid( .~ A*interval.kat )+ theme_bw()+ theme(legend.position="bottom")
+```
+
+##  Gemessne Wirkung  von Schinendämpfer in dBA
+
+Die Indikatoren
+
+ - mittelwert `av`
+ - median `me`
+ - Quantilen `Q25` und `Q75`
+ - und Standardabweichung
+ 
+ sind in die untere Tabellen für verschiedene Kombinationen aus Verkehr und Dämpfern berechnet.
+
+####  Wirkung nach Dämpfertyp, Zugstyp und Drehgestelltyp
+ Berechung für jede Kombination aus Dämpfertyp(Abschnitt), Zugstyp und Drehgestelltyp(Interval Kategorie) 
+```{r,results='asis'}
+library(DT)
+table = diffDf %>%filter(band =='tot'& !is.na(interval.kat))%>%
+  group_by(A,Zugstyp,interval.kat)%>%
+  summarise(av=round(mean(level),1),
+            me = round(median(level),1),
+            Q25=round(quantile(level,0.25),1),
+            Q75 =round(quantile(level,0.75),1),
+            sd = round(sd(level),1)
+            )
+colnames(table)[c(1,3)]= c('Absch.','Drehgestell')
+table$Zugstyp = as.factor(table$Zugstyp)
+table$Drehgestell = as.factor(table$Drehgestell)
+
+datatable(table, filter = 'top', rownames = FALSE, options = list(pageLength = nrow(table), dom = 'tip'))
+
+```
+
+####  Wirkung nach Dämpfertyp und Zugstyp
+ Berechung für jede Kombination aus Dämpfertyp(Abschnitt) und  Zugstyp
+ 
+```{r}
+
+
+table = diffDf %>%filter(band == 'tot')%>%
+  group_by(A,Zugstyp)%>%
+  summarise(av=round(mean(level),1),
+            median = round(median(level),1),
+            quantile25=round(quantile(level,0.25),1),
+            quantile75 =round(quantile(level,0.75),1),
+            sd = round(sd(level),1)
+            )
+
+colnames(table)[c(1)]= c('Absch.')
+table$Zugstyp = as.factor(table$Zugstyp)
+
+datatable(table, filter = 'top',rownames = FALSE,options = list(pageLength = nrow(table), dom = 'tip'))
+
+```

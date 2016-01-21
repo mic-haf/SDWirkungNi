@@ -1,0 +1,339 @@
+---
+title: "Gemessene Schienenrauheit in Niederwangen und  Schalldruckspektrum Korrekturen"
+author: "ESR"
+date: "17. November 2015"
+output:
+  html_document:
+    fig_caption: yes
+    theme: cerulean
+    toc: yes
+  word_document:
+    fig_caption: yes
+---
+```{r setup, include = FALSE}
+library(knitr)
+opts_chunk$set(message = FALSE, 
+                      warning = FALSE,
+                      echo = F
+                      #,fig.align='center'
+                      #cache = TRUE,
+                      ,fig.width = 12, fig.height= 9
+                      #hide=T,
+                      #,dev = 'CairoSVG'
+                      ,dev='CairoPNG'
+                      #dev='CairoPDF'
+                      #fig.ext = 'png',
+                      #engine.opts = list(convert.opts = '-density 300')
+                      )
+
+```
+
+```{r include=FALSE}
+#import library and functions
+library(jsonlite)
+library(dplyr)
+library(tidyr)
+library(DT)
+library(captioner)
+# table_nums <- captioner(prefix = "Tabelle")
+# fig_nums <- captioner(prefix = "Bild")
+source('../function.R')
+Sys.setlocale("LC_TIME", "German")
+#set db connections
+library(rmongodb)
+# your connection details will likely differ from these defaults
+host <- "127.0.0.1"
+username <- "esrWR"
+password <- "esrWR"
+db <- "OBdata"
+#connect to mongo
+conn <- mongo.create(host=host , db=db)#, username=username, password=password)
+
+```
+
+```{r include=FALSE}
+#select interesting OB setups: Niderwangen without B1
+q1 = list('$or' = list(
+  list('$and'= list(list('loc'='Ni'),list('sec'=list('$ne'='B1')),list('damp'=TRUE))),
+  list('$and'= list(list('loc'='Ni'),list('sec'='B5')))
+)
+)
+cursor = mongo.find(conn, 'OBdata.OBsetup', query=q1)
+
+ids = list()
+i=1
+while (mongo.cursor.next(cursor)) {
+  OBsetup = mongo.cursor.value(cursor)
+  OBsetup_id <- mongo.bson.value(OBsetup, "_id")
+  ids[[i]] =list('OBsetup_id'= OBsetup_id)
+  i=i+1
+  # make it a dataframe
+}
+
+#load Roughness Data
+R_fromdb = function(cursor,conn,Rvar,OBsetupVar){
+  # return df of a given roughness in long format
+  df_R=data.frame()
+  i = 1
+  while(mongo.cursor.next(cursor)){
+    rR = mongo.cursor.value(cursor)
+    ##
+    rR_id <- mongo.bson.value(rR, "OBsetup_id")
+    OBsetup = mongo.find.one(conn, 'OBdata.OBsetup', query = list('_id'= rR_id) )
+    ##
+    df1 <- data.frame(lapply(OBsetupVar, function(x) mongo.bson.value(OBsetup, x)))
+    df1$r_id = i
+    ##
+    df2 <- data.frame(
+      lapply(Rvar, function(x){
+        if(!is.null(mongo.bson.value(rR, x))){
+          return(mongo.bson.value(rR, x))
+        }else{
+          return(1)
+        }
+      }
+      )
+    )
+    df_R = rbind(df_R,cbind(df1,df2))
+    i=i+1
+  }
+  # reorder sections
+  df_R$sec = factor(as.character(df_R$sec),levels = c("B2","B3","B4","B5"))
+  df_R$Author = factor(as.character(df_R$Author),levels = c("MBBM","ACCON"))
+
+  return(df_R)
+}
+OBsetupVar = list(loc='loc',sec='sec',damp='damp')
+
+Rvar =list(
+  Author = 'Author',
+  kampagne='kampagne_n',
+  messdatum='measurementDate',
+  rail='rail',
+  wl='roughness.wavelength',
+  R='roughness.value')
+
+
+#select R ids to load
+cursor =mongo.find(conn, 'OBdata.railRoughness', query = list("$or"=ids) )
+#
+df_R = R_fromdb(cursor,conn, Rvar,OBsetupVar)
+######################################################
+# uniform wl da ACCON and MBBM have different rounding
+wlMBBM = sort(as.numeric(levels(factor(df_R$wl[df_R$Author=='MBBM']))))
+
+df_R$wl = sapply(df_R$wl, function(x){
+  y=abs(x-wlMBBM)
+  return(wlMBBM[y==min(y)])}
+  )
+```
+
+## Schienenrauheit (SR) in Niederwangen
+```{r}
+schleifVorgang = ISOdate(2013, 11, 1)
+Messungen = df_R%>%group_by(Author,kampagne,messdatum)%>%summarize(Messdatum = strftime(messdatum[1], '%B-%Y') )
+colnames(Messungen)[c(1,2)] = c('Messbüro', 'Messkampagne')
+```
+
+In Niederwangen wurden im `r  strftime(schleifVorgang, '%B-%Y')` die Schienen geschliffen. Danach wurde der Zustand der SR mehrmals von MBBM und ACCON gemessen. Folgende Messkampagne wurden durchgeführt:
+
+- MBBM hat 4 mal alle Abschnitten gemessen
+- ACCON hat Abschnitt B5 und B2 einmal gemessen
+
+Zur MBBM Messkampagnen sind detallierte Berichte zur Verfügung. Die Versuchsanordnung in Niederwangen ist [hier]() Beschrieben.
+
+```{r}
+kable(Messungen[,c(1,2,4)])
+
+```
+
+### Darstellung der gemessenen SR Spektren
+
+```{r out.width=1000}
+df_R = df_R %>%  mutate(months = as.numeric(difftime( messdatum,schleifVorgang, units = "days"))/30)
+
+RauheitsPlot()+
+  geom_line(data= df_R ,
+            aes(x=wl,y=R, group = r_id,colour = months , linetype = Author),
+            size = 1,alpha = 0.7)+
+  facet_wrap(~sec,ncol = 2)+
+  scale_color_gradient(name='Monate nach Schleifen  ')+ theme(legend.direction = "horizontal")
+
+```
+
+**Diskussion:**
+
+  - SR  und Radrauhiet  bilden zusammen die grundanregung von Rollgeräusch. Solange die SR wit unten TSI kurve (schwarze Kurve) liegt ist anzunehmen dass die Radrauheit verantwortlich fur die Anregung ist. In Niederwangen ist dass den fall für die meistens Wellenlängen. Für Wellellängen im bereich von 1.6-4 cm ist aber umgekehrt. Da ist der anteil der SR relevant (wahrscheinlich auch dominant gegenüber Radrauheit). Den beweis dafür sind die gemessene Schalldruckspektern welches eine stark tonale komponente bei 2000Hz aufweisen (alle Abschnitte). Diese Tonale komponente entspricht bei 130 km/h ungefähr die 2 cm Wellenlänghe. Im folgende kapitel sind die SR speziell bei die 1.6-4cm  Wellenlängen zu betrachten.
+  
+  - Die SR haben eine Spitze bei 2cm und 1.6 cm Welleänghe. Die Rauhigkeit bei 2 cm ist durch das Schleifvorgang bedingt. Das is  ein bekanntes effekt deren Tiefe und genaue Wellenlänge vom unterschiedliche schleifparameter(korngrösse der schleifsteine, geschwindigkeit , maschine) abhängen.
+  
+  - Diese Spitze ist in jedem Abschnitt zu shehen und nimmt ab mit der Zeit ab. Die abnahme ist unterschiedlich von Abschnitt zu Abschnitt. Diese Abnahme ist vile kleiner als erwartet. 2 Jahren später ist immer noch eine klare Schleifrauheit zu sehen. 
+  
+  - ACCON und MBBM messen die Spitze unterschiedlich. Diese unterschiede sind vorallem in Abschnitt B2 zu sehen. ACCON miss eine grössere verbleibende Schleifrauhigkeit als MBBM.
+  
+  - Die Schallmessung weist  für alle Abschnitte eine starke tonalität auf. Das entspricht nicht mit die kürzlich gemessene SR wo nur referenz das aufweisen hätten sollte.
+  
+  - Die SR ist der resultat von der auswertung und mittelung meherere 1-m Abschnitte in längsrichtung(detallierte MBBM berichte für mehr informationen). Die variation zwischen die 1-m abschnitte ist unbekannt.
+  
+  - Die SR bezihen sich auf die Fahrspiegelmitte.Eine variation in transversale richtung ist auch zuerwarten. Es ist zu bemerken dass die Radposition jedes drehgestell abwichen kann von dieser mitte. Konsequenz ist dass jedes Drehgestell spürt eine andere SR.
+
+----
+
+## Korrektur von Schalldruck Spektren
+
+In Niederwangen werden Schalldruckspektern von mehrere Abschnitte miteinander vergliechen. Genauer wird die Differenz  zwischen Refernz und Dämpferabschnitt gebildet um die Schienendämpferwirkung abzuschätzen. Da diese Abschnitte unterschiedliche SR aufweisen könnten ist kann die gebildete Differenz mithilfe die SR differenzen^korrigiert werden.
+
+Die erzeugung einer SR korrektur fur die Schalldruckspektern in 2 Schritte
+ 
+ 1. Auswahl einer representative SR für jeden Abschnitt
+ 2. Schalldruckpegelkorrektur bilden
+
+### Auswahl einer representative SR fur Schallspektren korrekturen
+
+Als erstens eine Bemerkung. Da die Schallspektren 2000Hz sptze aufweisen ist die SR vorallem bei 2cm Wellenlänge zu betrachten.
+
+Als logischere Ansatz würde man die kürzlich zur Schallmessung gemessene SR werwenden, d.h MBBM Messkampagne 4 
+Es gibt Gründe andere Messkampagnen einzubezihen für die representative SR. 
+
+  - Abnahme der schleifrauhigkeit ist klein, d.h. vorletzte SR messkampagne könnte auch noch representativ sein
+  - Will man ACCON werte verwenden (auch noch relativ kürzlich zur Schallmessung)
+  - Messkampagne 4 weist nicht bei alle abschnitte höhe SR Werte bei 2 cm. das ist inkonsistent mit 2000Hz Spitze gemessen beim Schallspektren.
+  - variabilität der SR scheint gross zu sein. Ein Mittelwert schein geeigneter zu sein
+    
+Als Floge dieser Überlegungen untersuchen wir die folgnede 3 Fälle um eine representative SR zu definieren:
+
+  a. ACCON Messkampagne 1 MBBM Messkampagne 3 und MBBM Messkampagne 4
+  b. MBBM Messkampagne 3 und MBBM Messkampagne 4
+  c. MBBM Messkampagne 4. Aufgrund der Messdatum das sollte die realistische SR sein
+
+Mehrere SR Spektren können in einem einzelen gemittelte Spektrum zusammengefasst werden.  Die Mittelung erfolgt je Band Energetisch.
+
+In den nächsten Bild ist den Beispiel für den fall a.
+
+```{r,out.width=1000}
+df_R_filt= droplevels(df_R %>% filter( Author == 'ACCON' | kampagne == 3|kampagne==4))
+av.a_df_R = df_R_filt %>%
+  group_by(sec,wl)%>%
+  summarize(fall='a', avR = 10*log10(sum(10^(R/10))/length(R)) )
+
+RauheitsPlot()+
+  geom_line(data=df_R_filt,
+            aes(x=wl,y=R, group = r_id, colour = months,linetype = Author ),
+            size = 1.5,alpha = 0.8)+
+  geom_line(data = av.a_df_R,
+          aes(x=wl,y=avR),
+          size = 1.5,alpha = 0.8,colour = 'red')+
+  facet_wrap(~sec,ncol = 2)
+
+# fall b
+df_R_filt= df_R %>% filter( kampagne == 3|kampagne==4)
+av.b_df_R = df_R_filt %>%
+  group_by(sec,wl)%>%
+  summarize(fall='b', avR = 10*log10(sum(10^(R/10))/length(R)) )
+# fall c
+df_R_filt= df_R %>% filter( kampagne==4)
+av.c_df_R = df_R_filt %>%
+  group_by(sec,wl)%>%
+  summarize(fall='c', avR = 10*log10(sum(10^(R/10))/length(R)) )
+# rbind
+av_df_R=rbind(av.a_df_R,av.b_df_R,av.c_df_R)
+rm(av.a_df_R,av.b_df_R,av.c_df_R,df_R_filt)
+```
+
+####  Representative SR im Vergleich
+
+Im nächsten bild ist den vergleich für die drei Fälle der representative SR zu sehen.
+
+```{r out.width=600 ,fig.width=7,fig.height=6}
+RauheitsPlot()+
+  geom_line(data = av_df_R,
+          aes(x=wl,y=avR,  colour = sec,shape = fall),
+          size = 1,alpha = 0.7)+
+scale_colour_discrete(name = 'Abschnitt')+
+geom_point(data = av_df_R,
+          aes(x=wl,y=avR,  colour = sec, shape = fall),size = 3,alpha = 0.8)+
+  scale_shape_discrete(name = '')
+```
+
+> Es ist zu sehen dass die gemittelte SR werte viel streuen. Die Streuung betragt beim 2cm und 1.6 cm Wellenlänghe bis zu 10dB. Dieser Streuung wird grosseKonsequenzen auf die Korrekturen von Schalldruchk Spektern haben.
+Wieter ist zu bemerken dass der Referenz Abschnitt der mit grössere SR ist. Es ist also allein vom SR zu erwarten dass diesem Abschnitt lauter sein wird.
+
+
+### Korrektur Bilden
+Das vorgehen um Schllspektren korrekturen aufgrund von Gesamtrauheiten differenzen ist das Folgende:
+
+1. Umwandeln der Gesamtrauheit von Wellenlänghe zur Frequenz Hz:
+    - $R_{tot,B}(f = \frac{v}{\lambda}) =  R_{tot,B}(\lambda)$
+    - lineare interpolation um die Werte bei der gewünschte frequenz zu bekommen
+  
+2. Definiere Korrektur Filter bezüglich Referenzabschnitt: 
+$$Korr_{B}(f) = -\Delta R_{tot,B}(f) = -\left( R_{tot,B}(f) -  R_{tot,B5}(f) \right)$$
+
+3. Korrigierte Spektrum für jede Abschnitt Berechnen: 
+
+$$S_{B}(f) = S_{B}(f) + Korr_{B}(f)$$
+
+
+Die **Gesamtrauheit** (Schiene + Rad) ist meist notwendig um diese Korrekturen durchzuführen. In unseren Messsetup ist die Schienenrauheit bei 2 cm sehr hoch  und die Spektren zeigen den grossen anteil der Energie bei der resultierende Frequenz. Damit kann man zumindestns für die 2cm Wellenlänghe annehmen dass $R_{tot,B} \approx SR_{B}$ und die Schalldruk Korrekturen mit der SR durchführen.
+
+
+```{r include=FALSE}
+
+Rf <- function(R,wl,f,v){
+  return(approx(100*v/(wl*3.6) , R, f ,method="linear")$y)
+}
+
+R_korr<- function(wl,R,f,v,fall){
+  # ref
+  df = av_df_R
+  Rref = df$avR[df$sec == 'B5'& df$fall == fall]
+  wlRef = df$wl[df$sec == 'B5'& df$fall == fall]
+  print(any(abs(wl-wlRef)> 0.01))
+  return(-Rf(R,wl,f,v)+Rf(Rref,wlRef,f,v))
+}
+
+Spect_korr = function(v,freq){
+  df = av_df_R %>% filter(sec!='B5')
+  df = df%>%group_by(sec,fall)%>%
+  do(data.frame(sec = .$sec[1],fall = .$fall[1],v=v, freq =freq, K= R_korr(.$wl,.$avR,freq, v,.$fall[1])))
+  return(df)
+}
+save(list=c('Rf','Spect_korr','R_korr','av_df_R'),
+     file = 'Rauheit_korrektur.Rdata'
+     )
+
+##Example
+v = 130
+korr_plot = Spect_korr(v,freqTDR)
+
+```
+
+#### Beispiel: $130km/h$
+
+Fur eine Geschwindigkeit von `r v` $km/h$ bekommt man fur die Abschnitten B2 und B4 die folgende Schallspektren Korrekturen:
+
+```{r out.width=1000}
+SpectPlot(freqTDR)+
+  geom_hline(yintercept = 0, size = 1)+
+  geom_line(data=korr_plot%>%filter(sec !='B3'),
+            aes(x =freq ,y=K,colour=sec,group= interaction(fall,sec)), size=1, alpha = 0.7)+
+  geom_point(data=korr_plot%>%filter(sec !='B3'),
+          aes(x=freq,y=K,  colour = sec, shape = fall),size = 4,alpha = 0.8)+
+  scale_shape_discrete(name = '')+
+  facet_grid(.~sec)+ guides(colour=FALSE)
+  
+```
+
+**Diskussion: **
+
+- Die korrektur beim 2000 Hz streut sehr viel und ist in der Grossenordnung von 0.5-7dB fur den Abschnitt B2 und  0.5-4.5dB für den Abschnitt B4. Diese Korrekturen sind viel grösser als erwartet und scheinen wenig plausibel zu sein
+
+- Die Korrekturen sind positiv das heisst die Abschnitte sollten lauter sein wenn die SR wie beim Referenz Abschnitt B5 wäre. Diese korrekturen haben zur Folge dass die Dämpferwirkung kleiner wird oder sogar negativ.
+
+- die unteschiedliche Falle scheinen ein zufälliger verhalten zu haben
+
+**Aufgrund dieser Diskussion wird Verzichtet die korrekturen auf die Spektren Anzuwenden**
+
+
+
+
