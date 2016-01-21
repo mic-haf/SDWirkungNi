@@ -1,12 +1,7 @@
 ##specific for this directory
 Ereignisse/
-
+make_docs.R
 *.html
-
-##specific
-xdaniel/
-vario/
-Rauheit_niderwangen_files/
 
 ##Window
 *.zip

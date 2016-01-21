@@ -5,26 +5,22 @@ date: "17. November 2015"
 output:
   html_document:
     fig_caption: yes
-    theme: cerulean
     toc: yes
-  word_document:
-    fig_caption: yes
+  md_document:
+    toc: yes
+    variant: markdown_github
 ---
 ```{r setup, include = FALSE}
 library(knitr)
-opts_chunk$set(message = FALSE, 
-                      warning = FALSE,
-                      echo = F
-                      #,fig.align='center'
-                      #cache = TRUE,
-                      ,fig.width = 12, fig.height= 9
-                      #hide=T,
-                      #,dev = 'CairoSVG'
-                      ,dev='CairoPNG'
-                      #dev='CairoPDF'
-                      #fig.ext = 'png',
-                      #engine.opts = list(convert.opts = '-density 300')
-                      )
+opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE,
+  echo = F,
+  fig.width = 12, fig.height= 9,
+  fig.path = '/fig',
+  dev = 'CairoSVG'
+  #,dev='CairoPNG'
+)
 
 ```
 
@@ -37,7 +33,7 @@ library(DT)
 library(captioner)
 # table_nums <- captioner(prefix = "Tabelle")
 # fig_nums <- captioner(prefix = "Bild")
-source('../function.R')
+source('ggplot_templates.R')
 Sys.setlocale("LC_TIME", "German")
 #set db connections
 library(rmongodb)
@@ -47,7 +43,7 @@ username <- "esrWR"
 password <- "esrWR"
 db <- "OBdata"
 #connect to mongo
-conn <- mongo.create(host=host , db=db)#, username=username, password=password)
+conn <- mongo.create(host=host , db=db)#,username=username, password=password)
 
 ```
 

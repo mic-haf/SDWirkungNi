@@ -2,14 +2,33 @@
 title: "TDR"
 author: "ESR"
 date: "21. Januar 2016"
-output: html_document
+output:
+  html_document:
+    fig_caption: yes
+    self_contained: no
+    toc: yes
+  md_document:
+    toc: yes
+    variant: markdown_github
 ---
-```{r eval = FALSE, include=FALSE}
+```{r setup, include = FALSE}
+library(knitr)
+opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE,
+  echo = F,
+  fig.width = 12, fig.height= 9,
+  fig.path = '/fig',
+  dev = 'CairoSVG'
+  #,dev='CairoPNG'
+)
+```
+
+```{r  include=FALSE}
 #import library and functions
 library(dplyr)
-library(tidyr)
 library(ggplot2)
-source('../function.R')
+source('ggplot_templates.R')
 
 #set db connections
 library(rmongodb)

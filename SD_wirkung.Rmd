@@ -2,28 +2,35 @@
 title: "Dämpferwirkung"
 author: "ESR"
 date: "21. Januar 2016"
-output: html_document
+output:
+  html_document:
+    fig_caption: yes
+    self_contained: no
+    toc: yes
+  md_document:
+    toc: yes
+    variant: markdown_github
 ---
+```{r setup, include = FALSE}
+library(knitr)
+opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE,
+  echo = F,
+  fig.width = 12, fig.height= 9,
+  fig.path = '/fig',
+  dev = 'CairoSVG'
+  #,dev='CairoPNG'
+)
+```
 
 ```{r include=FALSE}
 #import library and functions
 library(dplyr)
-library(tidyr)
 library(ggplot2)
 library(DT)
-source('../function.R')
+source('ggplot_templates.R')
 load('passby_SPL_DF.Rdata')
-
-#set db connections
-library(rmongodb)
-# your connection details will likely differ from these defaults
-host <- "127.0.0.1"
-username <- "esrWR"
-password <- "esrWR"
-db <- "OBdata"
-#connect to mongo
-conn <- mongo.create(host=host , db=db)#, username=username, password=password)
-
 ```
 
 # Schalldruckpegel Differenzen mit Referenzabschnitt

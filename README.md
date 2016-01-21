@@ -1,10 +1,5 @@
-Akustische Messung Niderwangen (DRAFT)
-======================================
-
-**Autor**: ESR **Datum**: Oktober 2015 ----
-
 Einleitung
-----------
+==========
 
 Im Rahmen der Projekts Erprobung Schienendämpfer (SD) wurden zwischen Niederwangen und Bümplitz SD eingebaut. Diese Teststrecke diente haupsächlich um Sicherheitsrelevanten infrastrukturseitigen Fragen zu prüfen. Die teststreck besteht aus 2 unterstrecken:
 
@@ -19,10 +14,12 @@ In diesem Bericht werden die Resultate der Akustische Erprobung, insbesodree die
 
 **Ziel ist Wirkung von Schienenstegdämpfern Abschätzen für die Situation Niederwangen**
 
+------------------------------------------------------------------------
+
 Messungen
 ---------
 
-### Akustische Messung
+#### Akustische Messung
 
 Die Empa Abteilung Akustik/Lärmminderung wurde beauftragt, die Wirksamkeit von drei der vier Produkte anhand von Vorbeifahrts Schalldruckpegelmessungen zu ermitteln.
 
@@ -35,15 +32,16 @@ Dazu hat EMPA folgende Daten der Messung gelifert:
     -   Für die Abschnitten vorgesehen mit Lichtschranken die Signalen der Lichtschranken.
 -   Exceltabellen mit Informationen jede gültige Vorbeifahrt. Die Tabellen sind im ordner `/Tabellen` gespeichert. Diese Tabellen mit zusätzlichen Informationen sind in File `pass-by.json` überarbeitet worden um diese daten weiter verarbeiten zu können.
 
-### TDR Messungen
+#### TDR Messungen
 
 MBBM hat im Auftrag von SBB die TDR für alle Abschnitte mehrmals gemessen(vor und nach einbau von SD). Die detallierte Berichte sowohl die Daten der Messungen sind vorhanden aber nicht in diesem repo verfügbar. Die daten werden von einer lokale Datenbank abgerufen.
 
-### SR Messungen
+#### SR Messungen
 
 SR-Spektren sind durch die firma MBBM für alle Abschnitte mehrmals gemessen nach einem schleifvorgang. Die detallierte Berichte sowohl die Daten der Messungen sind vorhanden aber nicht in diesem repo verfügbar. Die daten werden von einer lokale Datenbank abgerufen.
 
-### Berichtstruktur
+Berichtstruktur
+---------------
 
 Diesem Bericht besteht aus mehrere Teildokumente welche in einem git [repo](https://github.com/e-sr/ValFX) (hosted auf github) abgelegt sind. Die Dokumente welche den Bericht zusammenstallen sind so aufgebaut dass Reproduzierbarkeit im Vordergrund steht, d.h Scripts und Daten (sofern möglich) auf welche die teildokumente basieren sind auch im repo zu finden.
 
@@ -53,28 +51,25 @@ Für die Teildokumente wurden folgende programme/frameworks verwendet:
 
 -   R: R ist eine Scriptssprache mit Schwerpunkt in Statistische Berechnungen. Um Integration von Bericht und Auswertungen zu ermöglichen sind die Dokumente in .Rmd Format Aufgebaut (ich Empfehle R im Verbindung mit Rstudio zu verwenden).
 
-<table>
-<colgroup>
-<col width="5%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td align="left">## <strong>Auswertung</strong></td>
-</tr>
-<tr class="even">
-<td align="left">#### <a href="https://rawgit.com/e-sr/ValFX/master/AkustischeMessungNiederwangen/StatAuswe.html">Abschätzen der Wirkung von Schienendämpfer</a></td>
-</tr>
-<tr class="odd">
-<td align="left">#### <a href="https://rawgit.com/e-sr/ValFX/master/AkustischeMessungNiederwangen/StatAuswe.html">Schienenrauheiten in Niederwangen</a></td>
-</tr>
-<tr class="even">
-<td align="left">#### <a href="https://rawgit.com/e-sr/ValFX/master/AkustischeMessungNiederwangen/StatAuswe.html">TDR in Niederwangen</a></td>
-</tr>
-</tbody>
-</table>
+------------------------------------------------------------------------
+
+Auswertung
+==========
+
+#### [Abschätzen der Wirkung von Schienendämpfer](Vorbeifahrten.md)
+
+#### [Abschätzen der Wirkung von Schienendämpfer](SD_wirkung.md)
+
+#### [Schienenrauheiten in Niederwangen](SR_Ni.md)
+
+#### [TDR in Niederwangen](TDR_Ni.md)
+
+------------------------------------------------------------------------
 
 Fazit
 -----
+
+-   -   -   -   -...
 
 ------------------------------------------------------------------------
 
