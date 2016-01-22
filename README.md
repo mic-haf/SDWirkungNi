@@ -23,7 +23,7 @@ Messungen
 
 Die Empa Abteilung Akustik/Lärmminderung wurde beauftragt, die Wirksamkeit von drei der vier Produkte anhand von Vorbeifahrts Schalldruckpegelmessungen zu ermitteln.
 
-Im Bericht [Messbericht Vorbeifahrtsmessungen Niederwangen](Messbericht%20Vorbeifahrtsmessungen%20Niederwangen%20sig.pdf) sind eine detallierte Beschreibung und die erste Resultate der Wirkung von SD zu sehen. (Aufpassen dass in diesem Bericht die Abschnitte anders bennant worden)
+Im Bericht [Messbericht Vorbeifahrtsmessungen Niederwangen](https://docs.google.com/viewer?url=${Messbericht%20Vorbeifahrtsmessungen%20Niederwangen%20sig.pdf}) sind eine detallierte Beschreibung und die erste Resultate der Wirkung von SD zu sehen. (Aufpassen dass in diesem Bericht die Abschnitte anders bennant worden)
 
 Dazu hat EMPA folgende Daten der Messung gelifert:
 
@@ -56,13 +56,13 @@ Für die Teildokumente wurden folgende programme/frameworks verwendet:
 Auswertung
 ==========
 
-#### [Abschätzen der Wirkung von Schienendämpfer](https://cdn.rawgit.com/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/Vorbeifahrten.html)
+#### [Abschätzen der Wirkung von Schienendämpfer](https://rawgit.com/e-sr/SDWirkungNi/master/Vorbeifahrten.html)
 
-#### [Abschätzen der Wirkung von Schienendämpfer](https://cdn.rawgit.com/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/SD_wirkung.html)
+#### [Abschätzen der Wirkung von Schienendämpfer](https://rawgit.com/e-sr/SDWirkungNi/master/SD_wirkung.html)
 
-#### [Schienenrauheiten in Niederwangen](https://cdn.rawgit.com/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/SR_Ni.html)
+#### [Schienenrauheiten in Niederwangen](https://rawgit.com/e-sr/SDWirkungNi/master/SR_Ni.html)
 
-#### [TDR in Niederwangen](https://cdn.rawgit.com/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/TDR_Ni.html)
+#### [TDR in Niederwangen](https://rawgit.com/e-sr/SDWirkungNi/master/TDR_Ni.html)
 
 ------------------------------------------------------------------------
 
@@ -80,12 +80,12 @@ Anhang
 
 Aus die gelieferte Zeisignalen müssen Akustischen kenngrössen berechnet werden um die SD wirkung zu beurteilen. verarbeitet werden um die sind der mikrophone
 
--   [Erste Darstellungen von Zeitsignalen der Mikrophone](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/darstellungMicSignale.ipynb)
+-   [Erste Darstellungen von Zeitsignalen der Mikrophone](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/master/darstellungMicSignale.ipynb)
 
--   [Auswertung der Lichtschrankensignalen](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/analyseLS.ipynb)
+-   [Auswertung der Lichtschrankensignalen](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/master/analyseLS.ipynb)
 
--   [Spektren Berechnen](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/SpektrenBerechnen.ipynb)
+-   [Spektren Berechnen](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/master/SpektrenBerechnen.ipynb)
 
--   [Auswertung alle Vorbeifahrten](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/DSPAuswertung.ipynb)
+-   [Auswertung alle Vorbeifahrten](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/master/DSPAuswertung.ipynb)
 
 Den outpout der DSP wird in den Datensatz [DSPResults.json](DSPResults.json) gespeichert um dann in R verwendet zu werden.

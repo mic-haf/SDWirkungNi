@@ -9,9 +9,11 @@ output:
     variant: markdown_github
 ---
 ```{r echo = F}
-git_commit = "e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf"
-html_render = paste("https://cdn.rawgit.com/", git_commit,sep = "")
+git_commit = "e-sr/SDWirkungNi/master"
+#html_render = paste("https://cdn.rawgit.com/", git_commit,sep = "")
+html_render = "https://rawgit.com/e-sr/SDWirkungNi/master"
 ipynb_render = paste("http://nbviewer.jupyter.org/github/", git_commit,sep = "")
+pdf_render = "https://docs.google.com/viewer?url=${"#link_to_raw_pdf}
 ```
 
 # Einleitung 
@@ -38,7 +40,7 @@ In diesem Bericht werden die Resultate der Akustische Erprobung, insbesodree die
 
 Die Empa Abteilung Akustik/Lärmminderung wurde beauftragt, die Wirksamkeit von drei der vier Produkte anhand von Vorbeifahrts Schalldruckpegelmessungen zu ermitteln. 
 
-Im Bericht [Messbericht Vorbeifahrtsmessungen Niederwangen](Messbericht Vorbeifahrtsmessungen Niederwangen sig.pdf) sind eine detallierte Beschreibung und die erste Resultate der Wirkung von SD zu sehen. (Aufpassen dass in diesem Bericht die Abschnitte anders bennant worden)
+Im Bericht [Messbericht Vorbeifahrtsmessungen Niederwangen](`r paste(pdf_render, "Messbericht Vorbeifahrtsmessungen Niederwangen sig.pdf", "}", sep = "")`) sind eine detallierte Beschreibung und die erste Resultate der Wirkung von SD zu sehen. (Aufpassen dass in diesem Bericht die Abschnitte anders bennant worden)
 
 Dazu hat EMPA folgende Daten der Messung gelifert:
 
