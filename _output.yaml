@@ -1,5 +1,5 @@
 md_document:
-  variant: markdown
+  variant: markdown_phpextra+backtick_code_blocks
   includes:
     before_body: header.md
   toc: no

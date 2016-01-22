@@ -4,6 +4,10 @@
 Author: Enzo Scossa-Romano 
 Coauthor: Jakob Oertli
 
+**aaa**
+
+Author: Enzo Scossa-Romano Coauthor: Jakob Oertli
+
 Einleitung {#einleitung}
 ==========
 
@@ -52,9 +56,10 @@ Dazu hat EMPA folgende Daten der Messung gelifert:
 
 -   Zeitsignalen ( Die Zeitsignalen sind in diesem repo nicht Verfügbar.
     Das benötigte Speicherplatz ist zu gross.):
-    -   Die Signale der Mikrophonen (in *P**a*) für jede Durchfahrt und
-        aufjeden Abschnitt. Die Signale sind als Matlab format gelifert
-        worden und sind ist in Ordner `/Ereignisse` gespeichert.
+    -   Die Signale der Mikrophonen (in \*P\*\*a\*) für jede Durchfahrt
+        und aufjeden Abschnitt. Die Signale sind als Matlab format
+        gelifert worden und sind ist in Ordner `/Ereignisse`
+        gespeichert.
     -   Für die Abschnitten vorgesehen mit Lichtschranken die Signalen
         der Lichtschranken.
 -   Exceltabellen mit Informationen jede gültige Vorbeifahrt. Die
