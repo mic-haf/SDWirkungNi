@@ -1,11 +1,6 @@
 ---
-title: "Akustische Wirkung von Dämpfern"
-Author: "ESR"
-Date: "November 2015"
-output:
-  html_document:
-    fig_caption: yes
-    toc: yes
+title: "Akustische Wirkung von Schienendämpfern"
+output: html_document
 ---
 ```{r setup, include = FALSE}
 library(knitr)

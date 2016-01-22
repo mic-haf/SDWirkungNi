@@ -1,0 +1,14 @@
+md_document:
+  variant: markdown
+  includes:
+    before_body: header.md
+  toc: no
+html_document:
+  includes:
+    before_body: header.md
+  self_contained: yes
+  theme: united
+  highlight: textmate
+  fig_caption: yes
+  toc: yes
+

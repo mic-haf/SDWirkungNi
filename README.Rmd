@@ -1,19 +1,21 @@
 ---
 title: "Akustische Messung Niederwangen"
-author: "ESR"
-date: "21. Januar 2016"
-output: 
-  html_document:
-    fig_caption: yes
-  md_document:
-    variant: markdown_github
+params:
+  local: !r TRUE
+output: html_document
 ---
 ```{r echo = F}
-git_commit = "e-sr/SDWirkungNi/master"
-#html_render = paste("https://cdn.rawgit.com/", git_commit,sep = "")
-html_render = "https://rawgit.com/e-sr/SDWirkungNi/master"
+git_commit = "e-sr/SDWirkungNi/blob/master"
+if(params$local){
+  html_render = ""
+}else{
+  #html_render = paste("https://cdn.rawgit.com/", git_commit,sep = "")
+  html_render = "https://rawgit.com/e-sr/SDWirkungNi/master/"
+}
+
 ipynb_render = paste("http://nbviewer.jupyter.org/github/", git_commit,sep = "")
 pdf_render = "https://docs.google.com/viewer?url=${"#link_to_raw_pdf}
+repo_path = paste("https://github.com/",git_commit,sep = "")
 ```
 
 # Einleitung 
@@ -40,7 +42,7 @@ In diesem Bericht werden die Resultate der Akustische Erprobung, insbesodree die
 
 Die Empa Abteilung Akustik/Lärmminderung wurde beauftragt, die Wirksamkeit von drei der vier Produkte anhand von Vorbeifahrts Schalldruckpegelmessungen zu ermitteln. 
 
-Im Bericht [Messbericht Vorbeifahrtsmessungen Niederwangen](`r paste(pdf_render, "Messbericht Vorbeifahrtsmessungen Niederwangen sig.pdf", "}", sep = "")`) sind eine detallierte Beschreibung und die erste Resultate der Wirkung von SD zu sehen. (Aufpassen dass in diesem Bericht die Abschnitte anders bennant worden)
+Im Bericht [Messbericht Vorbeifahrtsmessungen Niederwangen](`r paste(pdf_render, repo_path,"/Messbericht Vorbeifahrtsmessungen Niederwangen sig.pdf", "}", sep = "")`) sind eine detallierte Beschreibung und die erste Resultate der Wirkung von SD zu sehen. (Aufpassen dass in diesem Bericht die Abschnitte anders bennant worden)
 
 Dazu hat EMPA folgende Daten der Messung gelifert:
 
@@ -60,7 +62,7 @@ SR-Spektren sind durch die firma MBBM für alle Abschnitte mehrmals gemessen nac
 
 ## Berichtstruktur
 
-Diesem Bericht besteht aus mehrere Teildokumente welche in einem git [repo](https://github.com/e-sr/ValFX) (hosted auf github) abgelegt sind.
+Diesem Bericht besteht aus mehrere Teildokumente welche in einem git [repo](`r  repo_path`) (hosted auf github) abgelegt sind.
 Die Dokumente welche den Bericht zusammenstallen sind so aufgebaut dass Reproduzierbarkeit im Vordergrund steht, d.h Scripts und Daten (sofern möglich) auf welche die teildokumente basieren sind auch im repo zu finden.
 
 Für die Teildokumente wurden folgende programme/frameworks verwendet:
@@ -73,13 +75,13 @@ Für die Teildokumente wurden folgende programme/frameworks verwendet:
 
 # Auswertung
 
-#### [Abschätzen der Wirkung von Schienendämpfer](`r paste( html_render, "Vorbeifahrten.html", sep = "/") `)
+#### [Abschätzen der Wirkung von Schienendämpfer](`r paste( html_render, "Vorbeifahrten.html", sep = "") `)
 
-#### [Abschätzen der Wirkung von Schienendämpfer](`r paste( html_render, "SD_wirkung.html", sep = "/") `)
+#### [Abschätzen der Wirkung von Schienendämpfer](`r paste( html_render, "SD_wirkung.html", sep = "") `)
 
-#### [Schienenrauheiten in Niederwangen](`r paste( html_render, "SR_Ni.html", sep = "/") `)
+#### [Schienenrauheiten in Niederwangen](`r paste( html_render, "SR_Ni.html", sep = "") `)
 
-#### [TDR in Niederwangen](`r paste( html_render, "TDR_Ni.html", sep = "/") `)
+#### [TDR in Niederwangen](`r paste( html_render, "TDR_Ni.html", sep = "") `)
 
 
 

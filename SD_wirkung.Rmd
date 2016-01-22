@@ -1,11 +1,6 @@
 ---
 title: "Dämpferwirkung"
-author: "ESR"
-date: "21. Januar 2016"
-output:
-  html_document:
-    fig_caption: yes
-    toc: yes
+output: html_document
 ---
 ```{r setup, include = FALSE}
 library(knitr)

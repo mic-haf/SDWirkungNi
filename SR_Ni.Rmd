@@ -1,11 +1,6 @@
 ---
-title: "Gemessene Schienenrauheit in Niederwangen und  Schalldruckspektrum Korrekturen"
-author: "ESR"
-date: "17. November 2015"
-output:
-  html_document:
-    fig_caption: yes
-    toc: yes
+title: "Gemessene Schienenrauheit in Niederwangen"
+output: html_document
 ---
 ```{r setup, include = FALSE}
 library(knitr)
