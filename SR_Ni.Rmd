@@ -6,8 +6,6 @@ output:
   html_document:
     fig_caption: yes
     toc: yes
-  md_document:
-    toc: yes
 ---
 ```{r setup, include = FALSE}
 library(knitr)

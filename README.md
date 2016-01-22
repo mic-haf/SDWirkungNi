@@ -56,20 +56,20 @@ Für die Teildokumente wurden folgende programme/frameworks verwendet:
 Auswertung
 ==========
 
-#### [Abschätzen der Wirkung von Schienendämpfer](Vorbeifahrten.md)
+#### [Abschätzen der Wirkung von Schienendämpfer](https://cdn.rawgit.com/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/Vorbeifahrten.html)
 
-#### [Abschätzen der Wirkung von Schienendämpfer](SD_wirkung.md)
+#### [Abschätzen der Wirkung von Schienendämpfer](https://cdn.rawgit.com/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/SD_wirkung.html)
 
-#### [Schienenrauheiten in Niederwangen](SR_Ni.md)
+#### [Schienenrauheiten in Niederwangen](https://cdn.rawgit.com/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/SR_Ni.html)
 
-#### [TDR in Niederwangen](TDR_Ni.md)
+#### [TDR in Niederwangen](https://cdn.rawgit.com/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/TDR_Ni.html)
 
 ------------------------------------------------------------------------
 
 Fazit
 -----
 
--   -   -   -   -...
+-...
 
 ------------------------------------------------------------------------
 
@@ -80,12 +80,12 @@ Anhang
 
 Aus die gelieferte Zeisignalen müssen Akustischen kenngrössen berechnet werden um die SD wirkung zu beurteilen. verarbeitet werden um die sind der mikrophone
 
--   [Erste Darstellungen von Zeitsignalen der Mikrophone](http://nbviewer.ipython.org/github/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/darstellungMicSignale.ipynb)
+-   [Erste Darstellungen von Zeitsignalen der Mikrophone](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/darstellungMicSignale.ipynb)
 
--   [Auswertung der Lichtschrankensignalen](http://nbviewer.ipython.org/github/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/analyseLS.ipynb)
+-   [Auswertung der Lichtschrankensignalen](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/analyseLS.ipynb)
 
--   [Spektren Berechnen](http://nbviewer.ipython.org/github/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/SpektrenBerechnen.ipynb)
+-   [Spektren Berechnen](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/SpektrenBerechnen.ipynb)
 
--   [Auswertung alle Vorbeifahrten](http://nbviewer.ipython.org/github/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/DSPAuswertung.ipynb)
+-   [Auswertung alle Vorbeifahrten](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/tree/967031f2ef6725a4087f82e9efffbd2735bed6cf/DSPAuswertung.ipynb)
 
 Den outpout der DSP wird in den Datensatz [DSPResults.json](DSPResults.json) gespeichert um dann in R verwendet zu werden.

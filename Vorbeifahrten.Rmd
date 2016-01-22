@@ -5,9 +5,6 @@ Date: "November 2015"
 output:
   html_document:
     fig_caption: yes
-    self_contained: no
-    toc: yes
-  md_document:
     toc: yes
 ---
 ```{r setup, include = FALSE}

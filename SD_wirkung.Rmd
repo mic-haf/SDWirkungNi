@@ -5,10 +5,6 @@ date: "21. Januar 2016"
 output:
   html_document:
     fig_caption: yes
-    keep_md: yes
-    self_contained: no
-    toc: yes
-  md_document:
     toc: yes
 ---
 ```{r setup, include = FALSE}

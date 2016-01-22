@@ -1,7 +1,8 @@
 ##specific for this directory
 Ereignisse/
 make_docs.R
-*.html
+README.html
+README_files/
 
 ##Window
 *.zip
