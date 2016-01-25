@@ -5,7 +5,7 @@
 ------------------------------------------------------------------------
 
 <h1>
-Erprobung Schienedämpfern <br/> Akustische Messung Niederwangen
+Erprobung Schienedämpfern <br/>Akustische Messung Niederwangen
 </h1>
 
 ------------------------------------------------------------------------

@@ -28,13 +28,13 @@ repo_path = "https://github.com/e-sr/SDWirkungNi/"
 ```
 <h1> </h1> 
 
-<div style="width:300px; height=200px">
+<div style="width:150px; height=20px">
 ![sbb-logo](Sbb-logo.png)
 </div>
 
 ----
 
-<h1> Erprobung Schienedämpfern  <br/> Akustische Messung Niederwangen </h1> 
+<h1>Erprobung Schienedämpfern <br/>Akustische Messung Niederwangen </h1> 
 
 ----
 
