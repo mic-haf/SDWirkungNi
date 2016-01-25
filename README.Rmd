@@ -9,7 +9,6 @@ output:
     fig_caption: yes
     toc: no
   md_document:
-    variant: markdown_github
     toc: no
 ---
 ```{r echo = F}
@@ -28,7 +27,7 @@ repo_path = "https://github.com/e-sr/SDWirkungNi/"
 ```
 <h1> </h1> 
 
-<div style="width:150px; height=20px">
+<div style= "width:150px; height=20px">
 ![sbb-logo](Sbb-logo.png)
 </div>
 
