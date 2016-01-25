@@ -1,6 +1,14 @@
 ---
 title: "Gemessene Track decay Rates"
-output: html_document
+output:
+  html_document:
+    includes:
+      before_body: header.html
+    self_contained: yes
+    theme: united
+    highlight: textmate
+    fig_caption: yes
+    toc: yes
 ---
 ```{r setup, include = FALSE}
 library(knitr)

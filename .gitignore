@@ -3,6 +3,9 @@ Ereignisse/
 make_docs.R
 README.html
 README_files/
+header.markdown_github
+_output.yaml
+README.markdown_github
 
 ##Window
 *.zip

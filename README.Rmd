@@ -1,24 +1,52 @@
 ---
-title: "Akustische Messung Niederwangen"
 params:
   local: !r TRUE
-output: html_document
+output:
+  html_document:
+    self_contained: yes
+    theme: united
+    highlight: textmate
+    fig_caption: yes
+    toc: no
+  md_document:
+    variant: markdown_github
+    toc: no
 ---
 ```{r echo = F}
-git_commit = "e-sr/SDWirkungNi/blob/master"
+git_commit = "e-sr/SDWirkungNi/blob/master/"
 if(params$local){
   html_render = ""
+  ipynb_render="http://localhost:8888/notebooks/SDWirkungNi/"
 }else{
   #html_render = paste("https://cdn.rawgit.com/", git_commit,sep = "")
   html_render = "https://rawgit.com/e-sr/SDWirkungNi/master/"
+  ipynb_render = "http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/"
 }
 
-ipynb_render = paste("http://nbviewer.jupyter.org/github/", git_commit,sep = "")
-pdf_render = "https://docs.google.com/viewer?url=${"#link_to_raw_pdf}
-repo_path = paste("https://github.com/",git_commit,sep = "")
+dw_path = "https://github.com/e-sr/SDWirkungNi/raw/master/"
+repo_path = "https://github.com/e-sr/SDWirkungNi/"
 ```
+<h1> </h1> 
 
-# Einleitung 
+<div style="width:300px; height=200px">
+![sbb-logo](Sbb-logo.png)
+</div>
+
+----
+
+<h1> Erprobung Schienedämpfern  <br/> Akustische Messung Niederwangen </h1> 
+
+----
+
+#### Januar 2016
+
+#### Authoren: Enzo Scossa-Romano und Jakob Oertli
+
+#### Abteilung: I-AT-IU-UEW-LR
+
+----
+
+## Einleitung 
 
 Im Rahmen der Projekts Erprobung Schienendämpfer (SD) wurden zwischen Niederwangen und Bümplitz SD eingebaut. Diese Teststrecke diente haupsächlich um Sicherheitsrelevanten infrastrukturseitigen Fragen zu prüfen. Die teststreck besteht aus 2 unterstrecken:
 
@@ -36,13 +64,13 @@ In diesem Bericht werden die Resultate der Akustische Erprobung, insbesodree die
 
 ----
 
-## Messungen
+### Messungen
 
 #### Akustische Messung
 
 Die Empa Abteilung Akustik/Lärmminderung wurde beauftragt, die Wirksamkeit von drei der vier Produkte anhand von Vorbeifahrts Schalldruckpegelmessungen zu ermitteln. 
 
-Im Bericht [Messbericht Vorbeifahrtsmessungen Niederwangen](`r paste(pdf_render, repo_path,"/Messbericht Vorbeifahrtsmessungen Niederwangen sig.pdf", "}", sep = "")`) sind eine detallierte Beschreibung und die erste Resultate der Wirkung von SD zu sehen. (Aufpassen dass in diesem Bericht die Abschnitte anders bennant worden)
+Im Bericht [Messbericht Vorbeifahrtsmessungen Niederwangen](`r paste(dw_path, "Messbericht Vorbeifahrtsmessungen Niederwangen sig.pdf", sep = "")`) sind eine detallierte Beschreibung und die erste Resultate der Wirkung von SD zu sehen. (Aufpassen dass in diesem Bericht die Abschnitte anders bennant worden)
 
 Dazu hat EMPA folgende Daten der Messung gelifert:
 
@@ -60,7 +88,7 @@ MBBM hat im Auftrag von SBB die TDR für alle Abschnitte mehrmals gemessen(vor u
 
 SR-Spektren sind durch die firma MBBM für alle Abschnitte mehrmals gemessen nach einem schleifvorgang. Die detallierte Berichte sowohl die Daten der Messungen sind vorhanden aber nicht in diesem repo verfügbar. Die daten werden von einer lokale Datenbank abgerufen.
 
-## Berichtstruktur
+### Berichtstruktur
 
 Diesem Bericht besteht aus mehrere Teildokumente welche in einem git [repo](`r  repo_path`) (hosted auf github) abgelegt sind.
 Die Dokumente welche den Bericht zusammenstallen sind so aufgebaut dass Reproduzierbarkeit im Vordergrund steht, d.h Scripts und Daten (sofern möglich) auf welche die teildokumente basieren sind auch im repo zu finden.
@@ -73,7 +101,7 @@ Für die Teildokumente wurden folgende programme/frameworks verwendet:
 
 ----
 
-# Auswertung
+## Auswertung
 
 #### [Abschätzen der Wirkung von Schienendämpfer](`r paste( html_render, "Vorbeifahrten.html", sep = "") `)
 
@@ -100,13 +128,13 @@ Für die Teildokumente wurden folgende programme/frameworks verwendet:
 
 Aus die gelieferte Zeisignalen müssen Akustischen kenngrössen berechnet werden um die SD wirkung zu beurteilen. verarbeitet werden um die  sind der mikrophone
 
-- [Erste Darstellungen von Zeitsignalen der Mikrophone](`r paste( ipynb_render, "darstellungMicSignale.ipynb", sep = "/") `)
+- [Erste Darstellungen von Zeitsignalen der Mikrophone](`r paste( ipynb_render, "darstellungMicSignale.ipynb", sep = "") `)
 
-- [Auswertung der Lichtschrankensignalen](`r paste( ipynb_render, "analyseLS.ipynb", sep = "/") `)
+- [Auswertung der Lichtschrankensignalen](`r paste( ipynb_render, "analyseLS.ipynb", sep = "") `)
 
-- [Spektren Berechnen](`r paste( ipynb_render, "SpektrenBerechnen.ipynb", sep = "/") `)
+- [Spektren Berechnen](`r paste( ipynb_render, "SpektrenBerechnen.ipynb", sep = "") `)
 
-- [Auswertung alle Vorbeifahrten](`r paste( ipynb_render,"DSPAuswertung.ipynb", sep = "/") `)
+- [Auswertung alle Vorbeifahrten](`r paste( ipynb_render,"DSPAuswertung.ipynb", sep = "") `)
 
 Den outpout der DSP  wird in den Datensatz [DSPResults.json](DSPResults.json) gespeichert um dann in R verwendet zu werden.
 

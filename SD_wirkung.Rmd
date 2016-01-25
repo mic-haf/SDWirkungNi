@@ -1,7 +1,17 @@
+
 ---
+output:
+  html_document:
+    includes:
+      before_body: header.html
+    self_contained: yes
+    theme: united
+    highlight: textmate
+    fig_caption: yes
+    toc: yes
 title: "Dämpferwirkung"
-output: html_document
 ---
+
 ```{r setup, include = FALSE}
 library(knitr)
 opts_chunk$set(
@@ -23,7 +33,7 @@ source('ggplot_templates.R')
 load('passby_SPL_DF.Rdata')
 ```
 
-# Schalldruckpegel Differenzen mit Referenzabschnitt
+## Schalldruckpegel Differenzen mit Referenzabschnitt
 
 In Dieser Abschnitt werden die Differenzen der Spektren bzw. Levels zwischen  Referenzabschnitt und Dämpferabschnitt untersucht. Ziel ist die dämpferwirkung Abzuschätzen.
 
@@ -41,11 +51,11 @@ diffDf = spectDf %>% group_by(passby, band, interval) %>% do(difference(.))
 
 ```
 
-## Differenz von Gesamtzugauswertung: alle Abschnitte
+### Differenz von Gesamtzugauswertung: alle Abschnitte
 
 Die Differenzen von auswertungsintervall `full` sind für alle Abschnitte vorhanden und werden hier gezeigt
 
-### Spektral
+#### Spektral
 ```{r, fig.width = 14, fig.height=11, out.width='1000px'}
 X =  diffDf%>%filter(band!='tot' & interval.kat == 'full' )
 X$band = as.numeric(X$band)
@@ -60,7 +70,7 @@ SpectPlot(FREQ)+
 facet_wrap(~ A ,ncol=2,scales = 'free_x')
 ```
 
-### Levels
+#### Levels
 
 ```{r  fig.width = 7, fig.height=5, out.width='500px'}
 ggplot(data = diffDf%>%filter(band=='tot'& var == 'leq' & interval.kat == 'full'  ),
@@ -74,13 +84,13 @@ facet_grid( interval.kat~ A )+ theme_bw()+ theme(legend.position="bottom")
 ```
 
 
-## Differenzen Wagenweise: Wagen , Trieb/Wagen: Abschnitt B2
+### Differenzen Wagenweise: Wagen , Trieb/Wagen: Abschnitt B2
 
 Für den Abschnitt B2 ist es zusätzlich möglich die Differenzen je Auswertungsintervall `n` (je doppel Drehgestell) zu berechnen. Die Resultierende Wirkung sind die Folgende:
 
-### Spektral
+#### Spektral
 
-#### IC Züghe
+##### IC Züghe
 ```{r fig.width = 14, fig.height=10, out.width='1000px'}
 
 X = diffDf%>%filter(band!='tot'&  (interval.kat == 'Wagen')& A=='B2' & Zugstyp =='IC' )
@@ -96,7 +106,7 @@ SpectPlot(FREQ)+
 facet_grid( ~ Zugstyp*interval.kat, scales = 'free_x')
 ```
 
-#### Regio
+##### Regio
 
 ```{r fig.width = 14, fig.height=10, out.width='1000px'}
 X = diffDf%>%filter(band!='tot'&  (interval.kat != 'full')& A=='B2' & Zugstyp =='Regio' )
@@ -113,7 +123,7 @@ facet_grid( ~ Zugstyp*interval.kat, scales = 'free_x')
 ```
 
 
-### Levels
+#### Levels
 
 ```{r, fig.width = 7, fig.height=5, out.width='500px'}
 ggplot(data = diffDf%>%
@@ -127,7 +137,7 @@ ggplot(data = diffDf%>%
 facet_grid( .~ A*interval.kat )+ theme_bw()+ theme(legend.position="bottom")
 ```
 
-##  Gemessne Wirkung  von Schinendämpfer in dBA
+###  Gemessne Wirkung  von Schinendämpfer in dBA
 
 Die Indikatoren
 
@@ -138,7 +148,7 @@ Die Indikatoren
  
  sind in die untere Tabellen für verschiedene Kombinationen aus Verkehr und Dämpfern berechnet.
 
-####  Wirkung nach Dämpfertyp, Zugstyp und Drehgestelltyp
+#####  Wirkung nach Dämpfertyp, Zugstyp und Drehgestelltyp
  Berechung für jede Kombination aus Dämpfertyp(Abschnitt), Zugstyp und Drehgestelltyp(Interval Kategorie) 
 ```{r,results='asis'}
 library(DT)
@@ -158,7 +168,7 @@ datatable(table, filter = 'top', rownames = FALSE, options = list(pageLength = n
 
 ```
 
-####  Wirkung nach Dämpfertyp und Zugstyp
+#####  Wirkung nach Dämpfertyp und Zugstyp
  Berechung für jede Kombination aus Dämpfertyp(Abschnitt) und  Zugstyp
  
 ```{r}

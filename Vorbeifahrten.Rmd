@@ -1,6 +1,14 @@
 ---
-title: "Akustische Wirkung von Schienendämpfern"
-output: html_document
+title: "Vorbeifahrten"
+output:
+  html_document:
+    includes:
+      before_body: header.html
+    self_contained: yes
+    theme: united
+    highlight: textmate
+    fig_caption: yes
+    toc: yes
 ---
 ```{r setup, include = FALSE}
 library(knitr)
@@ -34,7 +42,6 @@ db <- "OBdata"
 conn <- mongo.create(host=host , db=db)#, username=username, password=password)
 
 ```
-----
 
 # Einleitung
 
