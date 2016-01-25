@@ -43,12 +43,6 @@ conn <- mongo.create(host=host , db=db)#, username=username, password=password)
 
 ```
 
-# Einleitung
-
-Dieser Teil der Bericht analysiert die Resultate der postprocessing welche im File `DSPresults.json` enthalten sind. 
-
-**Ziel der Statistische Analyse ist die Wirkung von Schienendämpfern abzuschätzen**
-
 
 ```{r,echo=FALSE, results='hide'}
 ##Daten Importieren
@@ -130,46 +124,12 @@ vDf$bogie.type = sapply(abs(vDf$vi-vDf$v) < 5, function(b)if(b){'Wagen'}else{'An
 
 ```
 
-----
 
-#### Abschnittnamen und eingebaute Dämpfern
-
-Es besteht die folgende Relation zwischen Name der Abschnitten und deren eingebaute Dämpfern.
-
-Dämpfer |ValFX Abkürzung| Abkürzung Messung 
---------|---------------|---------------
-TATA    | B1            | nicht gemessen 
-S&V     | B2            | Q4 
-Vossloh | B3            | Q3 
-STRAIL  | B4            | Q2 
-Ref     | B5            | Q1 
-
-Es iss zu Bemerken dass die Abschnitte sind bei der Messung unterschiedlich als sonst wie im valFX Projekt benannt worden. **Ab jetzt wird die ValFX Abküzung verwendet um die Abschnitten zu unterscheiden**
 ```{r}
 #unbennen der Abschnitten in die data.frame
 levels(spectWideDf$A) = c('B5','B4','B3','B2')
 levels(vDf$A) = c('B5','B2')
 ```
-----
-
-#### Postprocessing Resultate
-
-Dias postprocessing der Mikrophonsignale liefert **Terzspektren und Gesamtpegel** des Schalldruck fur jede Vorbeifahrt([Details](http://nbviewer.ipython.org/github/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/SpektrenBerechnen.ipynb)). 
-
-Terzspektren aus den gesamte Signal oder auch Gesamtzug berechnet  werden mit `full` bezeichnete.
-
-Für deie Abschnitte B5 und B2 würden zusätzlich die Spektren Wagenbezogen berechnet.Von wagenmitte der n-te Wagen bis zur Wagenmitte der n+1 Wagen. Diese Spektren werden mit den entsprechende Zahl `n` Bezeichnet. Das war möglich da für diese Abschnitten Lichtschrankensignalen vorhanden sind.
-
-Zusätzliche Informationene  wurden zu jede Vorbeifahrt mithilfe von LS Signalen ([Details](http://nbviewer.ipython.org/github/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/analyseLS.ipynb))  gewonnen:
-
-- __Zugsgeschwindigkeit__ Nur Vorbeifahrten mit aänliche Geschwindigkeit auf alle Abschnitte wurden 
-
-- __Intevallbezeichnung__ Die Intervalle mit `n` bezeicnet (nicht Gesamtzug) können `Trieb` sowohl `Wagen` Drehgestelle enthalten. Um Intervalle aus ähnlichen Drehgestelle zu vergleichen, müssen die Intervalle jede Vorbeifahrt in `Wagen` , `Trieb/Wagen` oder `Gesamtzug (full)` kategorisiert werden.
-
-- __Zugstyp__ Wurde mithilfe von Achsmuster und Drehgestell abstand entdeckt. Zwei klasen von Zügen sind zu unterscheiden:
-
-    1. Regiozugen; wahrscheinlich handelt sich um einen Domino (Triebwagen-Inowa-Steuerwagen) in doppelte Komposition. Triebdrehgestelle mit einen Abstand von 2.7m ergeben konsistente werte
-    2. IC Zügen; diese Zügen  bestehen aus (EWIV, IC2000, Steuerwagen und Re460). Der Anzahl wagen ist variabel.
 
 ```{r, eval =F  }
 
@@ -250,13 +210,7 @@ ggplot(spectDf) +
   
 ```
 
-----
 
-#### Sonst
-
-Quellencode diesem Teil ist im file [StatAusw.md](https://github.com/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/StatAuswe.Rmd) zu sehen.
-
-----
 
 # Darstellungen von Spektren und Levels
 
@@ -394,20 +348,12 @@ ggplot(droplevels(spectDf%>%filter(!is.na(v)& band=='tot'& Zugstyp == 'IC')),
   
 ```
 
+
+
 ----
 
-#Fazit
+# Info
 
-- wirkung quantifizieren
-- variabilität von akustische messung. grund rauheit? zu gross um kleine unterschiede zu messen.
-- die berechnete werte könnten somit zufall sein
-- ruhait korrektur nich möglich sihe rauheit 
+Quellencode diesem Teil ist im file [StatAusw.md](https://github.com/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/StatAuswe.Rmd) zu sehen.
 
-...
-# TODO
-- capitoli
-- fazit
-- 
-- Controllare un po tutto
-- Link
-- README
+----

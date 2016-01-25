@@ -113,7 +113,102 @@ Für die Teildokumente wurden folgende programme/frameworks verwendet:
 Auswertung
 ----------
 
-#### [Abschätzen der Wirkung von Schienendämpfer](https://rawgit.com/e-sr/SDWirkungNi/master/Vorbeifahrten.html)
+Dieser Teil der Bericht analysiert die Resultate der postprocessing
+welche im File `DSPresults.json` enthalten sind.
+
+**Ziel der Statistische Analyse ist die Wirkung von Schienendämpfern
+abzuschätzen**
+
+------------------------------------------------------------------------
+
+#### Abschnittnamen und eingebaute Dämpfern
+
+Es besteht die folgende Relation zwischen Name der Abschnitten und deren
+eingebaute Dämpfern.
+
+<table>
+<thead>
+<tr class="header">
+<th align="left">Dämpfer</th>
+<th align="left">ValFX Abkürzung</th>
+<th align="left">Abkürzung Messung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">TATA</td>
+<td align="left">B1</td>
+<td align="left">nicht gemessen</td>
+</tr>
+<tr class="even">
+<td align="left">S&amp;V</td>
+<td align="left">B2</td>
+<td align="left">Q4</td>
+</tr>
+<tr class="odd">
+<td align="left">Vossloh</td>
+<td align="left">B3</td>
+<td align="left">Q3</td>
+</tr>
+<tr class="even">
+<td align="left">STRAIL</td>
+<td align="left">B4</td>
+<td align="left">Q2</td>
+</tr>
+<tr class="odd">
+<td align="left">Ref</td>
+<td align="left">B5</td>
+<td align="left">Q1</td>
+</tr>
+</tbody>
+</table>
+
+Es iss zu Bemerken dass die Abschnitte sind bei der Messung
+unterschiedlich als sonst wie im valFX Projekt benannt worden. **Ab
+jetzt wird die ValFX Abküzung verwendet um die Abschnitten zu
+unterscheiden**
+
+------------------------------------------------------------------------
+
+#### Postprocessing Resultate
+
+Dias postprocessing der Mikrophonsignale liefert **Terzspektren und
+Gesamtpegel** des Schalldruck fur jede
+Vorbeifahrt([Details](http://nbviewer.ipython.org/github/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/SpektrenBerechnen.ipynb)).
+
+Terzspektren aus den gesamte Signal oder auch Gesamtzug berechnet werden
+mit `full` bezeichnete.
+
+Für deie Abschnitte B5 und B2 würden zusätzlich die Spektren
+Wagenbezogen berechnet.Von wagenmitte der n-te Wagen bis zur Wagenmitte
+der n+1 Wagen. Diese Spektren werden mit den entsprechende Zahl `n`
+Bezeichnet. Das war möglich da für diese Abschnitten
+Lichtschrankensignalen vorhanden sind.
+
+Zusätzliche Informationene wurden zu jede Vorbeifahrt mithilfe von LS
+Signalen
+([Details](http://nbviewer.ipython.org/github/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/analyseLS.ipynb))
+gewonnen:
+
+-   **Zugsgeschwindigkeit** Nur Vorbeifahrten mit aänliche
+    Geschwindigkeit auf alle Abschnitte wurden
+
+-   **Intevallbezeichnung** Die Intervalle mit `n` bezeicnet (nicht
+    Gesamtzug) können `Trieb` sowohl `Wagen` Drehgestelle enthalten. Um
+    Intervalle aus ähnlichen Drehgestelle zu vergleichen, müssen die
+    Intervalle jede Vorbeifahrt in `Wagen` , `Trieb/Wagen` oder
+    `Gesamtzug (full)` kategorisiert werden.
+
+-   **Zugstyp** Wurde mithilfe von Achsmuster und Drehgestell abstand
+    entdeckt. Zwei klasen von Zügen sind zu unterscheiden:
+
+    1.  Regiozugen; wahrschein
+    2.  IC Zügen; diese Zügen bestehen aus (EWIV, IC2000, Steuerwagen
+        und Re460). Der Anzahl wagen ist variabel. lich handelt sich um
+        einen Domino (Triebwagen-Inowa-Steuerwagen) in doppelte
+        Komposition. Triebdrehgestelle mit einen Abstand von 2.7m
+        ergeben konsistente werte \#\#\#\# [Abschätzen der Wirkung von
+        Schienendämpfer](https://rawgit.com/e-sr/SDWirkungNi/master/Vorbeifahrten.html)
 
 #### [Abschätzen der Wirkung von Schienendämpfer](https://rawgit.com/e-sr/SDWirkungNi/master/SD_wirkung.html)
 
@@ -124,9 +219,24 @@ Auswertung
 ------------------------------------------------------------------------
 
 Fazit
------
+=====
 
--...
+-   wirkung quantifizieren
+-   variabilität von akustische messung. grund rauheit? zu gross um
+    kleine unterschiede zu messen.
+-   die berechnete werte könnten somit zufall sein
+-   ruhait korrektur nich möglich sihe rauheit
+
+------------------------------------------------------------------------
+
+TODO
+====
+
+-   capitoli
+-   fazit
+-   -   Controllare un po tutto
+-   Link
+-   README
 
 ------------------------------------------------------------------------
 

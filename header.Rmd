@@ -1,11 +1,9 @@
 ---
 output: html_fragment
 ---
+<img src="Sbb-logo.png" width="200">
 
 #### <u>Erprobung Schienedämpfern:</u> [Akustische Messung Niederwangen](https://github.com/e-sr/SDWirkungNi#auswertung)
  
-----
-
-<img src="Sbb-logo.png" width="200">
 ----
 
