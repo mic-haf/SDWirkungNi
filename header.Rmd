@@ -2,13 +2,10 @@
 output: html_fragment
 ---
 
-##### <u>Erprobung Schienedämpfern:</u> [Akustische Messung Niederwangen](https://github.com/e-sr/SDWirkungNi#auswertung)
+#### <u>Erprobung Schienedämpfern:</u> [Akustische Messung Niederwangen](https://github.com/e-sr/SDWirkungNi#auswertung)
  
 ----
 
-<div style="width:200px; height=20px">
-![sbb-logo](Sbb-logo.png)
-</div>
-
+<img src="Sbb-logo.png" width="200">
 ----
 

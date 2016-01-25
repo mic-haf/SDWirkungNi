@@ -25,17 +25,14 @@ if(params$local){
 dw_path = "https://github.com/e-sr/SDWirkungNi/raw/master/"
 repo_path = "https://github.com/e-sr/SDWirkungNi/"
 ```
-<h1> </h1> 
 
-<div style= "width:150px; height=20px">
-![sbb-logo](Sbb-logo.png)
-</div>
+\
+<img src="Sbb-logo.png" width="200">
 
 ----
 
-<h1>Erprobung Schienedämpfern <br/>Akustische Messung Niederwangen </h1> 
+# Erprobung Schienedämpfern <br/>Akustische Messung Niederwangen 
 
-----
 
 #### Januar 2016
 
