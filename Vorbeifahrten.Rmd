@@ -1,5 +1,5 @@
 ---
-title: "Vorbeifahrten"
+title: "Darstellungen der Spektren und Levels"
 output:
   html_document:
     includes:
@@ -10,129 +10,27 @@ output:
     fig_caption: yes
     toc: yes
 ---
-```{r setup, include = FALSE}
+```{r  include = FALSE}
+#knitr options
 library(knitr)
 opts_chunk$set(
   message = FALSE, 
   warning = FALSE,
-  echo = F,
-  fig.width = 12, fig.height= 9,
-  dev = 'CairoSVG'
-  #,dev='CairoPNG'
+  echo = F
 )
 
-```
-
-```{r include=FALSE}
-#import library and functions
+# import library and functions
 library(jsonlite)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 source('ggplot_templates.R')
-
-#set db connections
-library(rmongodb)
-# your connection details will likely differ from these defaults
-host <- "127.0.0.1"
-username <- "esrWR"
-password <- "esrWR"
-db <- "OBdata"
-#connect to mongo
-conn <- mongo.create(host=host , db=db)#, username=username, password=password)
-
+load("auswertungData.Rdata")
 ```
 
 
-```{r,echo=FALSE, results='hide'}
-##Daten Importieren
-
-
-passby = fromJSON("DSPResults.json")
-
-## Daten für Darstellung vorbereiten
-#Die .json Daten werden in einer R `data.frame` umgewandelt so dass gewisse Operationen (Darstellung, #Gruppierungen,...) einfacher werden.
-
-FREQ = c(100, 125,
-         160, 200, 250, 315, 400, 500, 630, 800, 1000,
-         1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000)
-#funktionen zur umwandlung
-intervals_to_df = function(colN, l){
-  func = function(n){
-    df = data.frame(c(interval=n, as.list(setNames(l[[n]],colN))))
-    return(df)
-  }
-  d = do.call(rbind, 
-              lapply(setdiff(names(l), c('FAMOS','f')), func)
-              )
-  return(d)
-} 
-
-func1 = function(pb,A){
-  f = FREQ
-  # crete list o variables attributes
-  variables = list(
-    #'sel' = list(var = 'sel', colN ='sel.tot'),
-    'leq' = list(var = 'leq', colN = 'leq.tot'),
-    #'s_sel' = list(var = 'spektrum_sel', colN = paste('sel', f,sep='.')),
-    's' = list(var = 'spektrum', colN = paste('leq', f,sep='.'))
-  )
-  #create list of df each for a given variable
-  d = lapply( variables , 
-              function(l)intervals_to_df(l$colN, passby[[pb]][[A]][[l$var]])
-  )
-  # merge list of df to a single df by common interval
-  df = Reduce(function(x,y) merge(x,y, all=TRUE, by = 'interval'), d)
-  return(df)
-}
-#
-pbNames =  setdiff(names(passby), c('Beschreibung'))
-absch = c('Q1','Q2','Q3','Q4')
-
-# spectra and levels
-spectWideDf = expand.grid(passby = pbNames, A = absch) %>% rowwise()%>% 
-  do(data.frame(passby = as.character(.$passby),
-                A = as.character(.$A),
-                func1(as.character(.$passby), as.character(.$A))
-                )
-     )
-spectWideDf$A = factor(spectWideDf$A)
-# filter
-
-spectWideDf=spectWideDf%>%filter(interval!='vorbei' )
-
-#zugstyp
-typDf = data.frame(passby = pbNames) %>% rowwise() %>% 
-  do(data.frame(passby = as.character(.$passby),  Zugstyp = passby[[as.character(.$passby)]]$Zugstyp ))
-
-# speed
-vDf = expand.grid(passby = pbNames, A = c('Q1','Q4')) %>% rowwise() %>% 
-  do(data.frame(passby = as.character(.$passby),
-                A = as.character(.$A),
-                Zugstyp = passby[[as.character(.$passby)]][['Zugstyp']],
-                v  = round(passby[[as.character(.$passby)]][[as.character(.$A)]]$vAv ),
-                dv  = round(passby[[as.character(.$passby)]][[as.character(.$A)]]$dv ),
-                bogie = 1:length(passby[[as.character(.$passby)]][[as.character(.$A)]][['ti_vi']][2,]),
-                vi = passby[[as.character(.$passby)]][[as.character(.$A)]][['ti_vi']][2,], 
-                ti = passby[[as.character(.$passby)]][[as.character(.$A)]][['ti_vi']][1,]
-                )
-     )
-vDf$A = factor(vDf$A)
-vDf$interval = floor(vDf$bogie/2)
-#select bogies that are loc or strange
-vDf$bogie.type = sapply(abs(vDf$vi-vDf$v) < 5, function(b)if(b){'Wagen'}else{'Antrieb'})
-
-```
-
-
-```{r}
-#unbennen der Abschnitten in die data.frame
-levels(spectWideDf$A) = c('B5','B4','B3','B2')
-levels(vDf$A) = c('B5','B2')
-```
-
-```{r, eval =F  }
-
+```{r, eval = F }
+#unused plots 
 ggplot(data =vDf%>%filter(Zugstyp == 'Regio'& passby==14) ) +
   geom_hline(aes(yintercept = v, group = interaction(passby,A)), color = 'blue', alpha = 0.7, size = 2)+
   geom_point(mapping = aes(x = bogie, y = vi, color =bogie.type, text =bogie.type), size = 3)+
@@ -142,8 +40,7 @@ ggplot(data =vDf%>%filter(Zugstyp == 'Regio'& passby==14) ) +
   scale_x_continuous(breaks = 1:14 )+
   theme(legend.position="bottom")
 
-#```
-#```{r eval = F, fig.height= 4,out.width='500px'}
+
 ggplot(vDf%>%filter(Zugstyp =='IC'& passby == '8') ) +
   geom_hline(aes(yintercept = v, group = interaction(passby,A)), color = 'blue', alpha = 0.7, size = 2)+
   geom_point(mapping = aes(x = bogie, y = vi, color = bogie.type), size = 3)+
@@ -151,70 +48,20 @@ ggplot(vDf%>%filter(Zugstyp =='IC'& passby == '8') ) +
   scale_color_discrete()+
   ylab('v km/h')+xlab('Drehgestell')+
   scale_y_continuous(breaks = seq(80,150,5) )+ theme_bw()+theme(legend.position="bottom")
+# Darstellung Kategorisierung
+ggplot(X) +
+  geom_hline(aes(yintercept = v, group = interaction(passby,A)), color = 'blue', alpha = 0.7, lw = 2)+
+  geom_point(mapping = aes(x = bogie, y = vi, color = bogie.type,shape = interval.kat), size = 4)+
+  facet_grid(passby*Zugstyp~A)+
+  scale_color_discrete()+
+  scale_y_continuous(breaks = seq(80,150,5) )+ theme_bw()
+
 ```
 
-
-```{r}
-# kategorisierung von Auswertungsintervalle
-X=vDf%>%group_by(passby,A,interval)%>%
-  do(data.frame(passby = .$passby, 
-                A = as.character(.$A), 
-                bogie=as.character(.$bogie),
-                nBogies = nrow(.), 
-                interval.kat = if(any(.$bogie.type=='Antrieb')){'Antrieb/Wagen'}else{'Wagen'}
-  )
-  )
-X = merge(vDf,X, by=c('passby','A', 'bogie','interval'))
-
-#fill spect df
-intervalKat=X%>%filter(nBogies == 2)%>%group_by(passby,A,interval) %>% do(data.frame(interval.kat = .$interval.kat[1]))
-spectWideDf = merge( intervalKat, spectWideDf,  by= c('passby','A', 'interval'), all = TRUE)
-spectWideDf$interval.kat[is.na(spectWideDf$interval.kat)] = spectWideDf$interval[is.na(spectWideDf$interval.kat)]
-
-## Darstellung Kategorisierung
-# ggplot(X) +
-#   geom_hline(aes(yintercept = v, group = interaction(passby,A)), color = 'blue', alpha = 0.7, lw = 2)+
-#   geom_point(mapping = aes(x = bogie, y = vi, color = bogie.type,shape = interval.kat), size = 4)+
-#   facet_grid(passby*Zugstyp~A)+
-#   scale_color_discrete()+
-#   scale_y_continuous(breaks = seq(80,150,5) )+ theme_bw()
-```
-
-
-```{r  }
-# Vorbereiten der daten in long format
-#add speeds
-spectWideDf = merge( vDf[,c('passby','A', 'v','dv')]%>%group_by(passby,A)%>%do(.[1,]),
-                  spectWideDf,  by=c('passby','A'), all.y = TRUE)
-#add zugstyp
-spectWideDf = merge( typDf, spectWideDf,  by = c('passby'),all.y = TRUE)
-
-spectDf = spectWideDf %>% gather('var','level', leq.tot:leq.8000) %>% separate(var , c('var','band'))
-
-#remove unuse Frequencies
-FREQ = c(#100, 125,
-         160, 200, 250, 315, 400, 500, 630, 800, 1000,
-         1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000)
-spectDf = spectDf %>%filter(band != "100" & band !="125")
-
-save(list=c('spectDf','FREQ'),file = 'passby_SPL_DF.Rdata')
-```
-
-In die nächste Graphik ist die mittlere Geschwindigkeit jede Vorbeifahrt auf die Abschnitte B5 und B2 dargestellt. Vorbeifahrten mit grosse Geschwindigkeitdifferenzen auf die Abschnitte B2 und B5 wurden Verworfen. In dieser Graphik sind nur die Gültige Vorbeifahrten dargestellt.
-
-```{r, fig.cap = 'Mittlere Zugsgeschwindigk', out.width='500px'}
-ggplot(spectDf) + 
-  geom_point(mapping = aes(x = passby, y = v, shape = A, color = Zugstyp), size =3)+
-  ylab('v km/h')+
-  scale_y_continuous(breaks = seq(80,150,5) )+ theme_bw()+theme(legend.position="bottom")
-  
-```
-
-
-
-# Darstellungen von Spektren und Levels
 
 Dieser Abschnitt dient um einen Gefühl mit die gemessene/ausgewertete daten zu bekommen.
+
+Als erstens werden die 
 
 Dazu wird die Streuung der berechnete Spektren bzw. Levelsuntersucht.
 
@@ -222,6 +69,18 @@ Dazu wird die Streuung der berechnete Spektren bzw. Levelsuntersucht.
 - innerhalb verschiedene pass-by der gleiche Zugs bzw. Geschwindigkeit Kategorie
 
 **Spektern und Gesamtpegeln sind in dBA angegeben**
+
+```{r }
+# Vorbereiten der daten in long format
+spectDf = spectWideDf %>% gather('var','level', leq.tot:leq.8000) %>% separate(var , c('var','band'))
+
+#remove unused Frequencies
+FREQ = c(#100, 125,
+         160, 200, 250, 315, 400, 500, 630, 800, 1000,
+         1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000)
+spectDf = spectDf %>%filter(band != "100" & band !="125")
+
+```
 
 ## Abschnitten B5 und B2
 
@@ -241,7 +100,6 @@ ggplot(droplevels(spectDf%>%
   ylab('Level dBA')+
   facet_grid( .~ A)+
   scale_y_continuous(breaks = seq(80,150,1) )
-
 ```
 
 **Diskussion**:
@@ -275,16 +133,16 @@ Bemerkungen:
 
 
 ### Spektren und Levels von Regio Züge
+
 ```{r eval=F, fig.width = 14, fig.height=10, out.width='800px'}
+# unused plot
 ggplot(droplevels(spectDf%>% filter(band =='tot'& interval.kat!='full'& interval.kat!='vorbei' & (A =='B5'| A=='B2') & Zugstyp == 'Regio' )),aes(x = passby, y = level)) +
   #geom_boxplot(alpha = 0.7)+
   geom_point(aes(color = v), size =4,alpha = 0.6)+
  facet_grid( interval.kat~ A)+
   ylab('Level dBA')+
   scale_y_continuous(breaks = seq(80,150,1) )
-  
 ```
-
 Levels von Regio Züge für Intervalle der Kategorie `Wagen` und `Trieb/Wagen` sind nicht angezeigt da diese Züge nur aus 6 Wagen bestehen, davon 2 mit Triebfahrzeuge und deshalb hat man innerhalb ein einziges Zug nur wenige Intervalle zu Vergleichen. 
 
 Eine sehr grosse Variabilität der Schalldruckpegel wurde wie für IC Züghe auch festgestellt.
@@ -337,6 +195,7 @@ Man erwartet zunehmender Leq mit zunehmender Geschwindigkeit ($leq \propto log_{
 -->
 
 ```{r eval = FALSE, fig.width = 14, fig.height=10, out.width='800px'}
+# unused plot
 ggplot(droplevels(spectDf%>%filter(!is.na(v)& band=='tot'& Zugstyp == 'IC')),
         aes(x = v, y = level)) + 
   #geom_boxplot(mapping = aes(x = A, y = level, color = interval)) +
@@ -348,12 +207,9 @@ ggplot(droplevels(spectDf%>%filter(!is.na(v)& band=='tot'& Zugstyp == 'IC')),
   
 ```
 
-
-
 ----
 
-# Info
-
-Quellencode diesem Teil ist im file [StatAusw.md](https://github.com/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/StatAuswe.Rmd) zu sehen.
+## Anhang
+Quellencode diesem Teil ist im file [Quellencode](https://github.com/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/StatAuswe.Rmd) zu sehen.
 
 ----

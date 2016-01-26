@@ -4,7 +4,7 @@ make_docs.R
 README.html
 README_files/
 header.markdown_github
-_output.yaml
+header.md
 README.markdown_github
 
 ##Window
@@ -83,7 +83,7 @@ target/
 .Rapp.history
 
 # Session Data files
-*.RData
+#*.RData
 *.Rproj
 
 # Example code in package build process

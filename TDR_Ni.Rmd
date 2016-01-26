@@ -15,138 +15,20 @@ library(knitr)
 opts_chunk$set(
   message = FALSE, 
   warning = FALSE,
-  echo = F,
-  fig.width = 12, fig.height= 9,
-  dev = 'CairoSVG'
-  #,dev='CairoPNG'
+  echo = F
 )
-```
 
-```{r  include=FALSE}
 #import library and functions
 library(dplyr)
 library(ggplot2)
 source('ggplot_templates.R')
-
-#set db connections
-library(rmongodb)
-# your connection details will likely differ from these defaults
-host <- "127.0.0.1"
-username <- "esrWR"
-password <- "esrWR"
-db <- "OBdata"
-#connect to mongo
-conn <- mongo.create(host=host , db=db)#, username=username, password=password)
-
+load("auswertungData.Rdata")
 ```
 
-# Konsistenz von Dämpferwirkung mit TDR und DR Messungen
-## DB einlesen 
-
-```{r}
-# function to build df
-
-buildTDRdf = function(cursor, conn, TDRvar, OBsetupVar){
-  TDR_Data=data.frame()
-  i= 1
-  while(mongo.cursor.next(cursor)){
-  doc = mongo.cursor.value(cursor)
-  ##
-  OBsetup_id <- mongo.bson.value(doc, "OBsetup_id")
-  OBsetup = mongo.find.one(conn, 'OBdata.OBsetup', query = list('_id'= OBsetup_id) )
-  ##
-  df1 <- data.frame(lapply(OBsetupVar, function(x){
-      if(!is.null(mongo.bson.value(OBsetup, x))){
-        return(mongo.bson.value(OBsetup, x))
-      }else{
-        return(NA)
-      }
-    })
-  )
-  df1$tdr_id = i
-  ##
-  df2 <- data.frame(
-    lapply(TDRvar, function(x){
-      if(!is.null(mongo.bson.value(doc, x))){
-        return(mongo.bson.value(doc, x))
-      }else{
-        return(NA)
-      }
-    })
-  )
-  TDR_Data = rbind(TDR_Data,cbind(df1,df2))
-  i=i+1
-  }
-  return(TDR_Data)
-}
-### TDR variables
-TDRvar = list(
-    Author = 'Author',
-    messdatum='measurementDate',
-    padCalc = 'calculatedPadStiffnes',
-    calcQ= 'calcQuality',
-    temp= 'temperature',
-    rail='rail',
-    dir='tdrDirection',
-    freq='tdr.freq',
-    tdr='tdr.value')
-
-OBsetupVar = list( loc='loc',sec='sec', pad = 'pad', FX='MBBMvar',damp = 'damp',dampType = 'dampType' )
+Ziel ist Konsistenz von Dämpferwirkung mit TDR und DR Messungen
 
 
-## Niderwangen TDR
-q1 = list('$and' = list(list('loc' = 'Ni')))
-cursor = mongo.find(conn, 'OBdata.OBsetup', query=q1)
-
-ids = list()
-i=1
-
-while (mongo.cursor.next(cursor)) {
-  OBsetup = mongo.cursor.value(cursor)
-  OBsetup_id <- mongo.bson.value(OBsetup, "_id")
-  ids[[i]]= OBsetup_id
-  # make it a dataframe
-  i=i+1
-}
-
-TDRni = buildTDRdf(mongo.find(conn, 'OBdata.TDR', 
-                              query = list(OBsetup_id = list("$in"=ids))
-                              ), 
-                   conn, 
-                   TDRvar, 
-                   OBsetupVar)
-# 
-# ##FX
-# 
-# q1 = list('$and' = list(
-#   list('MBBMvar' = list("$exists"=TRUE)),
-#   list('damp'= FALSE),
-#   list('pad' = list("$eq"="h")),
-#   list('Schw' = list("$ne"="H"))
-#   )
-#   )
-# cursor = mongo.find(conn, 'OBdata.OBsetup', query=q1)
-# 
-# ids = list()
-# i=1
-# while (mongo.cursor.next(cursor)) {
-#   OBsetup = mongo.cursor.value(cursor)
-#   OBsetup_id <- mongo.bson.value(OBsetup, "_id")
-#   ids[[i]]= OBsetup_id
-#   # make it a dataframe
-#   i=i+1
-# }
-# 
-# TDRfx = buildTDRdf(mongo.find(conn, 'OBdata.TDR', 
-#                               query = list(OBsetup_id = list("$in"=ids)) 
-#                               ), 
-#                    conn, 
-#                    TDRvar, 
-#                    OBsetupVar)
-
-```
-
-Strail vs S&V
+## Strail vs S&V
 hauptaussage die du im bericht mitnehmen kannst ist dass die wirkung nich mit dem TDR erwartungen entspricht. S&V hätte mehr wirken sollen
 
 ### TDR Messungen
@@ -197,23 +79,8 @@ geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B2'& sec!='B4
 
 ```
 
-#### TATA
 
-```{r ,out.width='1000px'}
-TDRplot(c('v','h'))+
-geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B4'& sec!='B3'& sec!='B2'),
-          aes(x = freq, y=tdr, group= tdr_id, color= dampType, linetype = sec),
-          size=1,alpha=0.7)+
-  facet_grid(. ~ dir )+
-  guides(linetype = guide_legend(title = 'Abschnitt (vor Dämpfereinbau)   ', title.position = "left"),
-         color = guide_legend(title = 'Schienendämpfer   ', title.position = "left")
-         )
-
-```
-
-
-
-#### Vergleich S&V vs. Strailvs vossloh
+#### Vergleich S&V vs. Strail vs. Vossloh
 
 ```{r, out.width='1000px'}
 TDRplot(c('v','h'))+

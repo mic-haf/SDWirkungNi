@@ -17,20 +17,15 @@ library(knitr)
 opts_chunk$set(
   message = FALSE, 
   warning = FALSE,
-  echo = F,
-  fig.width = 12, fig.height= 9,
-  dev = 'CairoSVG'
-  #,dev='CairoPNG'
+  echo = F
 )
-```
 
-```{r include=FALSE}
 #import library and functions
 library(dplyr)
 library(ggplot2)
-library(DT)
+library(tidyr)
 source('ggplot_templates.R')
-load('passby_SPL_DF.Rdata')
+load('auswertungData.Rdata')
 ```
 
 ## Schalldruckpegel Differenzen mit Referenzabschnitt
@@ -40,7 +35,16 @@ In Dieser Abschnitt werden die Differenzen der Spektren bzw. Levels zwischen  Re
 **Eine positive Differenz deutet auf eine positive Wirkung der Dämpfern*
 
 ```{r}
-## Differenz zwischen Referenz und Abschnitt Bilden
+# Vorbereiten der daten in long format
+spectDf = spectWideDf %>% gather('var','level', leq.tot:leq.8000) %>% separate(var , c('var','band'))
+
+# remove unused Frequencies
+FREQ = c(#100, 125,
+         160, 200, 250, 315, 400, 500, 630, 800, 1000,
+         1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000)
+spectDf = spectDf %>%filter(band != "100" & band !="125")
+
+## Differenz zwischen Referenz und Abschnitt bilden
 difference = function(df){
   lRef = filter(df,A =='B5')$level
   df = filter(df, A!='B5')

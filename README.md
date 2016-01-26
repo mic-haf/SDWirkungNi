@@ -3,14 +3,17 @@
 
 ------------------------------------------------------------------------
 
-Erprobung Schienedämpfern <br/>Akustische Messung Niederwangen
-==============================================================
+Erprobung Schienedämpfern
+-------------------------
+
+Akustische Messung Niederwangen
+===============================
 
 #### Januar 2016
 
-#### Authoren: Enzo Scossa-Romano und Jakob Oertli
+##### Authoren: Enzo Scossa-Romano und Jakob Oertli
 
-#### Abteilung: I-AT-IU-UEW-LR
+##### Abteilung: I-AT-IU-UEW-LR
 
 ------------------------------------------------------------------------
 
@@ -41,9 +44,54 @@ diskutiert.
 **Ziel ist Wirkung von Schienenstegdämpfern Abschätzen für die Situation
 Niederwangen**
 
-------------------------------------------------------------------------
+### Durchgeführte Messungen
 
-### Messungen
+#### Abschnittnamen und eingebaute Dämpfern
+
+Es besteht die folgende Relation zwischen Name der Abschnitten und deren
+eingebaute Dämpfern.
+
+<table>
+<thead>
+<tr class="header">
+<th align="left">Dämpfer</th>
+<th align="left">ValFX/MBBM Abkürzung</th>
+<th align="left">EMPA Abkürzung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">TATA</td>
+<td align="left">B1</td>
+<td align="left">nicht gemessen</td>
+</tr>
+<tr class="even">
+<td align="left">S&amp;V</td>
+<td align="left">B2</td>
+<td align="left">Q4</td>
+</tr>
+<tr class="odd">
+<td align="left">Vossloh</td>
+<td align="left">B3</td>
+<td align="left">Q3</td>
+</tr>
+<tr class="even">
+<td align="left">STRAIL</td>
+<td align="left">B4</td>
+<td align="left">Q2</td>
+</tr>
+<tr class="odd">
+<td align="left">Ref</td>
+<td align="left">B5</td>
+<td align="left">Q1</td>
+</tr>
+</tbody>
+</table>
+
+Es ist zu Bemerken dass die Abschnitte sind bei der Messung
+unterschiedlich als sonst wie im valFX Projekt benannt worden. **Ab
+jetzt wird die ValFX Abküzung verwendet um die Abschnitten zu
+unterscheiden**
 
 #### Akustische Messung
 
@@ -113,68 +161,18 @@ Für die Teildokumente wurden folgende programme/frameworks verwendet:
 Auswertung
 ----------
 
-Dieser Teil der Bericht analysiert die Resultate der postprocessing
-welche im File `DSPresults.json` enthalten sind.
+Die Auswertung besteht haupsächlich aus 2 Teilen
 
-**Ziel der Statistische Analyse ist die Wirkung von Schienendämpfern
-abzuschätzen**
+1.  Postprocessing von Mikrophon signalen Aus gemessene Signalen werden
+    die Akustisch relevanten Grössen (Spektren Lärmniveau) berechnet.
 
-------------------------------------------------------------------------
+2.  Vergleich von Spektren TDR und SR.
 
-#### Abschnittnamen und eingebaute Dämpfern
-
-Es besteht die folgende Relation zwischen Name der Abschnitten und deren
-eingebaute Dämpfern.
-
-<table>
-<thead>
-<tr class="header">
-<th align="left">Dämpfer</th>
-<th align="left">ValFX Abkürzung</th>
-<th align="left">Abkürzung Messung</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">TATA</td>
-<td align="left">B1</td>
-<td align="left">nicht gemessen</td>
-</tr>
-<tr class="even">
-<td align="left">S&amp;V</td>
-<td align="left">B2</td>
-<td align="left">Q4</td>
-</tr>
-<tr class="odd">
-<td align="left">Vossloh</td>
-<td align="left">B3</td>
-<td align="left">Q3</td>
-</tr>
-<tr class="even">
-<td align="left">STRAIL</td>
-<td align="left">B4</td>
-<td align="left">Q2</td>
-</tr>
-<tr class="odd">
-<td align="left">Ref</td>
-<td align="left">B5</td>
-<td align="left">Q1</td>
-</tr>
-</tbody>
-</table>
-
-Es iss zu Bemerken dass die Abschnitte sind bei der Messung
-unterschiedlich als sonst wie im valFX Projekt benannt worden. **Ab
-jetzt wird die ValFX Abküzung verwendet um die Abschnitten zu
-unterscheiden**
-
-------------------------------------------------------------------------
-
-#### Postprocessing Resultate
+### Postprocessing von Mikrophon signalen
 
 Dias postprocessing der Mikrophonsignale liefert **Terzspektren und
 Gesamtpegel** des Schalldruck fur jede
-Vorbeifahrt([Details](http://nbviewer.ipython.org/github/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/SpektrenBerechnen.ipynb)).
+Vorbeifahrt([Details](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/SpektrenBerechnen.ipynb).
 
 Terzspektren aus den gesamte Signal oder auch Gesamtzug berechnet werden
 mit `full` bezeichnete.
@@ -187,7 +185,7 @@ Lichtschrankensignalen vorhanden sind.
 
 Zusätzliche Informationene wurden zu jede Vorbeifahrt mithilfe von LS
 Signalen
-([Details](http://nbviewer.ipython.org/github/e-sr/ValFX/blob/master/AkustischeMessungNiederwangen/analyseLS.ipynb))
+([Details](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/AnalyseLS.ipynb)
 gewonnen:
 
 -   **Zugsgeschwindigkeit** Nur Vorbeifahrten mit aänliche
@@ -202,13 +200,18 @@ gewonnen:
 -   **Zugstyp** Wurde mithilfe von Achsmuster und Drehgestell abstand
     entdeckt. Zwei klasen von Zügen sind zu unterscheiden:
 
-    1.  Regiozugen; wahrschein
+    1.  Regiozugen; wahrschein lich handelt sich um einen Domino
+        (Triebwagen-Inowa-Steuerwagen) in doppelte Komposition.
+        Triebdrehgestelle mit einen Abstand von 2.7m ergeben konsistente
+        werte
     2.  IC Zügen; diese Zügen bestehen aus (EWIV, IC2000, Steuerwagen
-        und Re460). Der Anzahl wagen ist variabel. lich handelt sich um
-        einen Domino (Triebwagen-Inowa-Steuerwagen) in doppelte
-        Komposition. Triebdrehgestelle mit einen Abstand von 2.7m
-        ergeben konsistente werte \#\#\#\# [Abschätzen der Wirkung von
-        Schienendämpfer](https://rawgit.com/e-sr/SDWirkungNi/master/Vorbeifahrten.html)
+        und Re460). Der Anzahl wagen ist variabel.
+
+Im [Anhanag](#Anhang) sind die Postprocessing dokumente Aufgelistet
+
+### Postprocessing von Mikrophon signalen
+
+#### [Spektren von Vorbeifahrten](https://rawgit.com/e-sr/SDWirkungNi/master/Vorbeifahrten.html)
 
 #### [Abschätzen der Wirkung von Schienendämpfer](https://rawgit.com/e-sr/SDWirkungNi/master/SD_wirkung.html)
 
@@ -219,7 +222,7 @@ gewonnen:
 ------------------------------------------------------------------------
 
 Fazit
-=====
+-----
 
 -   wirkung quantifizieren
 -   variabilität von akustische messung. grund rauheit? zu gross um
@@ -230,7 +233,7 @@ Fazit
 ------------------------------------------------------------------------
 
 TODO
-====
+----
 
 -   capitoli
 -   fazit
@@ -264,3 +267,11 @@ der mikrophone
 Den outpout der DSP wird in den Datensatz
 [DSPResults.json](DSPResults.json) gespeichert um dann in R verwendet zu
 werden.
+
+### Daten
+
+Im folgende die links zur benützte daten in diesem Bericht
+
+-   [MBBM gemessene TDR]()
+-   [DSP results]()
+-   [Schienenrauheiten in niederwangen]()

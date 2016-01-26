@@ -15,118 +15,27 @@ library(knitr)
 opts_chunk$set(
   message = FALSE, 
   warning = FALSE,
-  echo = F,
-  fig.width = 12, fig.height= 9,
-  dev = 'CairoSVG'
-  #,dev='CairoPNG'
+  echo = F
 )
 
-```
-
-```{r include=FALSE}
 #import library and functions
 library(jsonlite)
 library(dplyr)
 library(tidyr)
-library(DT)
 library(captioner)
 # table_nums <- captioner(prefix = "Tabelle")
 # fig_nums <- captioner(prefix = "Bild")
 source('ggplot_templates.R')
+load("auswertungData.Rdata")
+
 Sys.setlocale("LC_TIME", "German")
-#set db connections
-library(rmongodb)
-# your connection details will likely differ from these defaults
-host <- "127.0.0.1"
-username <- "esrWR"
-password <- "esrWR"
-db <- "OBdata"
-#connect to mongo
-conn <- mongo.create(host=host , db=db)#,username=username, password=password)
-
-```
-
-```{r include=FALSE}
-#select interesting OB setups: Niderwangen without B1
-q1 = list('$or' = list(
-  list('$and'= list(list('loc'='Ni'),list('sec'=list('$ne'='B1')),list('damp'=TRUE))),
-  list('$and'= list(list('loc'='Ni'),list('sec'='B5')))
-)
-)
-cursor = mongo.find(conn, 'OBdata.OBsetup', query=q1)
-
-ids = list()
-i=1
-while (mongo.cursor.next(cursor)) {
-  OBsetup = mongo.cursor.value(cursor)
-  OBsetup_id <- mongo.bson.value(OBsetup, "_id")
-  ids[[i]] =list('OBsetup_id'= OBsetup_id)
-  i=i+1
-  # make it a dataframe
-}
-
-#load Roughness Data
-R_fromdb = function(cursor,conn,Rvar,OBsetupVar){
-  # return df of a given roughness in long format
-  df_R=data.frame()
-  i = 1
-  while(mongo.cursor.next(cursor)){
-    rR = mongo.cursor.value(cursor)
-    ##
-    rR_id <- mongo.bson.value(rR, "OBsetup_id")
-    OBsetup = mongo.find.one(conn, 'OBdata.OBsetup', query = list('_id'= rR_id) )
-    ##
-    df1 <- data.frame(lapply(OBsetupVar, function(x) mongo.bson.value(OBsetup, x)))
-    df1$r_id = i
-    ##
-    df2 <- data.frame(
-      lapply(Rvar, function(x){
-        if(!is.null(mongo.bson.value(rR, x))){
-          return(mongo.bson.value(rR, x))
-        }else{
-          return(1)
-        }
-      }
-      )
-    )
-    df_R = rbind(df_R,cbind(df1,df2))
-    i=i+1
-  }
-  # reorder sections
-  df_R$sec = factor(as.character(df_R$sec),levels = c("B2","B3","B4","B5"))
-  df_R$Author = factor(as.character(df_R$Author),levels = c("MBBM","ACCON"))
-
-  return(df_R)
-}
-OBsetupVar = list(loc='loc',sec='sec',damp='damp')
-
-Rvar =list(
-  Author = 'Author',
-  kampagne='kampagne_n',
-  messdatum='measurementDate',
-  rail='rail',
-  wl='roughness.wavelength',
-  R='roughness.value')
-
-
-#select R ids to load
-cursor =mongo.find(conn, 'OBdata.railRoughness', query = list("$or"=ids) )
-#
-df_R = R_fromdb(cursor,conn, Rvar,OBsetupVar)
-######################################################
-# uniform wl da ACCON and MBBM have different rounding
-wlMBBM = sort(as.numeric(levels(factor(df_R$wl[df_R$Author=='MBBM']))))
-
-df_R$wl = sapply(df_R$wl, function(x){
-  y=abs(x-wlMBBM)
-  return(wlMBBM[y==min(y)])}
-  )
 ```
 
 ## Schienenrauheit (SR) in Niederwangen
+
 ```{r}
 schleifVorgang = ISOdate(2013, 11, 1)
-Messungen = df_R%>%group_by(Author,kampagne,messdatum)%>%summarize(Messdatum = strftime(messdatum[1], '%B-%Y') )
+Messungen = SRni%>%group_by(Author,kampagne,messdatum)%>%summarize(Messdatum = strftime(messdatum[1], '%B-%Y') )
 colnames(Messungen)[c(1,2)] = c('Messbüro', 'Messkampagne')
 ```
 
@@ -145,10 +54,10 @@ kable(Messungen[,c(1,2,4)])
 ### Darstellung der gemessenen SR Spektren
 
 ```{r out.width=1000}
-df_R = df_R %>%  mutate(months = as.numeric(difftime( messdatum,schleifVorgang, units = "days"))/30)
+SRni = SRni %>%  mutate(months = as.numeric(difftime( messdatum,schleifVorgang, units = "days"))/30)
 
 RauheitsPlot()+
-  geom_line(data= df_R ,
+  geom_line(data= SRni ,
             aes(x=wl,y=R, group = r_id,colour = months , linetype = Author),
             size = 1,alpha = 0.7)+
   facet_wrap(~sec,ncol = 2)+
@@ -206,33 +115,33 @@ Mehrere SR Spektren können in einem einzelen gemittelte Spektrum zusammengefass
 In den nächsten Bild ist den Beispiel für den fall a.
 
 ```{r,out.width=1000}
-df_R_filt= droplevels(df_R %>% filter( Author == 'ACCON' | kampagne == 3|kampagne==4))
-av.a_df_R = df_R_filt %>%
+SRni_filt= droplevels(SRni %>% filter( Author == 'ACCON' | kampagne == 3|kampagne==4))
+av.a_SRni = SRni_filt %>%
   group_by(sec,wl)%>%
   summarize(fall='a', avR = 10*log10(sum(10^(R/10))/length(R)) )
 
 RauheitsPlot()+
-  geom_line(data=df_R_filt,
+  geom_line(data=SRni_filt,
             aes(x=wl,y=R, group = r_id, colour = months,linetype = Author ),
             size = 1.5,alpha = 0.8)+
-  geom_line(data = av.a_df_R,
+  geom_line(data = av.a_SRni,
           aes(x=wl,y=avR),
           size = 1.5,alpha = 0.8,colour = 'red')+
   facet_wrap(~sec,ncol = 2)
 
 # fall b
-df_R_filt= df_R %>% filter( kampagne == 3|kampagne==4)
-av.b_df_R = df_R_filt %>%
+SRni_filt= SRni %>% filter( kampagne == 3|kampagne==4)
+av.b_SRni = SRni_filt %>%
   group_by(sec,wl)%>%
   summarize(fall='b', avR = 10*log10(sum(10^(R/10))/length(R)) )
 # fall c
-df_R_filt= df_R %>% filter( kampagne==4)
-av.c_df_R = df_R_filt %>%
+SRni_filt= SRni %>% filter( kampagne==4)
+av.c_SRni = SRni_filt %>%
   group_by(sec,wl)%>%
   summarize(fall='c', avR = 10*log10(sum(10^(R/10))/length(R)) )
 # rbind
-av_df_R=rbind(av.a_df_R,av.b_df_R,av.c_df_R)
-rm(av.a_df_R,av.b_df_R,av.c_df_R,df_R_filt)
+av_SRni=rbind(av.a_SRni,av.b_SRni,av.c_SRni)
+rm(av.a_SRni,av.b_SRni,av.c_SRni,SRni_filt)
 ```
 
 ####  Representative SR im Vergleich
@@ -241,11 +150,11 @@ Im nächsten bild ist den vergleich für die drei Fälle der representative SR z
 
 ```{r out.width=600 ,fig.width=7,fig.height=6}
 RauheitsPlot()+
-  geom_line(data = av_df_R,
+  geom_line(data = av_SRni,
           aes(x=wl,y=avR,  colour = sec,shape = fall),
           size = 1,alpha = 0.7)+
 scale_colour_discrete(name = 'Abschnitt')+
-geom_point(data = av_df_R,
+geom_point(data = av_SRni,
           aes(x=wl,y=avR,  colour = sec, shape = fall),size = 3,alpha = 0.8)+
   scale_shape_discrete(name = '')
 ```
@@ -280,7 +189,7 @@ Rf <- function(R,wl,f,v){
 
 R_korr<- function(wl,R,f,v,fall){
   # ref
-  df = av_df_R
+  df = av_SRni
   Rref = df$avR[df$sec == 'B5'& df$fall == fall]
   wlRef = df$wl[df$sec == 'B5'& df$fall == fall]
   print(any(abs(wl-wlRef)> 0.01))
@@ -288,14 +197,14 @@ R_korr<- function(wl,R,f,v,fall){
 }
 
 Spect_korr = function(v,freq){
-  df = av_df_R %>% filter(sec!='B5')
+  df = av_SRni %>% filter(sec!='B5')
   df = df%>%group_by(sec,fall)%>%
   do(data.frame(sec = .$sec[1],fall = .$fall[1],v=v, freq =freq, K= R_korr(.$wl,.$avR,freq, v,.$fall[1])))
   return(df)
 }
-save(list=c('Rf','Spect_korr','R_korr','av_df_R'),
-     file = 'Rauheit_korrektur.Rdata'
-     )
+# save(list=c('Rf','Spect_korr','R_korr','av_SRni'),
+#      file = 'Rauheit_korrektur.Rdata'
+#     )
 
 ##Example
 v = 130
