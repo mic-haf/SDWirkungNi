@@ -30,7 +30,7 @@ conn <- mongo.create(host=host , db=db)#, username=username, password=password)
 
 # Daten in DSPResults.json Importieren und verarbeiten
 # Die .json Daten werden in einer R `data.frame` umgewandelt so dass gewisse Operationen (Darstellung, #Gruppierungen,...) einfacher werden.
-DSPResults = fromJSON("DSPResults.json")
+DSPResults = fromJSON("DSP/results.json")
 
 FREQ = c(100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000,
          1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000)

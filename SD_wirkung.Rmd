@@ -1,18 +1,28 @@
-
 ---
+title: "Dämpferwirkung"
 output:
   html_document:
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 10
+    highlight: textmate
     includes:
-      before_body: header.html
+      before_body: includes/header.html
     self_contained: yes
     theme: united
-    highlight: textmate
-    fig_caption: yes
     toc: yes
-title: "Dämpferwirkung"
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 9
+params:
+  local: TRUE
+  word: FALSE
 ---
 
 ```{r setup, include = FALSE}
+word = params$word
+
 library(knitr)
 opts_chunk$set(
   message = FALSE, 
@@ -27,10 +37,7 @@ library(tidyr)
 source('ggplot_templates.R')
 load('auswertungData.Rdata')
 ```
-
-## Schalldruckpegel Differenzen mit Referenzabschnitt
-
-In Dieser Abschnitt werden die Differenzen der Spektren bzw. Levels zwischen  Referenzabschnitt und Dämpferabschnitt untersucht. Ziel ist die dämpferwirkung Abzuschätzen.
+Die Dämpferwirkung lässt sich durch die Differenzen der Spektren bzw. Levels zwischen  Referenzabschnitt und Dämpferabschnitt abschätzen. 
 
 **Eine positive Differenz deutet auf eine positive Wirkung der Dämpfern*
 
@@ -60,7 +67,7 @@ diffDf = spectDf %>% group_by(passby, band, interval) %>% do(difference(.))
 Die Differenzen von auswertungsintervall `full` sind für alle Abschnitte vorhanden und werden hier gezeigt
 
 #### Spektral
-```{r, fig.width = 14, fig.height=11, out.width='1000px'}
+```{r fig.height=9}
 X =  diffDf%>%filter(band!='tot' & interval.kat == 'full' )
 X$band = as.numeric(X$band)
 SpectPlot(FREQ)+ 
@@ -75,8 +82,9 @@ facet_wrap(~ A ,ncol=2,scales = 'free_x')
 ```
 
 #### Levels
+aaa
 
-```{r  fig.width = 7, fig.height=5, out.width='500px'}
+```{r  fig.width = 7, fig.height=4}
 ggplot(data = diffDf%>%filter(band=='tot'& var == 'leq' & interval.kat == 'full'  ),
        aes(x = Zugstyp, y = level,  color = Zugstyp))+ 
   geom_boxplot(alpha = 0.7)+
@@ -95,7 +103,7 @@ Für den Abschnitt B2 ist es zusätzlich möglich die Differenzen je Auswertungs
 #### Spektral
 
 ##### IC Züghe
-```{r fig.width = 14, fig.height=10, out.width='1000px'}
+```{r fig.width=5}
 
 X = diffDf%>%filter(band!='tot'&  (interval.kat == 'Wagen')& A=='B2' & Zugstyp =='IC' )
 SpectPlot(FREQ)+
@@ -107,12 +115,12 @@ SpectPlot(FREQ)+
   geom_hline(yintercept=0,size = 1,alpha=0.6)+
   scale_y_continuous(breaks=-10:10,lim = c(-8,8))+
   ylab('Spektrum, dBA')+
-facet_grid( ~ Zugstyp*interval.kat, scales = 'free_x')
+facet_grid( ~ interval.kat, scales = 'free_x')
 ```
 
 ##### Regio
 
-```{r fig.width = 14, fig.height=10, out.width='1000px'}
+```{r}
 X = diffDf%>%filter(band!='tot'&  (interval.kat != 'full')& A=='B2' & Zugstyp =='Regio' )
 SpectPlot(FREQ)+
   geom_line(X,
@@ -123,13 +131,13 @@ SpectPlot(FREQ)+
   geom_hline(yintercept=0,size = 1,alpha=0.6)+
   scale_y_continuous(breaks=-10:10,lim = c(-8,8))+
   ylab('Spektrum, dBA')+
-facet_grid( ~ Zugstyp*interval.kat, scales = 'free_x')
+facet_grid( ~ interval.kat, scales = 'free_x')
 ```
 
 
 #### Levels
 
-```{r, fig.width = 7, fig.height=5, out.width='500px'}
+```{r, fig.width = 5, fig.height=4}
 ggplot(data = diffDf%>%
          filter(band=='tot'&  (interval.kat != 'full')& A=='B2' ),
        aes(x = Zugstyp, y = level,  color = Zugstyp))+ 
@@ -138,7 +146,7 @@ ggplot(data = diffDf%>%
   geom_hline(yintercept=0,size = 1,alpha=0.6)+
   scale_y_continuous(breaks=-5:5)+
   ylab('Level dBA')+
-facet_grid( .~ A*interval.kat )+ theme_bw()+ theme(legend.position="bottom")
+facet_grid( .~ interval.kat )+ theme_bw()+ theme(legend.position="bottom")
 ```
 
 ###  Gemessne Wirkung  von Schinendämpfer in dBA
@@ -168,28 +176,33 @@ colnames(table)[c(1,3)]= c('Absch.','Drehgestell')
 table$Zugstyp = as.factor(table$Zugstyp)
 table$Drehgestell = as.factor(table$Drehgestell)
 
-datatable(table, filter = 'top', rownames = FALSE, options = list(pageLength = nrow(table), dom = 'tip'))
-
+if(word){
+  kable(table)
+}else{
+  datatable(table, filter = 'top', rownames = FALSE, options = list(pageLength = nrow(table), dom = 'tip',paging = FALSE))
+}
 ```
 
 #####  Wirkung nach Dämpfertyp und Zugstyp
  Berechung für jede Kombination aus Dämpfertyp(Abschnitt) und  Zugstyp
  
 ```{r}
-
-
 table = diffDf %>%filter(band == 'tot')%>%
   group_by(A,Zugstyp)%>%
   summarise(av=round(mean(level),1),
-            median = round(median(level),1),
-            quantile25=round(quantile(level,0.25),1),
-            quantile75 =round(quantile(level,0.75),1),
+            me = round(median(level),1),
+            Q25=round(quantile(level,0.25),1),
+           Q75 =round(quantile(level,0.75),1),
             sd = round(sd(level),1)
             )
 
 colnames(table)[c(1)]= c('Absch.')
 table$Zugstyp = as.factor(table$Zugstyp)
 
-datatable(table, filter = 'top',rownames = FALSE,options = list(pageLength = nrow(table), dom = 'tip'))
+if(word){
+  kable(table)
+}else{
+  datatable(table, filter = 'top', rownames = FALSE, options = list(pageLength = nrow(table), dom = 'tip',paging = FALSE))
+}
 
 ```

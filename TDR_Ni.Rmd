@@ -2,13 +2,19 @@
 title: "Gemessene Track decay Rates"
 output:
   html_document:
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 10
+    highlight: textmate
     includes:
-      before_body: header.html
+      before_body: includes/header.html
     self_contained: yes
     theme: united
-    highlight: textmate
-    fig_caption: yes
     toc: yes
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 9
 ---
 ```{r setup, include = FALSE}
 library(knitr)
@@ -38,9 +44,10 @@ MBBM hat imlaufe der 4 Jahren 4 TDR messungen auf alle abschnitten durchgeführt
 - Niederwangen ist einen standort mit Beton Schwellen B90 und harte Zwischenlage. Den standort zeigte höhe TDR Werte und war in der entsprechende FX gruppe Zugeordnet
 - Aufgrund die höghe TDR ist eine kleine wirkung von schienedämpfern erwartet
 
+
 #### S&V
 
-```{r,out.width='1000px'}
+```{r}
 TDRplot(c('v','h'))+
 geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B3'& sec!='B4'),
           aes(x = freq, y=tdr, group= tdr_id, color= dampType, linetype = sec),
@@ -51,9 +58,16 @@ geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B3'& sec!='B4
          )
 ```
 
-#### strail
+**Diskussion:**
 
-```{r,out.width='1000px'}
+- ...
+
+
+
+#### Strail
+
+
+```{r}
 TDRplot(c('v','h'))+
 geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B3'& sec!='B2'),
           aes(x = freq, y=tdr, group= tdr_id, color= dampType, linetype = sec),
@@ -65,9 +79,14 @@ geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B3'& sec!='B2
 
 ```
 
+**Diskussion:**
+
+- ...
+
+
 #### Vossloh
 
-```{r,out.width='1000px'}
+```{r}
 TDRplot(c('v','h'))+
 geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B2'& sec!='B4'),
           aes(x = freq, y=tdr, group= tdr_id, color= dampType, linetype = sec),
@@ -78,11 +97,13 @@ geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B2'& sec!='B4
          )
 
 ```
+**Diskussion:**
 
+- ...
 
 #### Vergleich S&V vs. Strail vs. Vossloh
 
-```{r, out.width='1000px'}
+```{r }
 TDRplot(c('v','h'))+
 geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& damp == TRUE),
           aes(x = freq, y=tdr, group= tdr_id, color =dampType),
@@ -90,4 +111,7 @@ geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& damp == TRUE),
   facet_grid(damp ~ dir )+
     scale_color_discrete(guide=guide_legend(title = 'Schienendämpfer'))
 ```
- Erwartete werte
+ 
+**Diskussion:**
+
+- Erwartete werte

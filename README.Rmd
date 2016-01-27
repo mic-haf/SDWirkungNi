@@ -1,46 +1,39 @@
 ---
-params:
-  local: !r TRUE
 output:
   html_document:
+    highlight: textmate
+    includes:
+      before_body: includes/title.html
     self_contained: yes
     theme: united
-    highlight: textmate
-    fig_caption: yes
-    toc: no
+    toc: yes
   md_document:
+    includes:
+      before_body: includes/title.html
     toc: no
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 9
+params:
+  local: TRUE
+  word: FALSE
+  
 ---
 ```{r echo = F}
 git_commit = "e-sr/SDWirkungNi/blob/master/"
 if(params$local){
   html_render = ""
-  ipynb_render="http://localhost:8888/notebooks/SDWirkungNi/"
+  ipynb_render="http://localhost:8888/notebooks/SDWirkungNi/DSP/"
 }else{
   #html_render = paste("https://cdn.rawgit.com/", git_commit,sep = "")
-  html_render = "https://rawgit.com/e-sr/SDWirkungNi/master/"
-  ipynb_render = "http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/"
+  html_render = "https://rawgit.com/e-sr/SDWirkungNi/master/html/"
+  ipynb_render = "http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/DSP/"
 }
 
 dw_path = "https://github.com/e-sr/SDWirkungNi/raw/master/"
 repo_path = "https://github.com/e-sr/SDWirkungNi/"
 ```
-
-\
-<img src="Sbb-logo.png" width="200">
-
-----
-
-## Erprobung Schienedämpfern 
-# Akustische Messung Niederwangen 
-
-
-#### Januar 2016
-
-##### Authoren: Enzo Scossa-Romano und Jakob Oertli
-
-##### Abteilung: I-AT-IU-UEW-LR
-
 ----
 
 ## Einleitung 
@@ -99,20 +92,11 @@ MBBM hat im Auftrag von SBB die TDR für alle Abschnitte mehrmals gemessen(vor u
 
 SR-Spektren sind durch die firma MBBM für alle Abschnitte mehrmals gemessen nach einem schleifvorgang. Die detallierte Berichte sowohl die Daten der Messungen sind vorhanden aber nicht in diesem repo verfügbar. Die daten werden von einer lokale Datenbank abgerufen.
 
-### Berichtstruktur
 
-Diesem Bericht besteht aus mehrere Teildokumente welche in einem git [repo](`r  repo_path`) (hosted auf github) abgelegt sind.
-Die Dokumente welche den Bericht zusammenstallen sind so aufgebaut dass Reproduzierbarkeit im Vordergrund steht, d.h Scripts und Daten (sofern möglich) auf welche die teildokumente basieren sind auch im repo zu finden.
-
-Für die Teildokumente wurden folgende programme/frameworks verwendet:
-  
-- python: python ist eine Programmiersprache scriptssprache welche in verschieden Kontexte verwendet wird, unter anderem für wissenschaftliche Programmierung. Die `jupyter Notebook` (.ipynb) ermöglichen die die Integration von  Berichterstattung und python Code (Auswertung) in einem einzigen Dokument. Für akustischen Auswertungen wurde speziell den Modul `python-acoustics` verwendet.
-
-- R: R ist eine Scriptssprache mit Schwerpunkt in Statistische Berechnungen. Um Integration von Bericht und Auswertungen zu ermöglichen sind die Dokumente in .Rmd Format Aufgebaut (ich Empfehle R im Verbindung mit Rstudio zu verwenden).
 
 ----
 
-## Auswertung
+## Auswertung Aufbau
 
 Die Auswertung besteht haupsächlich aus 2 Teilen 
 
@@ -123,15 +107,15 @@ Die Auswertung besteht haupsächlich aus 2 Teilen
 
 ### Postprocessing von Mikrophon signalen
 
-Dias postprocessing der Mikrophonsignale liefert **Terzspektren und Gesamtpegel** des Schalldruck fur jede Vorbeifahrt([Details](`r paste( ipynb_render, "SpektrenBerechnen.ipynb", sep = "") `). 
+Das postprocessing der Mikrophonsignale liefert **Terzspektren und Gesamtpegel** des Schalldruck fur jede Vorbeifahrt
 
-Terzspektren aus den gesamte Signal oder auch Gesamtzug berechnet  werden mit `full` bezeichnete.
+Terzspektren aus den gesamte Signal oder auch Gesamtzug berechnet  werden mit `full` bezeichnet.
 
 Für deie Abschnitte B5 und B2 würden zusätzlich die Spektren Wagenbezogen berechnet.Von wagenmitte der n-te Wagen bis zur Wagenmitte der n+1 Wagen. Diese Spektren werden mit den entsprechende Zahl `n` Bezeichnet. Das war möglich da für diese Abschnitten Lichtschrankensignalen vorhanden sind.
 
-Zusätzliche Informationene  wurden zu jede Vorbeifahrt mithilfe von LS Signalen ([Details](`r paste( ipynb_render, "AnalyseLS.ipynb", sep = "") `)  gewonnen:
+Zusätzliche Informationene  wurden zu jede Vorbeifahrt mithilfe von LS Signalen gewonnen:
 
-- __Zugsgeschwindigkeit__ Nur Vorbeifahrten mit aänliche Geschwindigkeit auf alle Abschnitte wurden 
+- __Zugsgeschwindigkeit__ Nur Vorbeifahrten mit änliche Geschwindigkeit auf alle Abschnitte wurden 
 
 - __Intevallbezeichnung__ Die Intervalle mit `n` bezeicnet (nicht Gesamtzug) können `Trieb` sowohl `Wagen` Drehgestelle enthalten. Um Intervalle aus ähnlichen Drehgestelle zu vergleichen, müssen die Intervalle jede Vorbeifahrt in `Wagen` , `Trieb/Wagen` oder `Gesamtzug (full)` kategorisiert werden.
 
@@ -140,18 +124,31 @@ Zusätzliche Informationene  wurden zu jede Vorbeifahrt mithilfe von LS Signalen
     1. Regiozugen; wahrschein lich handelt sich um einen Domino (Triebwagen-Inowa-Steuerwagen) in doppelte Komposition. Triebdrehgestelle mit einen Abstand von 2.7m ergeben konsistente werte
     2. IC Zügen; diese Zügen  bestehen aus (EWIV, IC2000, Steuerwagen und Re460). Der Anzahl wagen ist variabel.
     
-Im [Anhanag](#Anhang) sind die Postprocessing dokumente Aufgelistet
+Im [Anhanag](#Anhang) sind die links Scripts/Dokumente der Postprocessing aufgelistet
     
-### Postprocessing von Mikrophon signalen
+### Vergleich von Spektren TDR und SR
 
-#### [Spektren von Vorbeifahrten](`r paste( html_render, "Vorbeifahrten.html", sep = "") `)
+```{r, echo=FALSE, warning=FALSE, results ='hide'}
+word = params$word
+if(word){
+  Vorbeifahrten = knitr::knit_child("Vorbeifahrten.Rmd")
+  TDR = knitr::knit_child("TDR_ni.Rmd")
+  #SR = knitr::knit_child("SR_ni.Rmd")
+}
 
-#### [Abschätzen der Wirkung von Schienendämpfer](`r paste( html_render, "SD_wirkung.html", sep = "") `)
+```
 
-#### [Schienenrauheiten in Niederwangen](`r paste( html_render, "SR_Ni.html", sep = "") `)
+- [Spektren von Vorbeifahrten](`r if(!word){paste( html_render, "Vorbeifahrten.html", sep = "")} `)
 
-#### [TDR in Niederwangen](`r paste( html_render, "TDR_Ni.html", sep = "") `)
+- [Abschätzen der Wirkung von Schienendämpfer](`r paste( html_render, "SD_wirkung.html", sep = "") `)
 
+- [Schienenrauheiten in Niederwangen](`r paste( html_render, "SR_Ni.html", sep = "") `)
+
+- [TDR in Niederwangen](`r paste( html_render, "TDR_Ni.html", sep = "") `)
+
+
+`r if(word){paste("## Spektren von Vorbeifahrten\n", Vorbeifahrten)}`
+`r if(word){paste("## TDR\n", TDR)}`
 ----
 
 ## Fazit
@@ -161,40 +158,50 @@ Im [Anhanag](#Anhang) sind die Postprocessing dokumente Aufgelistet
 - die berechnete werte könnten somit zufall sein
 - ruhait korrektur nich möglich sihe rauheit 
 
-----
-
-## TODO
-- capitoli
-- fazit
-- 
-- Controllare un po tutto
-- Link
-- README
-
 -----
 
 ## Anhang
 
+### Berichtstruktur
+
+Diesem Bericht besteht aus mehrere Teildokumente welche in einem [git repo](`r  repo_path`) (hosted auf GitHub.com) abgelegt sind.
+Die Dokumente welche den Bericht zusammenstallen sind so aufgebaut dass Reproduzierbarkeit im Vordergrund steht, d.h Scripts und Daten (sofern möglich) auf welche die teildokumente basieren sind auch im repo zu finden.
+
+Für die Teildokumente wurden folgende programme/frameworks verwendet:
+  
+- python: [python](https://de.wikipedia.org/wiki/Python_(Programmiersprache)) ist eine Programmiersprache scriptssprache welche in verschieden Kontexte verwendet wird, unter anderem für wissenschaftliche Programmierung. Die [ipython/jupyter Notebook](http://ipython.org/) (.ipynb) ermöglichen dieIntegration von  Berichterstattung und python Code (Auswertung) in einem einzigen Dokument. Für das postprocessing der Zeitsignalen wurde speziell den Modul [python-acoustics](https://github.com/python-acoustics/python-acoustics) verwendet.
+
+- R: [R](https://www.r-project.org/) ist eine Scriptssprache mit Schwerpunkt in Statistische Berechnungen. Um Integration von Bericht und Auswertungen zu ermöglichen sind die Dokumente in .Rmd Format Aufgebaut (ich Empfehle R im Verbindung mit [Rstudio](https://www.rstudio.com/) zu verwenden).
+
 ### Postprocessing der Zeitsignalen
 
-Aus die gelieferte Zeisignalen müssen Akustischen kenngrössen berechnet werden um die SD wirkung zu beurteilen. verarbeitet werden um die  sind der mikrophone
+Aus den Zeisignalen müssen Akustischen kenngrössen berechnet werden. Das wurde mithilfe folgende Dokumente/Scripts  erreicht:
 
-- [Erste Darstellungen von Zeitsignalen der Mikrophone](`r paste( ipynb_render, "darstellungMicSignale.ipynb", sep = "") `)
-
-- [Auswertung der Lichtschrankensignalen](`r paste( ipynb_render, "analyseLS.ipynb", sep = "") `)
+- [Darstellungen der Zeitsignalen der Mikrophone](`r paste( ipynb_render, "darstellungMicSignale.ipynb", sep = "") `)
+  
+- [Auswertung der Lichtschrankensignalen](`r paste( ipynb_render, "auswertungLS.ipynb", sep = "") `)
 
 - [Spektren Berechnen](`r paste( ipynb_render, "SpektrenBerechnen.ipynb", sep = "") `)
 
 - [Auswertung alle Vorbeifahrten](`r paste( ipynb_render,"DSPAuswertung.ipynb", sep = "") `)
 
-Den outpout der DSP  wird in den Datensatz [DSPResults.json](DSPResults.json) gespeichert um dann in R verwendet zu werden.
+Den outpout der DSP  wird in den Datensatz [results.json](DSP/results.json) gespeichert und wird dann weiter in R verwendet.
+Die Dokumente/Scripts sind in ordner `DSP/` abgelegt. Es ist nicht möglich die DSP Auswertungen zu reproduzieren da die Zeitsignalen im GitHub repo nicht abgelegt sind. (Ordner zu gross). 
 
-### Daten
+### R Auswetungen
 
-Im folgende die links zur benützte daten in diesem Bericht
+Die R Auswertungen (basierend auf `.Rmd` Dokumente/Scripts) sind komplett reproduzierbar bis auf den Script `datenVorbereiten.R` welches den Datensatz [auswertungData.Rdata](auswertungData.Rdata) aus den file `DSP/results.json` und einer lokale Datenbänk zusammenstellt. 
 
-- [MBBM gemessene TDR]()
-- [DSP results]()
-- [Schienenrauheiten in niederwangen]()
+`auswertungData.Rdata` enthät folgende Datensätze (Tabellen):
+
+- Spektern der Vorbeifahrten, `spectWideDF`
+- TDR, `TDRniWide`
+- SR, `SRniWide`
+
+### Word Output
+
+Den Bericht wird auch als Word Dokument ([runterladen](dw/SDWirkungNiederwangen.docx)) Versuchsweise herstellt. Den Dokument ist Inhaltlich komplett jedoch nicht in seiner Form.
+
+
 
 
