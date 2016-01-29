@@ -66,16 +66,16 @@ ggplot(X) +
 
 ----
 
-In diesem Auswertung-teil werden Schallpegel und Spektren der Vorbeifahrten  für die folgende Punkte:
+In diesem Teil der Auswertung werden Schallpegel und Spektren der Vorbeifahrten auf die folgende Punkte hin untersucht:
 
 - Tonale Charakteristik von Vorbeifahrten
 
 - Die Streuung von Schallpegeln bzw. Spektren für folgende Gruppen:
 
-    - innerhalb die gleichen Vorbeifahrt, indem unterschiedliche Wagen gleichen Wagentyp verglichen werden
-    - innerhalb verschiedene Vorbeifahrt der gleiche Zugs bzw. Geschwindigkeit Kategorie
+    - innerhalb der gleichen Vorbeifahrt, indem unterschiedliche Wagen des gleichen Wagentyps verglichen werden
+    - innerhalb verschiedener Vorbeifahrten der gleichen Züge bzw. Geschwindigkeit und Kategorie
 
-Es muss beachtet werden dass die Mikrophone auf eine total reflektierende Fläche montiert wurden. Der Abstand dieser Fläche aus Gleismitte war nur 2.5m. Als folge sind viel höhere Schallpegeln erwartet im vergleich zur gewöhnlichen Vorbeifahrtmessungen (Details im EMPA Bericht).
+Es muss beachtet werden, dass die Mikrophone auf eine total reflektierende Fläche montiert wurden. Der Abstand dieser Fläche von der Gleismitte war nur 2.5m. Als Folge werden deutlich höhere Schallpegel im Vergleich zur gewöhnlichen Vorbeifahrtmessungen erwartet (Details im EMPA Bericht).
 
 
 ```{r }
@@ -92,9 +92,9 @@ spectDf = spectDf %>%filter(band != "100" & band !="125")
 
 ----
 
-### Schallpegeln und Spektren alle Abschnitte im Vergleich
+### Schallpegel und Spektren aller Abschnitte im Vergleich
 
-Die Spektren berechnet aus Intervalle `full`  werden hier gezeigt. Da für die Abschnitte B3 und B4 keine LS eingesetzt wurde ist es nicht möglich Wagen bezogene Spektren zu Vergleichen.  IC Vorbeifahrt  10, 13 und 8 und Regio Vorbeifahrt 6 sind nicht dargestellt wegen die zu kleine Geschwindigkeit. Alle andere Vorbeifahrten hatten eine Geschwindigkeit von ungefähr 140 km/h 
+Die Spektren berechnet aus Intervallen `full` werden hier gezeigt. Da für die Abschnitte B3 und B4 keine LS eingesetzt wurde, ist es nicht möglich Wagen bezogene Spektren zu vergleichen.  IC Vorbeifahrt  10, 13 und 8 und Regio Vorbeifahrt 6 sind wegen zu kleiner Geschwindigkeit nicht dargestellt. Alle anderen Vorbeifahrten hatten eine Geschwindigkeit von ungefähr 140 km/h. 
 
 ```{r  fig.height=9}
 SpectPlot(FREQ) + 
@@ -111,13 +111,13 @@ SpectPlot(FREQ) +
 <!--
 ## Leq vs. Geschwindigkeit für  IC Züghe
 
-Für IC Züghe sind genügende Schallpegel berechnetworden um sinnvoll eine  regression der Level Gegnüber die geschwindigkeit darzustellen. Die Frage die man beantworten will ist :
+Für IC Züge sind genügend Schallpegel bei unterschiedlichen Geschwindigkeiten berechnet worden, um sinnvoll eine Regression der Level gegenüber der Geschwindigkeit darzustellen. Die Frage die man beantworten will ist :
 
-`Ist die Variabilität erklart aus die Geschwindigkeitunterschiede?`
+`Kann die Variabilität durch die Geschwindigkeitunterschiede erklärt werden?`
 
-Die Antwort ist`nein` und war  schon in Früheren Abbildungen zu raten. Die nächste Graphik, wo Leq Werte gegen die Geschwindigkeit dargestellt werden, versucht die Frage genauer zu bentworten.
+Die Antwort ist `nein` und war schon in früheren Abbildungen zu erraten. Die nächste Graphik, in der Leq Werte gegen die Geschwindigkeit dargestellt werden, versucht die Frage genauer zu beantworten.
 
-Man erwartet zunehmender Leq mit zunehmender Geschwindigkeit ($leq \propto log_{10}v$).
+Man erwartet zunehmende Leq mit zunehmender Geschwindigkeit ($leq \propto log_{10}v$).
 -->
 
 ```{r eval = FALSE,fig.height=9}
@@ -134,19 +134,19 @@ ggplot(droplevels(spectDf%>%filter(!is.na(v)& band=='tot'& Zugstyp == 'IC')),
 ```
   **Diskussion**:
   
-  - Die  IC Spektren weisen ein sehr hohen tonales Anteil bei 2000 Hz auf. Eine mögliche Erklärung ist der höhe Rauheitwert bei 2cm Wellenlänge welche umgewandelt in Frequenz (für 140 km/h) entspricht `r v= 140/3.6; round(v/0.02,-1) ` \, Hz.
+  - Die  IC Spektren weisen einen sehr hohen tonalen Anteil bei 2000 Hz auf. Eine mögliche Erklärung ist der hohe Rauheitswert bei 2cm Wellenlänge, welcher bei 140 km/h einer Frequenz von `r v= 140/3.6; round(v/0.02,-1) ` \, Hz entspricht.
   
-   - Die  Regio Spektren weisen diesem tonales Anteil nicht. Wir Untersuchen diese in einem weiteren Abschnitt
+   - Die Regio Spektren weisen diesen tonalen Anteil nicht auf. Den Grund dafür untersuchen wir in einem Abschnitt weiter unten.
   
-  -  Die Variabilität zwischen unterschiedliche IC Züge ist gross. Diese Beobachtung wird in übernächsten Abschnitt weiter untersucht. Den geringe Anzahl Regio Züge ermöglicht keine Aussagen über Variabilität. 
+  -  Die Variabilität zwischen unterschiedlichen IC Zügen ist gross. Diese Beobachtung wird im übernächsten Abschnitt weiter untersucht. Die geringe Anzahl Regio Züge ermöglicht keine Aussagen über Variabilität innerhalb dieser Gruppe. 
 
 ----
 
-###  Wagenbezogenen Schallpegeln von IC wagen in Vergleich
+###  Wagenbezogene Schallpegel von IC Wagen im Vergleich
 
-Für diese Abschnitte sind Schallpegeln und Spektren Wagen bezogen berechnet worden. Es ist somit möglich Schallpegeln und Spektren einzelne Wagen auf unterschiedliche Abschnitte Zu Vergleichen. Vorbeifahrt  10, 13 und 8 sind nicht dargestellt wegen die zu kleine Geschwindigkeit. Alle andere Vorbeifahrt hatten eine Geschwindigkeit von ungefähr 140 km/h 
+Für diese Fragestellung sind Schallpegel und Spektren Wagen bezogen berechnet worden. Es ist somit möglich, Schallpegel und Spektren einzelner Wagen auf unterschiedlichen Abschnitten zu vergleichen. Vorbeifahrt  10, 13 und 8 sind wegen zu kleiner Geschwindigkeit nicht dargestellt. Alle anderen Vorbeifahrten hatten eine Geschwindigkeit von ungefähr 140 km/h.
 
-Es werden nur Schallpegeln und Spektren von  *IC Züge*,  Wagentyp `Wagen`, für die Diskussion Verwendet. Schallpegel von Regio Züge für Intervalle der Kategorie `Wagen` und `Trieb/Wagen` sind nicht angezeigt da diese Züge nur aus 6 Wagen bestehen, davon 2 mit Triebfahrzeuge und deshalb hat man innerhalb ein einziges Zug nur wenige Wagen bezogene Spektren der gleichen Wagentyp zu Vergleichen. 
+Es werden nur Schallpegel und Spektren von  *IC Züge* und Wagentyp `Wagen` für die Diskussion verwendet. Schallpegel von Regio Zügen für Intervalle der Kategorie `Wagen` und `Trieb/Wagen` sind nicht dargestellt, da diese Züge nur aus 6 Wagen bestehen, wovon 2 Triebfahrzeuge sind. Deshalb hat man innerhalb eines einzigen Zugs nur wenige Wagen bezogene Spektren des gleichen Wagentyps, welche verglichen werden könnten. 
 
 
 ```{r }
@@ -166,16 +166,16 @@ ggplot(droplevels(spectDf%>%
 
   **Diskussion**:
   
-  - Die Streuung ist viel grösser als erwartet. Zwischen  Wagen der gleiche Vorbeifahrt sind Variationen bis 5 dBA zu sehen
-  - Die Streuung zwischen Vorbeifahrt  sind bis zu 2-3dBA Unterschieden zu sehen.
-  - Die Variabilität der Wagen innerhalb ein einziges Zug ist Grösser als die Variabilität Zwischen  Vorbeifahrt. (Median Betrachtung)
-  - Die Variabilität innerhalb einer Vorbeifahrt ist nicht Konstant (und Konsistent) auf unterschiedliche Abschnitte. Damit ist es nicht möglich die Streuung aufgrund unterschiedlich Radrauheiten zu erklären.
+  - Die Streuung ist viel grösser als erwartet. Zwischen Wagen der gleichen Vorbeifahrt sind Unterschiede bis 5 dBA zu sehen.
+  - Die Streuung zwischen Vorbeifahrten beträgt bis zu 2-3dBA.
+  - Die Variabilität der Wagen innerhalb ein einziges Zug ist grösser als die Variabilität zwischen Vorbeifahrten. (Median Betrachtung)
+  - Die Variabilität innerhalb einer Vorbeifahrt ist nicht konstant (und konsistent) auf unterschiedlichen Abschnitten. Somit kann die Streuung nicht mit unterschiedlichen Radrauheiten erklärt werden.
 
 ----
 
-### Tonale Charkteristik von Vorbeifhahrten für Wagenbezogene Spktren
+### Tonale Charakteristik von Vorbeifahrten für Wagen bezogene Spektren
 
-Wir wollen die Tonalität Charakteristik der Vorbeifahrten weiter untersuchen. Verantwortlich diese Tonalität Erscheinung ist meistens den Effekt der Überlagerung von SR und Radrauheit. Hier wird es behauptet dass alleine die SR verantwortlich ist. Wir betrachten hier deswegen nur Wagen bezogene Spektren (Abschnitt B5 und B2) von  Wagentyp `wagen` (ohne Triebdrehgestelle). Grund dafür ist die höhe Radrauheit von Triebdrehgestelle.
+Wir wollen die Charakteristik der Tonalität bei den Vorbeifahrten weiter untersuchen. Verantwortlich für die erkennbare Tonalität ist meistens ein Effekt der Überlagerung von SR und Radrauheit. Vorliegend gehen wir davon aus, dass alleine die SR verantwortlich ist. Wir betrachten hier deswegen nur Wagen bezogene Spektren (Abschnitt B5 und B2) von  Wagentyp `wagen` (ohne Triebdrehgestelle). Grund dafür ist die höhere Radrauheit von Triebdrehgestellen.
 
 
 ```{r fig.height=9  }
@@ -194,11 +194,11 @@ SpectPlot(FREQ) +
 
   **Diskussion**:
   
-  - Alle Spektren weisen ein sehr hohen tonales Anteil bei 2000 Hz auf.
-  - Wagen bezogenen Spektren der Abschnitt B5  weisen ein höheres tonales Anteil bei 2000 Hz  gegenüber Spektren Von gesamten Zugdurchfahrten (Vergleiche Bild im Ersten Abschnitt)
-  - Die höhe Tonalität von Regio Wagen bei 2000 Hz ist ausgeprägt wie beim IC Wagen.
-  - Regio Züge sind lauter als IC Züge und haben eine grössere Streuung bei tiefe Frequenzen.
-  -  Die obere Punkten verstärken die Erklärung der Tonalität durch die höhe SR. Mann Kann behaupten dass diese SR (bei 2cm Wellenlänge) in ähnlichen mass auf beide Abschnitten Vorhanden ist 
+  - Alle Spektren weisen ein sehr hohen tonalen Anteil bei 2000 Hz auf.
+  - Wagen bezogenen Spektren der Abschnitt B5 weisen einen höheren tonalen Anteil bei 2000 Hz gegenüber Spektren von gesamten Zugdurchfahrten (vgl. Bild im ersten Abschnitt) auf.
+  - Die hohe Tonalität von Regio Wagen bei 2000 Hz ist gleich ausgeprägt wie beim IC Wagen.
+  - Regio Züge sind lauter als IC Züge und haben eine grössere Streuung bei tiefen Frequenzen.
+  -  Die oberen Punkten bestätigen die Erklärung der Tonalität durch die hohe SR. Mann kann schliessen, dass diese SR (bei 2cm Wellenlänge) in ähnlichen Mass auf beiden Abschnitten vorhanden ist. 
   
 Die Vorbeifahrt nummer 6 besteht aus einem Regio Zug welcher 100 km/h gefahren ist. Dieser Zug muss aufgrund der tiefe  Geschwindigkeit separat betrachtet werden. Im nächsten Bild sind die Spektren dieser Zug angezeigt.
 
@@ -221,15 +221,16 @@ SpectPlot(FREQ) +
   - Die Antrieb/Wagen Wagentyp haben kein tonales Anteil bei 1600Hz. Diese Wagentyp ist gleichzeitig viel lauter was auf einer dominante Radrauheit deutet.
   - Weiterhin  kann behauptet werden dass die SR (bei 2cm Wellenlänge) in ähnlichen mass auf beide Abschnitten Vorhanden ist.
 
+
 ----
 
-### Wichtige Erkentnisse
+### Wichtige Erkenntnisse
   
-> - Alle Spektren weisen ein sehr hohen tonales Anteil bei 2000 Hz auf. Grund dafürkönnte die hohe SR bei 2 cm Wellenlänghe sein. Man Kann behaupten dass die SR bei 2 cm Wellenlänghein ähnlichen mass auf alle Abschnitten Vorhanden ist. Vergleiche dazi die SR Messungen.
-  - Regio Züge sind lauter als IC Züge und haben eine grössere Streuung bei tiefe Frequenzen.
-  - Die Streuung von Schallpegel und Spekteren ist viel grösser als erwartet. Für IC Züge gilt: 
-    - Zwischen Wagen der gleiche Vorbeifahrt sind Variationen bis 5 dBA zu sehen.
-    - Die Variabilität innerhalb einer Vorbeifahrt ist nicht Konstant (und Konsistent) auf unterschiedliche Abschnitte.Damit ist es nicht möglich die Streuung aufgrund unterschiedlich Radrauheiten zu erklären
+> - Alle Spektren weisen einen sehr hohen tonalen Anteil bei 2000 Hz auf. Grund dafür könnte die hohe SR bei 2 cm Wellenlänge sein. Man kann daraus schliessen, dass die SR bei 2 cm Wellenlänge in ähnlichen Mass auf allen Abschnitten vorhanden ist. Vergleiche dazu die SR Messungen.
+  - Regio Züge sind lauter als IC Züge und haben eine grössere Streuung bei tiefen Frequenzen.
+  - Die Streuung von Schallpegel und Spektren ist viel grösser als erwartet. Für IC Züge gilt: 
+    - Zwischen Wagen der gleichen Vorbeifahrt sind Unterschiede bis 5 dBA zu sehen.
+    - Die Variabilität innerhalb einer Vorbeifahrt ist nicht konstant (und konsistent) auf unterschiedlichen Abschnitte. Somit kann die Streuung nicht mit unterschiedlichen Radrauheiten erklärt werden.
   
 ----
 
