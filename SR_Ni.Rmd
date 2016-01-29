@@ -244,14 +244,15 @@ SpectPlot(freqTDR)+
 - die unterschiedliche Fälle scheinen ein zufälliger verhalten zu haben
 
 - Aufgrund dieser Diskussion wird Verzichtet die Korrekturen Anzuwenden
+
 ----
 
 ### Wichtige Erkentnisse
 
-> - SR in Niederwangen haben eine Spitze beim 2cm Wellelänghe.
-> - Die Ausprägung der Spitze ist unterschiedlich von Abschnitt zu Abschnitt. Die zwei Messbüro messen unterschiedliche Werte.
-> - Die SR haben eine grosse Variabilität. Gross ist gemeint im bezug auf den Effekt der SR auf Schallemissionen 
-> - Auswahl einer repräsentative SR für jeden Abschnitt ist nicht möglich.
-> - Die berechnete Korrekturen zeigen grosse (grosse Effekt auf Schallemissionen) Variationen aufgrund der Auswal der repräsentative SR. Deswegen wird Verzichtet die  SR Korrekturen auf Schallspektren anzuwenden
+>  - SR in Niederwangen haben eine Spitze beim 2cm Wellelänghe.
+   - Die Ausprägung der Spitze ist unterschiedlich von Abschnitt zu Abschnitt. Die zwei Messbüro messen unterschiedliche Werte.
+   - Die SR haben eine grosse Variabilität. Gross im bezug auf den Effekt der SR auf Schallemissionen.
+   - Auswahl einer repräsentative SR für jeden Abschnitt ist nicht möglich.
+   - Die berechnete Korrekturen zeigen grosse (grosse Effekt auf Schallemissionen) Variationen aufgrund der Auswal der repräsentative SR. Deswegen wird Verzichtet die  SR Korrekturen auf Schallspektren anzuwenden
 
 ----

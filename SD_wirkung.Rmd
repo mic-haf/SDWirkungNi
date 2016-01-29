@@ -45,15 +45,15 @@ Die SD Wirkung berechnet sich durch die Differenzen der Schallpegel zwischen Ref
 
 **Eine positive Differenz deutet auf eine positive SD Wirkung, d.h die Lärmemissionene werden Kleiner**
 
-Die Wirkung als Schallpegelwert lässt sich einfacher Interpretieren und ist gesetzlich von grössere Bedutung. Die Spektrale Wirkung enthält Informationen über die Wirkung von SD in einzelne Frequenzbändern welche ermöglichen qualitative Aussagen über die Wirkung in andere Situationen zu machen. Ich denke an Situationen wo andere gewichtung von Frequenzen im Schallspektren vorkommen (Andere SR und RR ) und damit die SD Wirkung von andere Bändern Vorkommen.
+Die Wirkung als Schallpegelwert lässt sich einfacher Interpretieren und ist gesetzlich von grössere Bedeutung. Die Spektrale Wirkung enthält Informationen über die Wirkung von SD in einzelne Frequenzbändern welche ermöglichen qualitative Aussagen über die Wirkung in andere Situationen zu machen. Ich denke an Situationen wo andere Gewichtung von Frequenzen im Schallspektren vorkommen (Andere SR und RR ) und damit die SD Wirkung von andere Bändern Vorkommen.
 
-Es ist wieder zu Bemerken dass, aufgrund der Tonale Charekteristik der Vorbeifahrten in Niederwangen, die SD Wirkung in den Frequenzbänder von 1600Hz bis 2500Hz ein grösseren gewicht in die SD Gesamtwirkung bewirkt. 
+Es ist wieder zu Bemerken dass, aufgrund der Tonale Charakteristik der Vorbeifahrten in Niederwangen, die SD Wirkung in den Frequenzbänder von 1600Hz bis 2500Hz ein grösseren Gewicht in die SD Gesamtwirkung bewirkt. 
 
-In Folgende werden presentieren 2 Berechnungen der SD Wirkung:
+In Folgende werden 2 Berechnungen der SD Wirkung vorgestellt:
 
-1.   Die SD Wirkung ist Berechnet aus den Schallpegel und Spektren der gesamten Vorbeifahrten (`full`). In Diesem fall lässt sich die SD Wirkung für alle Dämpfer berechnen.
+1.   Die SD Wirkung ist Berechnet aus den Schallpegel und Spektren der gesamten Vorbeifahrten (`full`). In Diesem Fall lässt sich die SD Wirkung für alle Dämpfer berechnen.
 
-2. Für SD S&V (Abschnitt B2) wird die Wirkung anhand Wagenbezogene Schallpegeln und Spektren und Berechnet. 
+2. Für SD S&V (Abschnitt B2) wird die Wirkung anhand Wagen bezogene Schallpegeln und Spektren und Berechnet. 
 
 Zur Erinnerung sind in Niederwangen folgende SD eingebaut:
 
@@ -94,7 +94,7 @@ diffDf$SD= factor(diffDf$A, labels = c("S&V","STRAIL","Vossloh"))
 
 #### Schallpegel Diefferenzen
 
-Im nächste Graphik ist die Berechung für jede Kombination aus Dämpfertyp (Abschnitt) und  Zugstyp gezeigt
+Im nächste Graphik ist die Berechnung für jede Kombination aus SD Typ (Abschnitt) und  Zugtyp gezeigt
 
 ```{r  fig.width = 7, fig.height=4}
 ggplot(data = diffDf%>%filter(band=='tot'& var == 'leq' & interval.kat == 'full'  ),
@@ -109,17 +109,17 @@ facet_grid( .~ SD )+ theme_bw()+ theme(legend.position="bottom")
 
 **Diskussion:**
 
-- STRAIL SD ist der Dämpfer mit grosste Wirkung. Die Wirkung is für beide ZugsTypen ahnlich und beträgt ungefähr 2.4 dBA
+- STRAIL ist der SD mit grösste Wirkung. Die Wirkung ist für beide Zugtypen ähnlich und beträgt ungefähr 2.4 dBA
 
-- Vossloh SD weist eine ähnliche Wirkung auf Beide Zugstypen wobei  die Wirkung unten 1 dBA ist.
+- Vossloh SD weist eine ähnliche Wirkung auf Beide Zugtypen wobei  die Wirkung unten 1 dBA ist.
 
 - S&V zeigt keine Wirkung für IC Züge und eine Wirkung von 1.3 dB bei Regio Züge.
 
-- In alle Zugstyp SD Kombinationen ist eine grosse Streuung der Wirkung zu sehen. Beim IC Züge und S&V SD ist diese Streuung am Grössten. Die Streuung erschwert eine klere Aussagen über die Wirkung
+- In alle Zugtyp SD Kombinationen ist eine grosse Streuung der Wirkung zu sehen. Beim IC Züge und S&V SD ist diese Streuung am Grössten. Die Streuung erschwert eine klare Aussagen über die Wirkung
 
 **Tabelle der SD Wirkung in dBA nach Zugstyp SD Typ Kombinationen**
 
-`Q25` und `Q75` sthet für die entsprechende Quantilen
+`Q25` und `Q75` steht für die entsprechende Quantilen
  
 
 ```{r}
@@ -176,24 +176,24 @@ facet_wrap(~ SD ,ncol=2,scales = 'free_x')
 
 **Diskussion:**
 
-- STRAIL SD ist der  einzige Dämpfer mit positive Wirkung in alle Bänder. Zwischen 800Hz und 2500Hz ist die Wirkung am grössten (2.5-4dB).
-Die Wirkung unterscheidet sich für Zugstyp.
+- STRAIL ist der einzige SD  mit positive Wirkung in alle Bänder. Zwischen 800Hz und 2500Hz ist die Wirkung am grössten (2.5-4dB).
+Die Wirkung unterscheidet sich für Zugtyp.
 
-- S&V zeigt keine Wirkung mit sehr grosse Streuung beim 2000Hz (vor allem die werte aus Regio Züge). In den Bänderunten 2000Hz ist die Wirkung Grösser Jedoch selten grösser als 2dB (immer kleiner als 3dB), das hat zur Folge dass, auch beim Vorbeifahrt Spektren ohne Tonale Charakteristik, die Gesamtwirkung maximal  2dBA betragen könnte. Die Wirkung ist sogar Negativ Zwischen 2000Hz und 6000Hz. 
+- S&V zeigt keine Wirkung mit sehr grosse Streuung beim 2000Hz (vor allem die werte aus Regio Züge). In den Bänder unten 2000Hz ist die Wirkung Grösser Jedoch selten grösser als 2dB (immer kleiner als 3dB), das hat zur Folge dass, auch beim Vorbeifahrt Spektren ohne Tonale Charakteristik, die Gesamtwirkung maximal  2dBA betragen könnte. Die Wirkung ist sogar Negativ Zwischen 2000Hz und 6000Hz. 
 
-- Die Wirkung von Vossloh ist Zwischen 1000Hz und 2000Hz Postiv. Sonst unterschidet sich kaum von 0dB oder ist sogar negativ
+- Die Wirkung von Vossloh ist Zwischen 1000Hz und 2000Hz Positiv. Sonst unterschiedet sich kaum von 0dB oder ist sogar negativ
 
 - Beim alle SD ist eine grosse Streuung der Wirkung zu sehen. Die Streuung ist Zwischen 1000Hz und 2000Hz am grössten 
 
-- Auch die sehr grosse Variabilität ist ein nicht erklärtes problem welches eine Brauchbare Aussage über die Dämpferwirkung erschwert. Im allgemein lassen sich die Negative Werte der SD Wirkung nicht erklären. Auch die spektrele unterschiede zwischen Zugtypen (rote un blaue kurven) sind nicht zu erklären.
+- Auch die sehr grosse Variabilität ist ein nicht erklärtes Problem welches eine Brauchbare Aussage über die SD Wirkung erschwert. Im allgemein lassen sich die Negative Werte der SD Wirkung nicht erklären. Auch die spektrale unterscheide zwischen Zugtypen (rote un blaue kurven) sind nicht zu erklären.
 
 ----
 
 ### Wirkung beim IC und Regio Wagen für S&V SD
 
-Für den Abschnitt B2 (S&V) ist es zusätzlich möglich die Differenzen von Schallpegeln und Spektren Wagenweise durchzufüren. Ziel der Wagenweise Auswertung wäre die verbesserung der Genauigkeit der Wirkungabschätzung, dank den grössere Anzahl von Messwerte, gewesen.
+Für den Abschnitt B2 (S&V) ist es zusätzlich möglich die Differenzen von Schallpegeln und Spektren Wagen weise durchzuführen. Ziel der  Wagen weise Auswertung wäre die Verbesserung der Genauigkeit der Wirkungsabschätzung, dank den grössere Anzahl von Messwerte, gewesen.
 
-Wir Beschränken uns hier an die  Schallpegel und Spektren der kategorie Wagen da für diese Kategorie ein genügende Anzahl von Werte besteht.
+Wir Beschränken uns hier an die  Schallpegel und Spektren der Kategorie Wagen da für diese Kategorie ein genügende Anzahl von Werte besteht.
 
 #### Schallpegel Differenzen
 
@@ -235,12 +235,12 @@ if(word){
 
 - Für  IC Wagen ist die Wirkung Negativ. 
 
-- Für Regio Züge sind zu wenige messwerte vorhanden, jedoch ist die Wirkungsdifferenz von 2dB sehr gross und nicht zu erklären. Es ist zu bemerken dass sowohl Regio wie IC die tonale Charakteristik beim 2000Hz Aufweisen
+- Für Regio Züge sind zu wenige Messwerte vorhanden, jedoch ist die Wirkungsdifferenz von 2dB sehr gross und nicht zu erklären. Es ist zu bemerken dass sowohl Regio wie IC die tonale Charakteristik beim 2000Hz Aufweisen
 
 
 #### SD Wirkung Spektral
 
- IC Züghe
+ IC Züge
 ```{r }
 
 X = diffDf%>%filter(band!='tot'&  (interval.kat == 'Wagen')& A=='B2'  )
@@ -259,18 +259,21 @@ facet_grid( .~ Zugstyp, scales = 'free_x')
 
 **Diskussion:**
 
- - Beim IC Wagen bleibt die Variabilität sher gross in alle bänder und ist in der Grossenordnung der Wirkung. 
+ - Beim IC Wagen bleibt die Variabilität sehr gross in alle bänder und ist in der Grössenordnung der Wirkung. 
 
  - Die Tendenz Negative werte Zwischen 2000Hz und 6000Hz zu habe bleibt Vorhanden.
 
- - Beim Regio Züge sind zu wenige messwerte vorhanden um Aussagen zu machen, jedoch sind die spektrale unteschiede mit die IC Wagen nicht erklärbar.
- - Den Vesuch genauere Resultate zu bekommen anhand vergrösseret Messanzahl ist damit nicht gut gelungen.
+ - Beim Regio Züge sind zu wenige Messwerte vorhanden um Aussagen zu machen, jedoch sind die spektrale Unterschiede mit die IC Wagen nicht erklärbar.
+ - Den Versuch genauere Resultate zu bekommen anhand vergrösserte Messanzahl ist damit nicht gut gelungen.
 
 ----
 
 ### Wichtige Erkentnisse
 
-> - 
+> - STRAIL ist der SD mit grösste Wirkung. Die Wirkung ist für beide Zugtypen ähnlich und beträgt ungefähr 2.4 dBA
+  - Vossloh SD weist eine ähnliche Wirkung auf Beide Zugtypen wobei die Wirkung kleiner als 1 dBA ist.
+  - S&V zeigt keine Wirkung für IC Züge und eine Wirkung von 1.3 dB bei Regio Züge.
+  - In alle Zugtyp SD Kombinationen ist eine grosse Streuung der Wirkung zu sehen. Die Streuung erschwert eine klare Aussagen über die Wirkung
 
 ----
 

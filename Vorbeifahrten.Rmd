@@ -134,7 +134,7 @@ ggplot(droplevels(spectDf%>%filter(!is.na(v)& band=='tot'& Zugstyp == 'IC')),
 ```
   **Diskussion**:
   
-  - Die  IC Spektren weisen ein sehr hohen tonales Anteil bei $2000 Hz$ auf. Eine mögliche Erklärung ist der höhe Rauheitwert bei $2\,cm$ Wellenlänge welche umgewandelt in Frequenz (für $140 km/h$) entspricht $`r v= 140/3.6; round(v/0.02,-1) ` \, Hz$.
+  - Die  IC Spektren weisen ein sehr hohen tonales Anteil bei 2000 Hz auf. Eine mögliche Erklärung ist der höhe Rauheitwert bei 2cm Wellenlänge welche umgewandelt in Frequenz (für 140 km/h) entspricht `r v= 140/3.6; round(v/0.02,-1) ` \, Hz.
   
    - Die  Regio Spektren weisen diesem tonales Anteil nicht. Wir Untersuchen diese in einem weiteren Abschnitt
   
@@ -166,10 +166,10 @@ ggplot(droplevels(spectDf%>%
 
   **Diskussion**:
   
-  - Die Streuung ist viel grösser als erwartet. Zwischen unterschiedliche Wagen der gleiche Vorbeifahrt sind Variationen bis 5 dBA zu sehen
-  - Die Streuung zwischen unterschiedliche Vorbeifahrt  sind bis zu 2-3dBA Unterschieden zu sehen.
-  - Die Variabilität der Wagen innerhalb ein einziges Zug ist Grösser als die Variabilität Zwischen verschiedene Vorbeifahrt falls die median betrachtet wird.
-  - Die Variabilität eine Vorbeifahrt ist nicht konstant  auf beide Abschnitte. Damit ist es nicht möglich die Streuung zu Erklären aufgrund unterschiedlich Radrauheiten. 
+  - Die Streuung ist viel grösser als erwartet. Zwischen  Wagen der gleiche Vorbeifahrt sind Variationen bis 5 dBA zu sehen
+  - Die Streuung zwischen Vorbeifahrt  sind bis zu 2-3dBA Unterschieden zu sehen.
+  - Die Variabilität der Wagen innerhalb ein einziges Zug ist Grösser als die Variabilität Zwischen  Vorbeifahrt. (Median Betrachtung)
+  - Die Variabilität innerhalb einer Vorbeifahrt ist nicht Konstant (und Konsistent) auf unterschiedliche Abschnitte. Damit ist es nicht möglich die Streuung aufgrund unterschiedlich Radrauheiten zu erklären.
 
 ----
 
@@ -194,12 +194,21 @@ SpectPlot(FREQ) +
 
   **Diskussion**:
   
-  - Alle Spektren weisen ein sehr hohen tonales Anteil bei $2000 Hz$ auf.
-  - Wagen bezogenen Spektren der Abschnitt B5  weisen ein höheres tonales Anteil bei $2000 Hz$  gegenüber Spektren Von gesamten Zugdurchfahrten (Vergleiche Bild im Ersten Abschnitt)
+  - Alle Spektren weisen ein sehr hohen tonales Anteil bei 2000 Hz auf.
+  - Wagen bezogenen Spektren der Abschnitt B5  weisen ein höheres tonales Anteil bei 2000 Hz  gegenüber Spektren Von gesamten Zugdurchfahrten (Vergleiche Bild im Ersten Abschnitt)
   - Die höhe Tonalität von Regio Wagen bei 2000 Hz ist ausgeprägt wie beim IC Wagen.
   - Regio Züge sind lauter als IC Züge und haben eine grössere Streuung bei tiefe Frequenzen.
   -  Die obere Punkten verstärken die Erklärung der Tonalität durch die höhe SR. Mann Kann behaupten dass diese SR (bei 2cm Wellenlänge) in ähnlichen mass auf beide Abschnitten Vorhanden ist 
 
 ----
 
+### Wichtige Erkentnisse
+  
+> - Alle Spektren weisen ein sehr hohen tonales Anteil bei 2000 Hz auf. Grund dafürkönnte die hohe SR bei 2 cm Wellenlänghe sein. Man Kann behaupten dass die SR bei 2 cm Wellenlänghein ähnlichen mass auf alle Abschnitten Vorhanden ist. Vergleiche dazi die SR Messungen.
+  - Regio Züge sind lauter als IC Züge und haben eine grössere Streuung bei tiefe Frequenzen.
+  - Die Streuung von Schallpegel und Spekteren ist viel grösser als erwartet. Für IC Züge gilt: 
+    - Zwischen Wagen der gleiche Vorbeifahrt sind Variationen bis 5 dBA zu sehen.
+    - Die Variabilität innerhalb einer Vorbeifahrt ist nicht Konstant (und Konsistent) auf unterschiedliche Abschnitte.Damit ist es nicht möglich die Streuung aufgrund unterschiedlich Radrauheiten zu erklären
+  
+----
 

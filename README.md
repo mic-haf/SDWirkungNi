@@ -21,14 +21,14 @@
 -   [Abstract](#abstract)
 -   [Einleitung](#einleitung)
 -   [Durchgeführte Messungen](#durchgefuhrte-messungen)
--   [Analyse von Messungen](#analyse-von-messungen)
+-   [Analyse der Messungen](#analyse-der-messungen)
     -   [Akustische Messung](#akustische-messung)
     -   [SR](#sr)
     -   [TDR](#tdr)
 -   [Fazit](#fazit)
 -   [Anhang](#anhang)
     -   [Berichtsform](#berichtsform)
-    -   [Dokumente, Scripts und Daten zur Postprocessing der Zeitsignalen](#dokumente-scripts-und-daten-zur-postprocessing-der-zeitsignalen)
+    -   [Dokumente, Scripts und Daten zum Postprocessing der Zeitsignale](#dokumente-scripts-und-daten-zum-postprocessing-der-zeitsignale)
     -   [Dokumente, Scripts und Daten zur Analyse der Messungen](#dokumente-scripts-und-daten-zur-analyse-der-messungen)
     -   [Word Output](#word-output)
 
@@ -36,19 +36,19 @@
 
 #### Abstract
 
-Anlass diesem Bericht ist die **Wirkung von Schienenstegdämpfern** abzuschätzen für die Situation Niederwangen.
+Anlass dieses Berichts ist, die **Wirkung von Schienenstegdämpfern** für die Situation Niederwangen abzuschätzen.
 
 ------------------------------------------------------------------------
 
 Einleitung
 ----------
 
-Im Rahmen der Projekts Erprobung Schienendämpfer (SD) wurden zwischen Niederwangen und Bümplitz SD eingebaut. Diese Teststrecke dient hauptsächlich um Sicherheitsrelevanten infrastrukturseitigen Fragen zu prüfen, jedoch wurden auch Akustische Untersuchungen Durchgeführt. Die Teststrecke besteht aus 2 unterstrecken:
+Im Rahmen des Projekts Erprobung Schienendämpfer (SD) wurden zwischen Niederwangen und Bümplitz SD eingebaut. Diese Teststrecke dient hauptsächlich dazu, sicherheitsrelevante infrastrukturseitige Fragen zu überprüfen, jedoch wurden auch akustische Untersuchungen durchgeführt. Die Teststrecke besteht aus 2 Teilen:
 
 -   Niederwangen: Betonschwelle B91,
 -   Bümplitz: Holzschwellen
 
-In diesem Bericht wird nur den Teil der Teststrecke mit Betonschwellen diskutiert. Diesem Teil besteht aus 5 Abschnitten 108m länge. Vier Abschnitte (B1,B2,B3,B4) haben eingebaute Dämpfer, den letzte Abschnitt (B5) dient als Referenz. Es besteht die folgende Relation zwischen Name der Abschnitten und deren eingebaute Dämpfern.
+In diesem Bericht wird nur der Teil der Teststrecke mit Betonschwellen diskutiert. Dieser besteht aus 5 Abschnitten an je 108m Länge. Vier Abschnitte (B1,B2,B3,B4) haben eingebaute Dämpfer, der letzte Abschnitt (B5) dient als Referenz. Es besteht die folgende Relation zwischen dem Namen der Abschnitte und den dort eingebauten Dämpfern.
 
 | Dämpfer | ValFX/MBBM Abkürzung | EMPA Abkürzung |
 |---------|----------------------|----------------|
@@ -58,64 +58,64 @@ In diesem Bericht wird nur den Teil der Teststrecke mit Betonschwellen diskutier
 | STRAIL  | B4                   | Q2             |
 | Ref     | B5                   | Q1             |
 
-Es ist zu Bemerken dass die Abschnitte sind werden je Messung unterschiedlich benannt. In diesem Bericht wird die *MBBM Abküzung verwendet* um die Abschnitten zu unterscheiden.
+Es ist zu bemerken, dass die Abschnitte in den verschiedenen Messungen unterschiedlich benannt wurden. In diesem Bericht wird einheitlich die *MBBM Abkürzung verwendet* um die Abschnitte zu unterscheiden.
 
 ------------------------------------------------------------------------
 
 Durchgeführte Messungen
 -----------------------
 
-In Niederwangen wurden track decay rates (TDR), Schienenrauheiten (SR) und Akustischen Messungen durchgeführt.
+In Niederwangen wurden Akustische Messungen und Messungen der track decay rates (TDR) und Schienenrauheit (SR) Spektren durchgeführt.
 
 1.  **Akustische Messung**
 
-    Die Empa Abteilung Akustik/Lärmminderung wurde beauftragt, die Wirksamkeit von drei der vier Produkte anhand von Vorbeifahrts Schalldruckpegelmessungen zu ermitteln. Im Bericht [Messbericht Vorbeifahrtsmessungen Niederwangen](https://github.com/e-sr/SDWirkungNi/raw/master/Messbericht%20Vorbeifahrtsmessungen%20Niederwangen%20sig.pdf) sind eine detallierte Beschreibung und die erste Resultate der Wirkung von SD zu sehen. Dazu hat EMPA die rohe Daten der Messung gelifert, daraus wurden Schallpegeln und Spektren für unterschiedliche Auswertungsintervalle Berechnet.
+    Die Empa Abteilung Akustik/Lärmminderung wurde beauftragt, die Wirksamkeit von drei der vier Produkte anhand von Vorbeifahrts-Schalldruckpegelmessungen zu ermitteln. Im Bericht [Messbericht Vorbeifahrtsmessungen Niederwangen](https://github.com/e-sr/SDWirkungNi/raw/master/Messbericht%20Vorbeifahrtsmessungen%20Niederwangen%20sig.pdf) sind eine detallierte Beschreibung und die ersten Resultate der Wirkung von SD dargestellt. Dazu hat die EMPA die Rohdaten der Messung geliefert, aus welchen Schallpegel und Spektren für unterschiedliche Auswertungsintervalle berechnet werden konnten.
 
 2.  **TDR Messungen**
 
-    MBBM hat im Auftrag von SBB die TDR für alle Abschnitte mehrmals gemessen(vor und nach einbau von SD). Die detallierte Berichte sowohl die Daten der Messungen sind vorhanden aber nicht in diesem repo verfügbar. Die daten werden von einer lokale Datenbank abgerufen.
+    MBBM hat im Auftrag der SBB die TDR für alle Abschnitte mehrmals gemessen (vor und nach dem Einbau von SD). Die detallierten Berichte und die Messdaten sind in diesem Repo nur teilweise verfügbar.
 
 3.  **SR Messungen**
 
-    SR sind durch die Firma MBBM für alle Abschnitte mehrmals gemessen nach einem Schleifvorgang. Die detaillierte Berichte sowohl die Daten der Messungen sind vorhanden aber nicht in diesem Repo verfügbar. Die Daten werden von einer lokale Datenbank abgerufen.
+    SR-Spektren wurden durch die Firma MBBM für alle Abschnitte mehrmals nach einem Schleifvorgang gemessen. Die detallierten Berichte und die Messdaten sind in diesem Repo nur teilweise verfügbar.
 
 ------------------------------------------------------------------------
 
-Analyse von Messungen
+Analyse der Messungen
 ---------------------
 
 ### Akustische Messung
 
-Das Processing der Mikrophonsignale liefert **Schallpegel und Terzspektren** des Schalldruck für jede Vorbeifahrt welche dann weiter in der Auswertung verwendet werden. Schallpegeln und Spektren sind in **dBA** angegeben.
+Das Processing der Mikrophonsignale liefert **Schallpegel und Terzspektren** des Schalldruck für jede Vorbeifahrt, welche dann weiter in der Auswertung verwendet werden. Schallpegel und Spektren sind in **dBA** angegeben.
 
-Die berechnete Schallpegeln und Spektren entsprechen die energetisch gemittelte Werte über einen bestimmtes Intervall für unterschiedliche Auswertung Intervalle:
+Die berechnete Schallpegel und Spektren entsprechen die energetisch gemittelte Werte über einen bestimmtes Intervall. Es wurden unterschiedliche Auswertung Intervalle ausgewählt:
 
--   *Schallpegeln und Spektren aus den gesamte Durchfahrt berechnet.* Werden mit `full` bezeichnet.
--   *Schallpegeln und Spektren Wagenweise ausgewertet.* Für die Abschnitte B5 und B2 (Abschnitten mit Lichtschrankensignalen) würden zusätzlich die Schallpegeln und Spektren Wagen-bezogen berechnet. Von Wagenmitte der n-te Wagen bis zur Wagenmitte der n+1 Wagen. Diese Spektren werden mit den entsprechende Wagennummer `n` Bezeichnet.
+-   -   *Schallpegel und Spektren aus der gesamten Durchfahrt berechnet.* Diese werden mit `full` bezeichnet.
+-   *Schallpegel und Spektren pro Wagen ausgewertet.* Für die Abschnitte B5 und B2 (Abschnitte mit Lichtschrankensignalen) wurden zusätzlich die Spektren pro Wagen berechnet. Von Wagenmitte des n-ten Wagens bis zur Wagenmitte der n+1 Wagens. Diese Spektren werden mit den entsprechende Wagennummer `n` bezeichnet.
 
-Zusätzlich konnten weitere Informationen mithilfe von LS Signalen gewonnen werden:
+Zusätzlich konnten weitere Informationen mithilfe von Lichtschrankensignalen (LS) gewonnen werden:
 
 -   *Zugsgeschwindigkeit.* Nur Vorbeifahrten mit ähnliche Geschwindigkeit auf alle Abschnitte werden berücksichtigt.
--   *Zugstyp.* Zwei klassen von Zügen sind zu unterscheiden:
-    1.  Regiozügen; handelt sich um einen Domino (Triebwagen-Inowa-Steuerwagen) in doppelte Komposition (Triebdrehgestelle mit einen Abstand von 2.7m ergeben konsistente werte)
-    2.  IC Zügen; diese Zügen bestehen aus (EWIV, IC2000, Steuerwagen und Re460). Der Anzahl wagen ist variabel. Zugtyp wurde mithilfe aus Achs-muster und Achsabstand entdeckt.
--   *Wagentyp.* Die Wagen-bezogenen Schallpegeln und Spektren (mit `n` bezeichnet) können `Trieb` sowohl `Wagen` Drehgestelle enthalten. Um Wagen-bezogenen Schallpegeln und Spektren aus ähnlichen Drehgestelle zu vergleichen, werden die Intervalle jede Vorbeifahrt in `Wagen` , `Trieb/Wagen` kategorisiert. Die Kategorisierung erfolgt mithilfe von Achsabstand.
+-   *Zugstyp.* Zwei Klassen von Zügen sind zu unterscheiden:
+    1.  Regiozüge; es handelt sich um einen Domino (Triebwagen-Inowa-Steuerwagen) in doppelter Komposition Der Abstand der Triebdrehgestelle ist konstant 2.7m und kann für die Detektion verwendet werden.
+    2.  IC Zügen; diese Zügen bestehen aus (EWIV, IC2000, Steuerwagen und Re460). Die Anzahl der Wagen ist variabel. Zugtyp wurde mithilfe der Achs-muster und des Achsabstands detektiert.
+-   *Wagentyp.* Die Wagen-bezogenen Schallpegeln und Spektren (mit `n` bezeichnet) können `Trieb` als auch `Wagen` Drehgestelle enthalten. Um Wagen-bezogenen Schallpegeln und Spektren aus ähnlichen Drehgestellen zu vergleichen, werden die Intervalle jeder Vorbeifahrt in `Wagen` , `Trieb/Wagen` kategorisiert. Die Kategorisierung erfolgt mithilfe des Achsabstands.
 
-Im Anhang sind weitere Details zur Postprocessing zu finden.
+Im Anhang sind weitere Details zum Postprocessing zu finden.
 
-**Aus Schallpegel und Spektren werden folgenden Auswertungen durchgeführt:**
+**Mit Schallpegel und Spektren werden folgende Auswertungen durchgeführt:**
 
--   [**Schallpegel und Spektren, erste Darstellungen**](https://rawgit.com/e-sr/SDWirkungNi/master/html/Vorbeifahrten.html) um einen Gefühl mit die gemessene/ausgewertete Werte zu bekommen.
+-   [**Schallpegel und Spektren, erste Darstellungen**](https://rawgit.com/e-sr/SDWirkungNi/master/html/Vorbeifahrten.html) für einen ersten Eindruck und um einen Gefühl für die gemessenen/ausgewerteten Werte zu bekommen.
 
 -   [**Abschätzen der SD Wirkung**](https://rawgit.com/e-sr/SDWirkungNi/master/html/SD_wirkung.html). Die Pegeldifferenz zwischen Referenzabschnitt und Dämpferabschnitt wird berechnet und diskutiert.
 
 ### SR
 
-Im [**Auswertungsteil Schienenrauheiten in Niederwangen**](https://rawgit.com/e-sr/SDWirkungNi/master/html/SR_Ni.html) werden die SR in Niederwangen in Zusammenhang mit die Akustische Messung diskutiert. Vergleichbarkeit der Abschnitte bezüglich SR und mögliche Korrekturen anhand SR stehen in Vordergrund
+Im [**Auswertungsteil Schienenrauheiten in Niederwangen**](https://rawgit.com/e-sr/SDWirkungNi/master/html/SR_Ni.html) werden die SR in Niederwangen im Vergleich mit der Akustischen Messung diskutiert. Eine Vergleichbarkeit der Abschnitte bezüglich SR und mögliche Korrekturen aufgrund der vorliegenden SR stehen in Vordergrund.
 
 ### TDR
 
-Im [**Auswertungsteil TDR in Niederwangen**](https://rawgit.com/e-sr/SDWirkungNi/master/html/TDR_Ni.html) untersucht die Konsistenz der gemessene SD Wirkung mit die gemessene TDR.
+Im [**Auswertungsteil TDR in Niederwangen**](https://rawgit.com/e-sr/SDWirkungNi/master/html/TDR_Ni.html) wird die Konsistenz der gemessene SD Wirkung mit der gemessenen TDR untersucht.
 
 ------------------------------------------------------------------------
 
@@ -134,38 +134,38 @@ Anhang
 
 ### Berichtsform
 
-Diesem Bericht besteht aus mehrere Teildokumente welche in einem [git repo](https://github.com/e-sr/SDWirkungNi/) (hosted auf GitHub.com) abgelegt sind. Die Dokumente welche den Bericht zusammenstallen sind so aufgebaut dass Reproduzierbarkeit im Vordergrund steht, d.h Scripts und Daten (sofern möglich) auf welche die Teildokumente basieren sind auch im Repo zu finden.
+Dieser Bericht besteht aus mehreren Teildokumente, welche in einem [git Repo](https://github.com/e-sr/SDWirkungNi/) (hosted auf GitHub.com) abgelegt sind. Die Dokumente welche welche den Bericht zusammenstallen sind so aufgebaut Die Dokumente sind im Hinblick auf eine möglichst gute Reproduzierbarkeit aufgebaut, d.h Scripts und Daten. auf welchen die Teildokumente basieren, sind auch sofern möglich im Repo zu finden.
 
 Für die Teildokumente wurden folgende Programme verwendet:
 
--   Python: [python](https://de.wikipedia.org/wiki/Python_(Programmiersprache)) ist eine Programmiersprache welche in verschieden Kontexte verwendet wird, unter anderem für wissenschaftliche Programmierung. Die [ipython/jupyter Notebook](http://ipython.org/) (.ipynb) ermöglichen die Integration von Berichterstattung und Python Code (Auswertung) in einem einzigen Dokument. Für das Processing der Zeitsignalen wurde speziell den Modul [python-acoustics](https://github.com/python-acoustics/python-acoustics) verwendet.
+-   *Python:* [python](https://de.wikipedia.org/wiki/Python_(Programmiersprache)) ist eine Programmiersprache welche in verschieden Kontexte verwendet wird, unter anderem für wissenschaftliche Programmierung. Die [ipython/jupyter Notebook](http://ipython.org/) (.ipynb) ermöglichen die Integration von Berichterstattung und Python Code (Auswertung) in einem einzigen Dokument. Für das Processing der Zeitsignalen wurde speziell den Modul [python-acoustics](https://github.com/python-acoustics/python-acoustics) verwendet.
 
--   R: [R](https://www.r-project.org/) ist eine Scriptsprache mit Schwerpunkt in Statistische Berechnungen. Um Integration von Bericht und Auswertungen zu ermöglichen sind die Dokumente in .Rmd Format Aufgebaut (ich Empfehle R im Verbindung mit [Rstudio](https://www.rstudio.com/) zu verwenden).
+-   *R:* [R](https://www.r-project.org/) ist eine Scriptsprache mit Schwerpunkt auf Statistischen Berechnungen. Um die Integration von Bericht und Auswertungen zu ermöglichen, sind die Dokumente in .Rmd Format aufgebaut (ich empfehle R im Verbindung mit [Rstudio](https://www.rstudio.com/) zu verwenden).
 
-### Dokumente, Scripts und Daten zur Postprocessing der Zeitsignalen
+### Dokumente, Scripts und Daten zum Postprocessing der Zeitsignale
 
-Die EMPA hat folgende Daten der Messung geliefert:
+Die EMPA hat folgende Messdaten geliefert:
 
--   *Zeitsignalen* ( Die Zeitsignalen sind in diesem Repo nicht Verfügbar. Das benötigte Speicherplatz ist zu gross.):
-    -   Die Signale der Mikrophonen (in \(Pa\)) für jede Durchfahrt und auf jeden Abschnitt. Die Signale sind als Matlab Format geliefert worden und sind ist in Ordner `/Ereignisse` gespeichert.
-    -   Für die Abschnitten vorgesehen mit Lichtschranken die Signalen der Lichtschranken.
--   *Exceltabellen* mit Informationen jede gültige Vorbeifahrt. Die Tabellen sind im Ordner `/Tabellen` gespeichert. Diese Tabellen mit zusätzlichen Informationen sind in File `pass-by.json` überarbeitet worden um diese Daten weiter verarbeiten zu können.
+-   *Zeitsignale* ( Die Zeitsignale sind in diesem Repo nicht Verfügbar, da der benötigte Speicherplatz ist zu gross.):
+    -   Die Signale der Mikrophone (in \(Pa\)) für jede Durchfahrt und auf jeden Abschnitt. Die Signale sind als Matlab Format geliefert worden und sind ist im Ordner `/Ereignisse` gespeichert.
+    -   Für die mit Lichtschranken versehenen Abschnitte liegen auch die Lichtschrankensignale vor.
+-   *Exceltabellen* mit Informationen zu jeder gültigen Vorbeifahrt. Die Tabellen sind im Ordner `/Tabellen` gespeichert. Diese Tabellen wurden mit zusätzlichen Informationen in das File `pass-by.json` transferiert, um die Daten besser weiter verarbeiten zu können.
 
-Aus den Zeitsignalen werden **Schallpegel und Terzspektren** des Schalldruck und zusätzlichen Informationen berechnet. Das erfolgt mit die folgende Dokumente/Scripts:
+Aus den Zeitsignalen werden **Terzspektren und Gesamtpegel** des Schalldruck und zusätzliche Informationen berechnet. Das erfolgt mit den folgenden Dokumenten/Scripts:
 
--   [Darstellungen der Zeitsignalen der Mikrophone](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/DSP/darstellungMicSignale.ipynb)
+-   [Darstellungen der Zeitsignale der Mikrophone](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/DSP/darstellungMicSignale.ipynb)
 
--   [Auswertung der Lichtschrankensignalen](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/DSP/auswertungLS.ipynb)
+-   [Auswertung der Lichtschrankensignale](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/DSP/auswertungLS.ipynb)
 
--   [Schallpegeln und Spektren Berechnen](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/DSP/SpektrenBerechnen.ipynb)
+-   [Schallpegel und Spektren berechnen](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/DSP/SpektrenBerechnen.ipynb)
 
--   [Auswertung alle Vorbeifahrten](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/DSP/DSPAuswertung.ipynb)
+-   [Auswertung aller Vorbeifahrten](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/DSP/DSPAuswertung.ipynb)
 
-Den Output der DSP wird in den Datensatz [results.json](DSP/results.json) gespeichert und wird dann weiter in R verwendet. Die Dokumente/Scripts sind in Ordner `DSP/` abgelegt. Es ist nicht möglich die DSP Auswertungen zu reproduzieren da die Zeitsignalen im GitHub Repo nicht abgelegt sind. (Ordner zu gross).
+Der Output der DSP wird im den Datensatz [results.json](DSP/results.json) gespeichert und dann in R weiter verwendet. Die Dokumente/Scripts sind im Ordner `DSP/` abgelegt. Es ist nicht möglich die DSP Auswertungen zu reproduzieren da die Zeitsignale im GitHub Repo nicht abgelegt sind. (Ordner wäre zu gross).
 
 ### Dokumente, Scripts und Daten zur Analyse der Messungen
 
-Die Analyse der Messungen (basierend auf `.Rmd` Dokumente/Scripts mit selbsterklärende Name) sind komplett reproduzierbar bis auf den Script `datenVorbereiten.R` welches den Datensatz [auswertungData.Rdata](auswertungData.Rdata) aus den File `DSP/results.json` und aus einer lokale Datenbank zusammenstellt.
+Die Analyse der Messungen (basierend auf `.Rmd` Dokumente/Scripts mit selbsterklärenden Namen) sind komplett reproduzierbar bis auf das Script `datenVorbereiten.R`, welches den Auswertungsdatensatz [auswertungData.Rdata](auswertungData.Rdata) aus dem File `DSP/results.json` und aus einer lokale Datenbank zusammenstellt.
 
 `auswertungData.Rdata` enthält folgende Datensätze (Tabellen):
 
@@ -175,4 +175,4 @@ Die Analyse der Messungen (basierend auf `.Rmd` Dokumente/Scripts mit selbsterkl
 
 ### Word Output
 
-Den Bericht wird auch als Word Dokument ([runterladen](dw/SDWirkungNiederwangen.docx)) Versuchsweise herstellt. Den Dokument ist Inhaltlich komplett jedoch nicht in seiner Form.
+Der Bericht wird auch als Word Dokument ([runterladen](dw/SDWirkungNiederwangen.docx)) versuchsweise herstellt. Das Dokument ist inhaltlich komplett jedoch in der Form eingeschränkt.
