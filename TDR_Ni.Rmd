@@ -33,20 +33,29 @@ load("auswertungData.Rdata")
 
 ----
 
-Ziel ist Konsistenz von Dämpferwirkung mit TDR und DR Messungen hauptaussage die du im bericht mitnehmen kannst ist dass die wirkung nich mit dem TDR erwartungen entspricht. S&V hätte mehr wirken sollen
+In diesem Abschnitt wird die Konsistenz zwischen TDR Messungen und SD Wirkung untersucht. 
+
+Zur Erinnerung werden einige Überlegungen zum Thema Dämpfer und Gleisschwingungen aufgelistet.  
+
+1. Die Schiene schwingt wenig oberhalb von 2000Hz. Oberhalb 2000Hz die Emissionsanteil des Rades dominiert.
+2. In Niederwangen sind harte Zwischenlagen eingebaut. Die höhe vertikalen TDR bis 800-1000Hz bestätigen das.
+3. Die SD müssen die Dämpfung der Schiene erhöhen um einen Effekt zu haben: 
+
+    - vertikal  zwischen 800Hz und 2000 Hz erhöhen. Wobei 2000Hz die höhere grenze. 
+    - lateral ab tiefe frequenzen (200Hz). Die laterale TDR welche Tiefer sind als die vertikalen (wie auch die mobilität) haben ein kleineres einfluss auf die Schallemissionen (nur bis max 1000Hz) da die Anregung in laterale richtung geringer als die anregung in Vertikale Richtung.
+4. Die 2cm Rauheit in Niederwangen hat eine hochfrequente Anregung von 2000Hz zur Folge. Aus die punkten 1 bis 3 ist die erwartete gemessene Akustische  Wirkung von SD in Niederwangen klein.
+
+Die Folge dieser Überlegungen ist dass die Wirkung der SD anhand TDR charakterisiert werden können(STADRDAMP Idee). Die Konsistenz zwischen TDR messungen und SD Wirkung wird in diesem Abschnitt untersucht. 
+
 
 ----
 
 ### TDR Messungen vor und nach SD Einbau
 
-In diesem Abschnitt wird die erwartete wirkung von Schienedämpfer diskutiert aus Betrachtung von gemessen TDR.
 
-MBBM hat imlaufe der 4 Jahren 4 TDR messungen auf alle abschnitten durchgeführt.  Insgesamt wurden 4 TDR messungen durchgeführt
-- Niederwangen ist einen standort mit Beton Schwellen B90 und harte Zwischenlage. Den standort zeigte höhe TDR Werte und war in der entsprechende FX gruppe Zugeordnet
-- Aufgrund die höghe TDR ist eine kleine wirkung von schienedämpfern erwartet
+MBBM hat in die letzten 4 Jahren 4 TDR Messkampagnen durchgeführt.  Wir Zeigen in die folgende Graphiken den Vergleich der TDR vor und nach den Einbau von SD
 
-
-**S&V**
+#### S&V
 
 ```{r}
 TDRplot(c('v','h'))+
@@ -61,11 +70,13 @@ geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B3'& sec!='B4
 
 **Diskussion:**
 
-- ...
+- eine TDR in Vertikale Richtung Erhöhung ist nur deutlich für den 1000Hz Band und oberhalb 2500Hz
+- Die TDR Erhöhung ist deutlich ab 300Hz 
+- Die Geringe gemessene Wirkungen sind plausibel mit die TDR da die Hauptanregung beim 2000Hz war
+- Man kann sich sogar wagen eine Erklärung der bessere Wirkung von SD für Regiozüge: Die RR dieser Zügen bewirkt grössere Anregungen in die tieferen Frequenzen. Das ist bestätigt aus den Regio Züge Spektren, vor allem von Triebfahrzeugen. Damit ist auch eine grössere Wirkung erwartet.
 
 
-
-**Strail**
+#### Strail
 
 
 ```{r}
@@ -81,11 +92,11 @@ geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B3'& sec!='B2
 ```
 
 **Diskussion:**
+- Es gelten die Beobachtungen über die TDR welche für das S&V SD gemach wurden.
+- Die höhere gemessene SD Wirkung lassen sich deswegen nicht erklären
 
-- ...
 
-
-**Vossloh**
+#### Vossloh
 
 ```{r}
 TDRplot(c('v','h'))+
@@ -100,11 +111,17 @@ geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& sec!='B2'& sec!='B4
 ```
 **Diskussion:**
 
-- ...
+- Eine Erhöhung der  vertikale TDR  ist nirgends deutlich zu sehen, jedoch ist für den 2000Hz Band eine geringfügige Erhöhung festzustellen
+- Die laterale TDR Erhöhung ist in gesamten relevanten Frequenzband (bis 800-1000Hz) gering. 
+- Die 0 gemessene SD Wirkungen (spektral) bei tiefe Frequenzen sind plausibel mit die laterale TDR. 
+- Die geringfügige grössere Wirkung als die S&V Dämpfer, welche Erfahrungsgemäss besser sein sollten, könnte durch die höhere Dämpfung beim 2000 Hz erklärbar sein.
+
 
 ----
 
-### Vergleich TDR mit SD 
+### Vergleich SD TDR miteinander
+
+Die oben diskutierte Vergleichbarkeit von unterschiedliche SD typen kann besser durch ein direktes TDR Vergleich erreicht werden.
 
 ```{r }
 TDRplot(c('v','h'))+
@@ -117,12 +134,16 @@ geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& damp == TRUE),
  
 **Diskussion:**
 
-- Erwartete werte
+- Die geringfügige grössere Wirkung von Vossloh SD gegenüber S&V Dämpfer, welche Erfahrungsgemäss besser sein sollten, könnte durch die höhere Dämpfung beim 2000 Hz erklärbar sein.
+- Die höhere gemessene SD Wirkung der STRAIL Dämpfern sind aus TDR nicht erklärbar
+
 
 ----
 
 ### Wichtige Erkentnisse
 
-> - 
+> - Die erwartete gemessene Akustische  Wirkung von SD in Niederwangen klein.
+  - Es ist unklar woher der unterschied zwischen S&V und STRAIL zustande kommt.
+  - Die negative Wirkungen ab 2000Hz fur S&V und Vossloh SD sind nicht durch die TDR erklärbar
 
 ----

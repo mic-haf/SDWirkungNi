@@ -279,17 +279,22 @@ facet_grid( .~ Zugstyp, scales = 'free_x')
 ----
 
 ```{r, eval=FALSE}
-X = diffDf%>%filter(band!='tot'&  (interval.kat != 'full')& A=='B2' & Zugstyp =='Regio' )
+X = diffDf%>%filter(band!='tot'&  passby == "6"& A=='B2' )
 SpectPlot(FREQ)+
   geom_line(X,
-            mapping = aes(x = as.numeric(band), y = level, group = interaction(passby,A,interval,var), color = Zugstyp),size = 1, alpha = 0.5)+
-    geom_boxplot( data = X,
-                   aes(x = as.numeric(band), y = level,group= interaction(band,A,var)),
-                  colour = "black",alpha = 0.7, outlier.colour = NA,size = 0.8)+
+            mapping = aes(x = as.numeric(band), y = level, group = interaction(passby,A,interval,var), color = interval),size = 1, alpha = 0.5)+
   geom_hline(yintercept=0,size = 1,alpha=0.6)+
   scale_y_continuous(breaks=-10:10,lim = c(-8,8))+
-  ylab('Spektrum, dBA')+
-facet_grid( ~ interval.kat, scales = 'free_x')
+  ylab('Spektrum, dBA')
+
+ggplot(data = diffDf%>%
+         filter(band=='tot'&  passby=="6" ),
+       aes(x = Zugstyp, y = level,  color = interval.kat))+ 
+  geom_point(size = 4, alpha = 0.7 )+
+  geom_hline(yintercept=0,size = 1,alpha=0.6)+
+  scale_y_continuous(breaks=-5:5)+
+  ylab('SD Wirkun dBA')+
+  theme_bw()+ theme(legend.position="bottom")
 ```
 
 
