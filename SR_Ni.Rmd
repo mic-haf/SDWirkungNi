@@ -45,12 +45,12 @@ colnames(Messungen)[c(1,2)] = c('Messbüro', 'Messkampagne')
 ```
 ----
 
-In Niederwangen wurden im `r  strftime(schleifVorgang, '%B-%Y')` die Schienen geschliffen. Danach wurde der Zustand der SR mehrmals von MBBM und ACCON gemessen. Folgende Messkampagne wurden durchgeführt:
+In Niederwangen wurden im `r  strftime(schleifVorgang, '%B-%Y')` die Schienen geschliffen. Danach wurde der Zustand der SR mehrmals von MBBM und ACCON gemessen. Folgende Messkampagnen wurden durchgeführt:
 
-- MBBM hat 4 mal alle Abschnitten gemessen
+- MBBM hat 4 mal alle Abschnitte gemessen
 - ACCON hat Abschnitt B5 und B2 einmal gemessen
 
-Zur MBBM Messkampagnen sind detaillierte Berichte zur Verfügung.
+Zur MBBM Messkampagne sind detaillierte Berichte verfügbar.
 
 ```{r}
 kable(Messungen[,c(1,2,4)])
@@ -74,52 +74,52 @@ RauheitsPlot()+
 
 **Diskussion:**
 
-  - SR  und Radrauhiet  bilden zusammen die Anregungsmechanismus von Rollgeräusch. Falls die SR weit unten TSI kurve (schwarze Kurve) liegt ist anzunehmen dass die Radrauheit verantwortlich für die Anregung ist. In Niederwangen für Wellenlängen im bereich von 1.6-4 cm ist das nicht der Fall und ist damit anzunehmen dass die SR die Hauptanregung bewirkt. Die gemessene Schallspektern welches eine stark tonale Komponente bei 2000Hz aufweisen (alle Abschnitte) stutzen diese These. Diese Tonale Komponente entspricht bei 130 km/h ungefähr die 2 cm Wellenlänge. In Diesem Auswertung Teil sind die SR speziell bei die 1.6-4cm  Wellenlängen zu betrachten.
+  - SR  und Radrauheit  bilden zusammen die Anregungsmechanismus des Rollgeräuschs. Falls die SR weit unterhalb der TSI Kurve (schwarze Kurve) liegt, darf angenommen werden, dass die Radrauheit zur Hauptsache verantwortlich für die Anregung ist. In Niederwangen ist das  für Wellenlängen im Bereich von 1.6-4 cm nicht der Fall und es ist deshalb anzunehmen dass die SR die Hauptanregung bewirkt. Die gemessenen Schallspektren, welche eine stark tonale Komponente bei 2000Hz aufweisen (alle Abschnitte), stützen diese These. Diese tonale Komponente entspricht bei 130 km/h ungefähr die 2 cm Wellenlänge. In vorliegender Auswertung ist die SR speziell bei 1.6-4cm  Wellenlängen zu betrachten.
   
-  - Die SR haben eine Spitze bei 2cm und 1.6 cm Wellenlänge. Die Rauhigkeit bei 2 cm ist durch das Schleifvorgang bedingt, das ist  ein bekanntes Effekt. Die genaue Wellenlänge hängt vom unterschiedliche Schleifparameter(Korngrösse der Schleifsteine, Geschwindigkeit , Maschine) ab.
+  - Die SR haben eine Spitze bei 2cm und 1.6 cm Wellenlänge. Die Rauhigkeit bei 2 cm ist durch das Schleifvorgang bedingt, das ist  ein bekannter Effekt. Die genaue Wellenlänge hängt von unterschiedlichen Schleifparametern (Korngrösse der Schleifsteine, Geschwindigkeit , Maschine) ab.
   
-  - Diese Spitze ist in jedem Abschnitt zu sehen und nimmt mit der Zeit ab. Die Abnahme ist unterschiedlich von Abschnitt zu Abschnitt. Diese Abnahme ist viele kleiner als erwartet. 2 Jahren später ist immer noch eine klare Schleifrauheit zu sehen. 
+  - Diese Spitze ist in jedem Abschnitt zu sehen und nimmt mit der Zeit ab. Die Abnahme ist unterschiedlich von Abschnitt zu Abschnitt. Diese Abnahme ist viele kleiner als erwartet. 2 Jahren später ist immer noch eine Schleifrauheit zu sehen. 
   
-  - ACCON und MBBM messen die Spitze unterschiedlich. Diese unterscheide sind vor allem in Abschnitt B2 zu sehen. ACCON miss eine grössere Schleifrauheit als MBBM.
+  - ACCON und MBBM messen die Spitze unterschiedlich. Diese Unterschiede sind vor allem in Abschnitt B2 zu sehen. ACCON misst eine grössere Schleifrauheit als MBBM.
   
-  - Die Schallmessung weist  für alle Abschnitte eine starke Tonalität auf. Das entspricht nicht mit die kürzlich gemessene SR, wo nur die Referenz die Spitze aufweist.
+  - Die Schallmessung weist für alle Abschnitte eine starke Tonalität auf. Das entspricht nicht mit der kürzlich gemessenen SR überein, wo nur die Referenz die Spitze aufweist.
   
-  - Die SR ist der Resultat von der Auswertung und Mittelung mehrere 1m Abschnitte in Längsrichtung(detaillierte MBBM berichte für mehr Informationen). Die Variation zwischen die 1m abschnitte ist unbekannt.
+  - Die SR ist der Resultat von der Auswertung und Mittelung mehrerer 1m Abschnitte in Längsrichtung (vgl. detaillierte MBBM Berichte für mehr Informationen). Die Variation zwischen den 1m Abschnitten ist unbekannt.
   
-  - Die SR beziehen sich auf die Fahrspiegelmitte. Eine Variation in transversale Richtung ist auch zu erwarten. Es ist zu bemerken dass die Radposition jedes Drehgestell abwichen kann von dieser Mitte. Konsequenz ist dass jedes Drehgestell spürt eine andere SR.
+  - Die SR beziehen sich auf die Fahrspiegelmitte. Eine Variation in transversaler Richtung ist zu erwarten. Es ist zu bemerken, dass die Radposition jedes Drehgestell von dieser Mitte abweichen kann. Konsequenz ist, dass jedes Drehgestell eine andere SR spürt.
 
 ----
 
 ### Korrektur von Schallspektren
 
-In Niederwangen werden Schallspektern von mehrere Abschnitte miteinander verglichen. Genauer wird die Differenz  zwischen Referenz und Dämpferabschnitt gebildet um die SD Wirkung abzuschätzen. Da diese Abschnitte unterschiedliche SR aufweisen könnten kann die gebildete Differenz mithilfe von SR Differenzen korrigiert werden.
+In Niederwangen werden Schallspektren von mehreren Abschnitten miteinander verglichen. Genauer wird die Differenz zwischen Referenz und Dämpferabschnitt gebildet, um die SD Wirkung abzuschätzen. Da diese Abschnitte unterschiedliche SR aufweisen könnten, kann die gebildete Differenz in der Theorie mithilfe von SR Differenzen korrigiert werden.
 
-Die Erzeugung einer SR Korrektur für die Schallspektern erfolgt in 2 Schritte
+Die Ermittlung einer SR Korrektur für die Schallspektren erfolgt in 2 Schritten
  
- 1. Auswahl einer repräsentative SR für jeden Abschnitt
- 2. Schallspektren Korrektur bilden
+ 1. Auswahl einer repräsentativen SR für jeden Abschnitt
+ 2. Schallspektren-Korrektur bilden
 
-#### Auswahl einer representative SR für Schallspektren Korrekturen
+#### Auswahl einer representativen SR für Schallspektren-Korrekturen
 
-Da die Schallspektren 2000Hz Spitze aufweisen ist die SR vor allem bei 2cm Wellenlänge zu betrachten.
+Da die Schallspektren 2000Hz Spitzen aufweisen, ist die SR vor allem bei 2cm Wellenlänge zu betrachten.
 
-Als logischer Ansatz würde man die kürzlich zur Schallmessung gemessene SR verwenden, d.h MBBM Messkampagne 4 
-Es gibt Gründe andere Messkampagnen einzubeziehen für die repräsentative SR. 
+Als logischer Ansatz würde man die kürzlich vor der Schallmessung gemessene SR verwenden, d.h MBBM Messkampagne 4. 
+Es gibt jedoch Gründe, andere Messkampagnen für die repräsentative SR einzubeziehen: 
 
-  - Abnahme der Schleifraum ist klein, d.h. vorletzte SR Messkampagne könnte auch noch repräsentativ sein
-  - Will man ACCON werte verwenden (auch noch relativ kürzlich zur Schallmessung)
-  - Messkampagne 4 weist nicht bei alle abschnitte höhe SR Werte bei 2 cm. das ist inkonsistent mit 2000Hz Spitze gemessen beim Schallspektren.
-  - Variabilität der SR scheint gross zu sein. Ein Mittelwert schein geeigneter zu sein
+  - Abnahme der SR ist klein, d.h. vorletzte SR Messkampagne könnte auch noch repräsentativ sein.
+  - Die ACCON-Werte sollen mit verwendet werden (auch noch relativ kürzlich zur Schallmessung), um Unterschiede aufgrund des Messbüros auszuschliessen.
+  - Messkampagne 4 weist nicht bei allen Abschnitte höhere SR Werte bei 2 cm auf. Dies ist inkonsistent mit den 2000Hz Spitze bei den gemessenen Schallspektren.
+  - Variabilität der SR ist gross. Ein Mittelwert scheint deshalb geeigneter/robuster zu sein.
     
-Als Folge dieser Überlegungen untersuchen wir die folgende **3 Fälle um eine repräsentative SR** zu definieren:
+Als Folge dieser Überlegungen untersuchen wir die folgenden **3 Fälle, um eine repräsentative SR** zu definieren:
 
-  a. ACCON Messkampagne 1 MBBM Messkampagne 3 und MBBM Messkampagne 4
+  a. ACCON Messkampagne 1, MBBM Messkampagne 3 und MBBM Messkampagne 4
   b. MBBM Messkampagne 3 und MBBM Messkampagne 4
-  c. MBBM Messkampagne 4. Aufgrund der Messdatum das sollte die realistische SR sein
+  c. MBBM Messkampagne 4. Aufgrund des geringen zeitlichen Abstands zur akustischen Messung, sollte diese SR die realistischste sein
 
-Mehrere SR Spektren können in einem einzelne gemittelte Spektrum zusammengefasst werden.  Die Mittelung erfolgt je Band Energetisch.
+Mehrere SR Spektren können in einem einzelnen gemittelten Spektrum zusammengefasst werden. Die Mittelung erfolgt je Band energetisch.
 
-In den nächsten Bild ist den Beispiel für den Fall a.
+Das nächste Bild zeigt das Beispiel für den Fall a.
 
 ```{r, fig.height=9}
 SRni_filt= droplevels(SRni %>% filter( Author == 'ACCON' | kampagne == 3|kampagne==4))
@@ -153,7 +153,7 @@ rm(av.a_SRni,av.b_SRni,av.c_SRni,SRni_filt)
 
 **Representative SR im Vergleich**
 
-Im nächsten bild ist den Vergleich für die drei Fälle der repräsentative SR zu sehen.
+Das nächste Bild zeigt einen Vergleich für die drei Fälle der repräsentative SR.
 
 ```{r fig.width=5.5}
 RauheitsPlot()+
@@ -166,26 +166,26 @@ geom_point(data = av_SRni,
   scale_shape_discrete(name = '')
 ```
 
-Es ist zu sehen dass die gemittelte SR Werte viel streuen. Die Streuung betragt beim 2cm und 1.6 cm Wellenlänge bis zu 10dB. Dieser Streuung wird grossen Konsequenzen auf die Korrekturen von Schallspektern haben.
-Weiter ist zu bemerken dass der Referenz Abschnitt der mit grössere SR ist. Es ist also allein vom SR zu erwarten dass diesem Abschnitt lauter sein wird.
+Es ist zu sehen, dass die gemittelten SR Werte stark streuen. Die Streuung betragt beim 2cm und 1.6 cm Wellenlänge bis zu 10dB. Diese Streuung wird grosse Konsequenzen auf die Korrektur von Schallspektren und die Berechnung der Wirkung von SD haben.
+Weiter ist zu bemerken, dass der Referenz Abschnitt die grösste SR aufweist. Es ist also allein wegen der SR und nicht nur wegen dem Fehlen von SD zu erwarten, dass dieser Abschnitt lauter ist.
 
 
-#### Korrektur Bilden
-Das vorgehen um Schallspektren Korrekturen aufgrund von Gesamtrauheiten Differenzen ist das Folgende:
+#### Korrektur bilden
+Das vorgehen um Schallspektren-Korrekturen aufgrund von Gesamtrauheits-Differenzen zu bilden, ist das folgende:
 
-1. Umwandeln der Gesamtrauheit von Wellenlänge zur Frequenz Hz:
+1. Umwandeln der Gesamtrauheit von Wellenlänge zur Frequenz Hz (abhängig von der Geschwindigkeit des gemessenen Zugs):
     - $R_{tot,B}(f = \frac{v}{\lambda}) =  R_{tot,B}(\lambda)$
     - lineare Interpolation um die Werte bei der gewünschte Frequenz zu bekommen
   
 2. Definiere Korrektur Filter bezüglich Referenzabschnitt: 
 $$Korr_{B}(f) = -\Delta R_{tot,B}(f) = -\left( R_{tot,B}(f) -  R_{tot,B5}(f) \right)$$
 
-3. Korrigierte Spektrum für jede Abschnitt Berechnen: 
+3. Korrigiertes Spektrum für jeden Abschnitt berechnen: 
 
 $$S_{B}(f) = S_{B}(f) + Korr_{B}(f)$$
 
 
-Die **Gesamtrauheit** (Schiene + Rad) ist meist notwendig um diese Korrekturen durchzuführen. In unseren Messsetup ist die Schienenrauheit bei 2 cm sehr hoch  und die Spektren zeigen den grossen anteil der Energie bei der resultierende Frequenz. Damit kann man zumindest für die 2cm Wellenlänge annehmen dass $R_{tot,B} \approx SR_{B}$ und die Schalldruck Korrekturen mit der SR durchführen.
+Die **Gesamtrauheit** (Schiene + Rad) ist in der Regel notwendig, um diese Korrekturen durchzuführen. In unserem Messsetup ist die Schienenrauheit bei 2 cm jedoch sehr hoch und die Spektren zeigen den grössten Anteil der Energie bei der resultierenden Frequenz. Damit kann man zumindest für die 2cm Wellenlänge annehmen, dass $R_{tot,B} \approx SR_{B}$ und die Schalldruck Korrekturen mit der SR alleine durchgeführt werden dürfen.
 
 
 ```{r include=FALSE}
@@ -237,22 +237,23 @@ SpectPlot(freqTDR)+
 
 **Diskussion:**
 
-- Die Korrektur beim 2000 Hz streut sehr viel und ist in der Grössenordnung von 0.5-7dB für den Abschnitt B2 und  0.5-4.5dB für den Abschnitt B4. Diese Korrekturen sind viel grösser als erwartet und scheinen wenig plausibel zu sein
+- Die Korrektur beim 2000 Hz streut sehr stark und ist in der Grössenordnung von 0.5-7dB für den Abschnitt B2 und 0.5-4.5dB für den Abschnitt B4. Diese Korrekturen sind viel grösser als erwartet und scheinen wenig plausibel zu sein.
 
-- Die Korrekturen sind positiv das heisst die Abschnitte sollten lauter sein wenn die SR wie beim Referenz Abschnitt B5 wäre. Diese Korrekturen haben zur Folge dass die SD Wirkung kleiner wird oder sogar negativ.
+- Die Korrekturen sind positiv, das heisst die Abschnitte sollten lauter sein, wenn die SR wie beim Referenz Abschnitt B5 wäre. Diese Korrekturen haben zur Folge, dass die SD Wirkung kleiner wird oder sogar negativ.
 
-- die unterschiedliche Fälle scheinen ein zufälliger verhalten zu haben
+- Die unterschiedlichen Fälle scheinen ein zufälliges Verhalten zu haben.
 
-- Aufgrund dieser Diskussion wird Verzichtet die Korrekturen Anzuwenden
+- Aufgrund dieser Diskussion wird verzichtet die Korrekturen anzuwenden.
 
 ----
 
 ### Wichtige Erkentnisse
 
->  - SR in Niederwangen haben eine Spitze beim 2cm Wellelänghe.
+>  - SR in Niederwangen haben eine Spitze beim 2cm Wellenlänge.
    - Die Ausprägung der Spitze ist unterschiedlich von Abschnitt zu Abschnitt. Die zwei Messbüro messen unterschiedliche Werte.
-   - Die SR haben eine grosse Variabilität. Gross im bezug auf den Effekt der SR auf Schallemissionen.
+   - Die SR haben eine grosse Variabilität. Gross im Bezug auf den Effekt der SR auf Schallemissionen.
    - Auswahl einer repräsentative SR für jeden Abschnitt ist nicht möglich.
-   - Die berechnete Korrekturen zeigen grosse (grosse Effekt auf Schallemissionen) Variationen aufgrund der Auswal der repräsentative SR. Deswegen wird Verzichtet die  SR Korrekturen auf Schallspektren anzuwenden
+   - Die berechneten Korrekturen zeigen grosse Variationen aufgrund der Auswahl der repräsentativen SR und damit grosse Effekte auf die Schallemissionen. Deswegen wird verzichtet die SR Korrekturen auf Schallspektren anzuwenden.
+   - Die gemessene Wirkung der SD ist dennoch im Kontext der unterschiedlichen SR der Abschnitte zu relativieren.
 
 ----
