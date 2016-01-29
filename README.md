@@ -86,20 +86,20 @@ Analyse der Messungen
 
 ### Akustische Messung
 
-Das Processing der Mikrophonsignale liefert **Schallpegel und Terzspektren** des Schalldruck für jede Vorbeifahrt, welche dann weiter in der Auswertung verwendet werden. Schallpegel und Spektren sind in **dBA** angegeben.
+Das Processing der Mikrophonsignale liefert **Schallpegel und Terzspektren** des Schalldrucks für jede Vorbeifahrt, welche dann weiter in der Auswertung verwendet werden. Schallpegel und Spektren sind in **dBA** angegeben.
 
-Die berechnete Schallpegel und Spektren entsprechen die energetisch gemittelte Werte über einen bestimmtes Intervall. Es wurden unterschiedliche Auswertung Intervalle ausgewählt:
+Die berechneten Schallpegel und Spektren entsprechen den energetisch gemittelten Werten über ein bestimmtes Intervall. Es wurden unterschiedliche Auswertungsintervalle ausgewählt:
 
--   -   *Schallpegel und Spektren aus der gesamten Durchfahrt berechnet.* Diese werden mit `full` bezeichnet.
--   *Schallpegel und Spektren pro Wagen ausgewertet.* Für die Abschnitte B5 und B2 (Abschnitte mit Lichtschrankensignalen) wurden zusätzlich die Spektren pro Wagen berechnet. Von Wagenmitte des n-ten Wagens bis zur Wagenmitte der n+1 Wagens. Diese Spektren werden mit den entsprechende Wagennummer `n` bezeichnet.
+-   *Schallpegel und Spektren aus der gesamten Durchfahrt berechnet.* Diese werden mit `full` bezeichnet.
+-   *Schallpegel und Spektren pro Wagen ausgewertet.* Für die Abschnitte B5 und B2 (Abschnitte mit Lichtschrankensignalen) wurden zusätzlich die Spektren pro Wagen berechnet. Von Wagenmitte des n-ten Wagens bis zur Wagenmitte des n+1 Wagens. Diese Spektren werden mit den entsprechende Wagennummer `n` bezeichnet.
 
 Zusätzlich konnten weitere Informationen mithilfe von Lichtschrankensignalen (LS) gewonnen werden:
 
--   *Zugsgeschwindigkeit.* Nur Vorbeifahrten mit ähnliche Geschwindigkeit auf alle Abschnitte werden berücksichtigt.
+-   *Zugsgeschwindigkeit.* Nur Vorbeifahrten mit ähnlicher Geschwindigkeit auf allen Abschnitten werden berücksichtigt.
 -   *Zugstyp.* Zwei Klassen von Zügen sind zu unterscheiden:
     1.  Regiozüge; es handelt sich um einen Domino (Triebwagen-Inowa-Steuerwagen) in doppelter Komposition Der Abstand der Triebdrehgestelle ist konstant 2.7m und kann für die Detektion verwendet werden.
-    2.  IC Zügen; diese Zügen bestehen aus (EWIV, IC2000, Steuerwagen und Re460). Die Anzahl der Wagen ist variabel. Zugtyp wurde mithilfe der Achs-muster und des Achsabstands detektiert.
--   *Wagentyp.* Die Wagen-bezogenen Schallpegeln und Spektren (mit `n` bezeichnet) können `Trieb` als auch `Wagen` Drehgestelle enthalten. Um Wagen-bezogenen Schallpegeln und Spektren aus ähnlichen Drehgestellen zu vergleichen, werden die Intervalle jeder Vorbeifahrt in `Wagen` , `Trieb/Wagen` kategorisiert. Die Kategorisierung erfolgt mithilfe des Achsabstands.
+    2.  IC Zügen; diese Zügen bestehen aus (EWIV, IC2000, Steuerwagen und Re460). Die Anzahl der Wagen ist variabel. Zugtyp wurde mithilfe der Achsmuster und des Achsabstands detektiert.
+-   *Wagentyp.* Die Wagen-bezogenen Schallpegeln und Spektren (mit `n` bezeichnet) können `Trieb` als auch `Wagen` Drehgestelle enthalten. Um Wagen-bezogenen Schallpegel und Spektren aus ähnlichen Drehgestellen zu vergleichen, werden die Intervalle jeder Vorbeifahrt in `Wagen` , `Trieb/Wagen` kategorisiert. Die Kategorisierung erfolgt mithilfe des Achsabstands.
 
 Im Anhang sind weitere Details zum Postprocessing zu finden.
 
@@ -111,7 +111,7 @@ Im Anhang sind weitere Details zum Postprocessing zu finden.
 
 ### SR
 
-Im [**Auswertungsteil Schienenrauheiten in Niederwangen**](https://rawgit.com/e-sr/SDWirkungNi/master/html/SR_Ni.html) werden die SR in Niederwangen im Vergleich mit der Akustischen Messung diskutiert. Eine Vergleichbarkeit der Abschnitte bezüglich SR und mögliche Korrekturen aufgrund der vorliegenden SR stehen in Vordergrund.
+Im [**Auswertungsteil Schienenrauheiten in Niederwangen**](https://rawgit.com/e-sr/SDWirkungNi/master/html/SR_Ni.html) werden die SR in Niederwangen im Vergleich mit der Akustischen Messung diskutiert. Eine Vergleichbarkeit der Abschnitte bezüglich SR und mögliche Korrekturen aufgrund der vorliegenden SR stehen im Vordergrund.
 
 ### TDR
 
@@ -175,4 +175,4 @@ Die Analyse der Messungen (basierend auf `.Rmd` Dokumente/Scripts mit selbsterkl
 
 ### Word Output
 
-Der Bericht wird auch als Word Dokument ([runterladen](dw/SDWirkungNiederwangen.docx)) versuchsweise herstellt. Das Dokument ist inhaltlich komplett jedoch in der Form eingeschränkt.
+Der Bericht wird auch als Word Dokument ([download](dw/SDWirkungNiederwangen.docx)) versuchsweise hergestellt. Das Dokument ist inhaltlich komplett jedoch in der Form eingeschränkt.
