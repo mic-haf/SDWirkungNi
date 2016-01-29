@@ -24,7 +24,7 @@ params:
 ```{r echo = F}
 git_commit = "e-sr/SDWirkungNi/blob/master/"
 if(params$local){
-  html_render = ""
+  html_render = "html/"
   ipynb_render="http://localhost:8888/notebooks/SDWirkungNi/DSP/"
 }else{
   #html_render = paste("https://cdn.rawgit.com/", git_commit,sep = "")
@@ -66,11 +66,11 @@ Es ist zu Bemerken dass die Abschnitte sind werden je Messung unterschiedlich be
 
 ## Durchgeführte Messungen
 
-In Niederwangen wurden track decay rates (TDR), Schienenrauheit (SR) Spektren  und Akustischen Messungen durchgeführt.
+In Niederwangen wurden track decay rates (TDR), Schienenrauheiten (SR)  und Akustischen Messungen durchgeführt.
 
 1. **Akustische Messung**
 
-    Die Empa Abteilung Akustik/Lärmminderung wurde beauftragt, die Wirksamkeit von drei der vier Produkte anhand von Vorbeifahrts Schalldruckpegelmessungen zu ermitteln. Im Bericht [Messbericht Vorbeifahrtsmessungen Niederwangen](`r paste(dw_path, "Messbericht Vorbeifahrtsmessungen Niederwangen sig.pdf", sep = "")`) sind eine detallierte Beschreibung und die erste Resultate der Wirkung von SD zu sehen. Dazu hat EMPA die rohe Daten der Messung gelifert, daraus wurden Spektren und Gesamtpegeln für unterschiedliche Auswertungsintervalle Berechnet.
+    Die Empa Abteilung Akustik/Lärmminderung wurde beauftragt, die Wirksamkeit von drei der vier Produkte anhand von Vorbeifahrts Schalldruckpegelmessungen zu ermitteln. Im Bericht [Messbericht Vorbeifahrtsmessungen Niederwangen](`r paste(dw_path, "Messbericht Vorbeifahrtsmessungen Niederwangen sig.pdf", sep = "")`) sind eine detallierte Beschreibung und die erste Resultate der Wirkung von SD zu sehen. Dazu hat EMPA die rohe Daten der Messung gelifert, daraus wurden Schallpegeln und Spektren  für unterschiedliche Auswertungsintervalle Berechnet.
     
 2. **TDR Messungen**
 
@@ -78,7 +78,7 @@ In Niederwangen wurden track decay rates (TDR), Schienenrauheit (SR) Spektren  u
 
 3. **SR Messungen**
     
-    SR-Spektren sind durch die Firma MBBM für alle Abschnitte mehrmals gemessen nach einem Schleifvorgang. Die detaillierte Berichte sowohl die Daten der Messungen sind vorhanden aber nicht in diesem Repo verfügbar. Die Daten werden von einer lokale Datenbank abgerufen.
+    SR sind durch die Firma MBBM für alle Abschnitte mehrmals gemessen nach einem Schleifvorgang. Die detaillierte Berichte sowohl die Daten der Messungen sind vorhanden aber nicht in diesem Repo verfügbar. Die Daten werden von einer lokale Datenbank abgerufen.
 
 ----
 
@@ -97,16 +97,14 @@ if(word){
 
 ## Analyse von Messungen
 
-Diese Messungen, insbesondere die Akustische Messungen, werden in diesem Bericht  bearbeitet und diskutiert.
-
 ### Akustische Messung
 
-Das Processing der Mikrophonsignale liefert **Terzspektren und Gesamtpegel** des Schalldruck für jede Vorbeifahrt welche dann weiter in der Auswertung verwendet werden. Spektren und Gesamtpegeln sind in **dBA** angegeben. 
+Das Processing der Mikrophonsignale liefert **Schallpegel und Terzspektren** des Schalldruck für jede Vorbeifahrt welche dann weiter in der Auswertung verwendet werden. Schallpegeln und Spektren  sind in **dBA** angegeben. 
 
-Man unterscheidet Spektren und Gesamtpegeln für unterschiedliche Auswertung Intervalle:
+Die berechnete Schallpegeln und Spektren entsprechen die  energetisch gemittelte Werte über einen bestimmtes Intervall für unterschiedliche Auswertung Intervalle:
 
-- *Spektren und Gesamtpegeln aus den gesamte Durchfahrt berechnet.* Werden mit `full` bezeichnet.
-- *Spektren und Gesamtpegeln Wagenweise ausgewertet.* Für die Abschnitte B5 und B2 (Abschnitten mit Lichtschrankensignalen) würden zusätzlich die Spektren Wagen-bezogen berechnet. Von Wagenmitte der n-te Wagen bis zur Wagenmitte der n+1 Wagen. Diese Spektren werden mit den entsprechende Wagennummer `n` Bezeichnet.
+- *Schallpegeln und Spektren  aus den gesamte Durchfahrt berechnet.* Werden mit `full` bezeichnet.
+- *Schallpegeln und Spektren  Wagenweise ausgewertet.* Für die Abschnitte B5 und B2 (Abschnitten mit Lichtschrankensignalen) würden zusätzlich die Schallpegeln und Spektren Wagen-bezogen berechnet. Von Wagenmitte der n-te Wagen bis zur Wagenmitte der n+1 Wagen. Diese Spektren werden mit den entsprechende Wagennummer `n` Bezeichnet.
 
 Zusätzlich konnten weitere Informationen mithilfe von LS Signalen gewonnen werden:
 
@@ -116,16 +114,15 @@ Zusätzlich konnten weitere Informationen mithilfe von LS Signalen gewonnen werd
     (Triebdrehgestelle mit einen Abstand von 2.7m ergeben konsistente werte)
     2. IC Zügen; diese Zügen  bestehen aus (EWIV, IC2000, Steuerwagen und Re460). Der Anzahl wagen ist variabel.
   Zugtyp wurde mithilfe aus Achs-muster und Achsabstand entdeckt.
-- Wagentyp die Wagen-bezogenen Spektren (mit `n` bezeichnet) können `Trieb` sowohl `Wagen` Drehgestelle enthalten. 
-Um Wagen-bezogenen Spektren aus ähnlichen Drehgestelle zu vergleichen, werden die Intervalle jede Vorbeifahrt in `Wagen` , `Trieb/Wagen` kategorisiert. Die Kategorisierung erfolgt mithilfe von Achsabstand.
+- *Wagentyp.* Die Wagen-bezogenen Schallpegeln und Spektren (mit `n` bezeichnet) können `Trieb` sowohl `Wagen` Drehgestelle enthalten. Um Wagen-bezogenen  Schallpegeln und Spektren aus ähnlichen Drehgestelle zu vergleichen, werden die Intervalle jede Vorbeifahrt in `Wagen` , `Trieb/Wagen` kategorisiert. Die Kategorisierung erfolgt mithilfe von Achsabstand.
 
 Im Anhang sind weitere Details zur Postprocessing zu finden. 
 
-**Aus Spektren und Gesamtpegel werden folgenden Auswertungen durchgeführt:**
+**Aus Schallpegel und Spektren werden folgenden Auswertungen durchgeführt:**
 
-- [**Diskussion über Spektren und Gesamtpegel von Vorbeifahrten**](`r if(!word){paste( html_render, "Vorbeifahrten.html", sep = "")} `) um einen Gefühl mit die gemessene/ausgewertete Werte zu bekommen.
+- [**Schallpegel und Spektren, erste Darstellungen**](`r if(!word){paste( html_render, "Vorbeifahrten.html", sep = "")} `) um einen Gefühl mit die gemessene/ausgewertete Werte zu bekommen.
     
-- [**Abschätzen der Wirkung von Schienendämpfer**](`r paste( html_render, "SD_wirkung.html", sep = "") `). Die Pegeldifferenz zwischen Referenzabschnitt und Dämpferabschnitt  wird berechnet und diskutiert.
+- [**Abschätzen der  SD Wirkung**](`r paste( html_render, "SD_wirkung.html", sep = "") `). Die Pegeldifferenz zwischen Referenzabschnitt und Dämpferabschnitt  wird berechnet und diskutiert.
     
 ### SR 
 
@@ -171,13 +168,13 @@ Die EMPA hat folgende Daten der Messung geliefert:
     - Für die Abschnitten vorgesehen mit Lichtschranken die Signalen der Lichtschranken.
 -  *Exceltabellen* mit Informationen  jede gültige Vorbeifahrt.  Die Tabellen sind im Ordner `/Tabellen` gespeichert. Diese Tabellen mit zusätzlichen Informationen sind in File `pass-by.json` überarbeitet worden um diese Daten weiter verarbeiten zu können.
 
-Aus den Zeitsignalen werden **Terzspektren und Gesamtpegel** des Schalldruck und zusätzlichen Informationen berechnet. Das erfolgt mit die folgende Dokumente/Scripts:
+Aus den Zeitsignalen werden **Schallpegel und Terzspektren** des Schalldruck und zusätzlichen Informationen berechnet. Das erfolgt mit die folgende Dokumente/Scripts:
 
 - [Darstellungen der Zeitsignalen der Mikrophone](`r paste( ipynb_render, "darstellungMicSignale.ipynb", sep = "") `)
   
 - [Auswertung der Lichtschrankensignalen](`r paste( ipynb_render, "auswertungLS.ipynb", sep = "") `)
 
-- [Spektren Berechnen](`r paste( ipynb_render, "SpektrenBerechnen.ipynb", sep = "") `)
+- [Schallpegeln und Spektren Berechnen](`r paste( ipynb_render, "SpektrenBerechnen.ipynb", sep = "") `)
 
 - [Auswertung alle Vorbeifahrten](`r paste( ipynb_render,"DSPAuswertung.ipynb", sep = "") `)
 
@@ -190,7 +187,7 @@ Die Analyse der Messungen (basierend auf `.Rmd` Dokumente/Scripts mit selbsterkl
 
 `auswertungData.Rdata` enthält folgende Datensätze (Tabellen):
 
-- Spektren der Vorbeifahrten, `spectWideDF`
+- Shallpegeln und Spektren der Vorbeifahrten, `spectWideDF`
 - TDR, `TDRniWide`
 - SR, `SRniWide`
 

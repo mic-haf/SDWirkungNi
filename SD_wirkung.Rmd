@@ -1,5 +1,8 @@
 ---
-title: "Dämpferwirkung"
+title: "SD Wirkung"
+params:
+  local: yes
+  word: no
 output:
   html_document:
     fig_caption: yes
@@ -15,9 +18,6 @@ output:
     fig_caption: yes
     fig_height: 6
     fig_width: 9
-params:
-  local: TRUE
-  word: FALSE
 ---
 
 ```{r setup, include = FALSE}
@@ -33,13 +33,37 @@ opts_chunk$set(
 #import library and functions
 library(dplyr)
 library(ggplot2)
+library(DT)
 library(tidyr)
 source('ggplot_templates.R')
 load('auswertungData.Rdata')
 ```
-Die Dämpferwirkung lässt sich durch die Differenzen der Spektren bzw. Levels zwischen  Referenzabschnitt und Dämpferabschnitt abschätzen. 
 
-**Eine positive Differenz deutet auf eine positive Wirkung der Dämpfern*
+----
+
+Die SD Wirkung berechnet sich durch die Differenzen der Schallpegel zwischen Referenzabschnitt und Dämpferabschnitt. Die SD Wirkung kann auch Spektral berechnet werden indem die Differenzen der Spektren gebildet Werden. 
+
+**Eine positive Differenz deutet auf eine positive SD Wirkung, d.h die Lärmemissionene werden Kleiner**
+
+Die Wirkung als Schallpegelwert lässt sich einfacher Interpretieren und ist gesetzlich von grössere Bedutung. Die Spektrale Wirkung enthält Informationen über die Wirkung von SD in einzelne Frequenzbändern welche ermöglichen qualitative Aussagen über die Wirkung in andere Situationen zu machen. Ich denke an Situationen wo andere gewichtung von Frequenzen im Schallspektren vorkommen (Andere SR und RR ) und damit die SD Wirkung von andere Bändern Vorkommen.
+
+Es ist wieder zu Bemerken dass, aufgrund der Tonale Charekteristik der Vorbeifahrten in Niederwangen, die SD Wirkung in den Frequenzbänder von 1600Hz bis 2500Hz ein grösseren gewicht in die SD Gesamtwirkung bewirkt. 
+
+In Folgende werden presentieren 2 Berechnungen der SD Wirkung:
+
+1.   Die SD Wirkung ist Berechnet aus den Schallpegel und Spektren der gesamten Vorbeifahrten (`full`). In Diesem fall lässt sich die SD Wirkung für alle Dämpfer berechnen.
+
+2. Für SD S&V (Abschnitt B2) wird die Wirkung anhand Wagenbezogene Schallpegeln und Spektren und Berechnet. 
+
+Zur Erinnerung sind in Niederwangen folgende SD eingebaut:
+
+Dämpfer |Abschnitt
+--------|---------------
+TATA    | B1            
+S&V     | B2            
+Vossloh | B3            
+STRAIL  | B4            
+Ref     | B5            
 
 ```{r}
 # Vorbereiten der daten in long format
@@ -58,15 +82,84 @@ difference = function(df){
   df$level = -(df$level-lRef)
   return(df)
 }
-diffDf = spectDf %>% group_by(passby, band, interval) %>% do(difference(.))
+diffDf = droplevels(spectDf %>% group_by(passby, band, interval) %>% do(difference(.)))
+diffDf$SD= factor(diffDf$A, labels = c("S&V","STRAIL","Vossloh"))
 
 ```
 
-### Differenz von Gesamtzugauswertung: alle Abschnitte
+----
 
-Die Differenzen von auswertungsintervall `full` sind für alle Abschnitte vorhanden und werden hier gezeigt
+### SD Wirkung aus Differenzen von Schallpegel und Spektren der Gesamtzug
 
-#### Spektral
+
+#### Schallpegel Diefferenzen
+
+Im nächste Graphik ist die Berechung für jede Kombination aus Dämpfertyp (Abschnitt) und  Zugstyp gezeigt
+
+```{r  fig.width = 7, fig.height=4}
+ggplot(data = diffDf%>%filter(band=='tot'& var == 'leq' & interval.kat == 'full'  ),
+       aes(x = Zugstyp, y = level,  color = Zugstyp))+ 
+  geom_boxplot(alpha = 0.7)+
+  geom_point(size = 4, alpha = 0.7,position='jitter')+
+  geom_hline(yintercept=0,size = 1,alpha=0.6)+
+  scale_y_continuous(breaks=-5:5)+
+  ylab('SD Wirkung dBA')+
+facet_grid( .~ SD )+ theme_bw()+ theme(legend.position="bottom")
+```
+
+**Diskussion:**
+
+- STRAIL SD ist der Dämpfer mit grosste Wirkung. Die Wirkung is für beide ZugsTypen ahnlich und beträgt ungefähr 2.4 dBA
+
+- Vossloh SD weist eine ähnliche Wirkung auf Beide Zugstypen wobei  die Wirkung unten 1 dBA ist.
+
+- S&V zeigt keine Wirkung für IC Züge und eine Wirkung von 1.3 dB bei Regio Züge.
+
+- In alle Zugstyp SD Kombinationen ist eine grosse Streuung der Wirkung zu sehen. Beim IC Züge und S&V SD ist diese Streuung am Grössten. Die Streuung erschwert eine klere Aussagen über die Wirkung
+
+**Tabelle der SD Wirkung in dBA nach Zugstyp SD Typ Kombinationen**
+
+`Q25` und `Q75` sthet für die entsprechende Quantilen
+ 
+
+```{r}
+table = diffDf %>%filter(band == 'tot')%>%
+  group_by(SD,Zugstyp)%>%
+  summarise(Mittelwert=round(mean(level),1),
+            Median = round(median(level),1),
+            Q25=round(quantile(level,0.25),1),
+            Q75 =round(quantile(level,0.75),1)
+            #sd = round(sd(level),1)
+            )
+
+table$Zugstyp = as.factor(table$Zugstyp)
+
+if(word){
+  kable(table)
+}else{
+  datatable(table, filter = 'none', rownames = FALSE, options = list(pageLength = nrow(table), dom = 'tip',paging = FALSE))
+}
+
+```
+
+
+**Tabelle der SD Wirkung nach SD Typ Zusammengefasst**
+ 
+
+```{r}
+table = diffDf %>%filter(band == 'tot')%>%
+  group_by(SD)%>%
+  summarise(Mittelwert=round(mean(level),1),
+            Median = round(median(level),1),
+            Q25=round(quantile(level,0.25),1),
+            Q75 =round(quantile(level,0.75),1)
+            #sd = round(sd(level),1)
+            )
+datatable(table, filter ='none', rownames = FALSE, options = list(pageLength = nrow(table), dom = 'tip',paging = FALSE))
+```
+
+#### SD Wirkung Spektral
+
 ```{r fig.height=9}
 X =  diffDf%>%filter(band!='tot' & interval.kat == 'full' )
 X$band = as.numeric(X$band)
@@ -77,35 +170,80 @@ SpectPlot(FREQ)+
                   colour = "black",alpha = 0.7, outlier.colour = NA,size = 0.5)+
   geom_hline(yintercept=0,size = 1,alpha=0.6)+
   scale_y_continuous(breaks=-10:10,lim = c(-5,7))+
-  ylab('Spektrum, dBA')+
-facet_wrap(~ A ,ncol=2,scales = 'free_x')
+  ylab('Wirkung Spektral, dBA')+
+facet_wrap(~ SD ,ncol=2,scales = 'free_x')
 ```
 
-#### Levels
-aaa
+**Diskussion:**
 
-```{r  fig.width = 7, fig.height=4}
-ggplot(data = diffDf%>%filter(band=='tot'& var == 'leq' & interval.kat == 'full'  ),
+- STRAIL SD ist der  einzige Dämpfer mit positive Wirkung in alle Bänder. Zwischen 800Hz und 2500Hz ist die Wirkung am grössten (2.5-4dB).
+Die Wirkung unterscheidet sich für Zugstyp.
+
+- S&V zeigt keine Wirkung mit sehr grosse Streuung beim 2000Hz (vor allem die werte aus Regio Züge). In den Bänderunten 2000Hz ist die Wirkung Grösser Jedoch selten grösser als 2dB (immer kleiner als 3dB), das hat zur Folge dass, auch beim Vorbeifahrt Spektren ohne Tonale Charakteristik, die Gesamtwirkung maximal  2dBA betragen könnte. Die Wirkung ist sogar Negativ Zwischen 2000Hz und 6000Hz. 
+
+- Die Wirkung von Vossloh ist Zwischen 1000Hz und 2000Hz Postiv. Sonst unterschidet sich kaum von 0dB oder ist sogar negativ
+
+- Beim alle SD ist eine grosse Streuung der Wirkung zu sehen. Die Streuung ist Zwischen 1000Hz und 2000Hz am grössten 
+
+- Auch die sehr grosse Variabilität ist ein nicht erklärtes problem welches eine Brauchbare Aussage über die Dämpferwirkung erschwert. Im allgemein lassen sich die Negative Werte der SD Wirkung nicht erklären. Auch die spektrele unterschiede zwischen Zugtypen (rote un blaue kurven) sind nicht zu erklären.
+
+----
+
+### Wirkung beim IC und Regio Wagen für S&V SD
+
+Für den Abschnitt B2 (S&V) ist es zusätzlich möglich die Differenzen von Schallpegeln und Spektren Wagenweise durchzufüren. Ziel der Wagenweise Auswertung wäre die verbesserung der Genauigkeit der Wirkungabschätzung, dank den grössere Anzahl von Messwerte, gewesen.
+
+Wir Beschränken uns hier an die  Schallpegel und Spektren der kategorie Wagen da für diese Kategorie ein genügende Anzahl von Werte besteht.
+
+#### Schallpegel Differenzen
+
+```{r, fig.width = 5, fig.height=4}
+ggplot(data = diffDf%>%
+         filter(band=='tot'&  (interval.kat == 'Wagen')& A=='B2' ),
        aes(x = Zugstyp, y = level,  color = Zugstyp))+ 
-  geom_boxplot(alpha = 0.7)+
-  geom_point(size = 4, alpha = 0.7,position='jitter')+
+  geom_point(size = 4, alpha = 0.7 , position='jitter')+
+  geom_boxplot(notch= TRUE,colour = "black",alpha = 0.7,size = 1, outlier.colour = NA)+
   geom_hline(yintercept=0,size = 1,alpha=0.6)+
   scale_y_continuous(breaks=-5:5)+
-  ylab('Level dBA')+
-facet_grid( interval.kat~ A )+ theme_bw()+ theme(legend.position="bottom")
+  ylab('SD Wirkun dBA')+
+  theme_bw()+ theme(legend.position="bottom")
+```
+
+**Gemessne Wirkung  von Schinendämpfer in dBA**
+
+ 
+```{r,results='asis'}
+table = diffDf %>%filter(band =='tot'& interval.kat=='Wagen')%>%
+  group_by(SD,Zugstyp)%>%
+  summarise(Mittelwert=round(mean(level),1),
+            Median = round(median(level),1),
+            Q25=round(quantile(level,0.25),1),
+            Q75 =round(quantile(level,0.75),1)
+            #sd = round(sd(level),1)
+            )
+table$Zugstyp = as.factor(table$Zugstyp)
+
+if(word){
+  kable(table)
+}else{
+  datatable(table, filter = 'none', rownames = FALSE, options = list(pageLength = nrow(table), dom = 'tip',paging = FALSE))
+}
 ```
 
 
-### Differenzen Wagenweise: Wagen , Trieb/Wagen: Abschnitt B2
+**Diskussion:**
 
-Für den Abschnitt B2 ist es zusätzlich möglich die Differenzen je Auswertungsintervall `n` (je doppel Drehgestell) zu berechnen. Die Resultierende Wirkung sind die Folgende:
+- Für  IC Wagen ist die Wirkung Negativ. 
 
-#### Spektral
+- Für Regio Züge sind zu wenige messwerte vorhanden, jedoch ist die Wirkungsdifferenz von 2dB sehr gross und nicht zu erklären. Es ist zu bemerken dass sowohl Regio wie IC die tonale Charakteristik beim 2000Hz Aufweisen
 
-##### IC Züghe
-```{r fig.width=5}
 
-X = diffDf%>%filter(band!='tot'&  (interval.kat == 'Wagen')& A=='B2' & Zugstyp =='IC' )
+#### SD Wirkung Spektral
+
+ IC Züghe
+```{r }
+
+X = diffDf%>%filter(band!='tot'&  (interval.kat == 'Wagen')& A=='B2'  )
 SpectPlot(FREQ)+
   geom_line(X,
             mapping = aes(x = as.numeric(band), y = level, group = interaction(passby,A,interval,var), color = Zugstyp),size = 1, alpha = 0.5)+
@@ -114,13 +252,29 @@ SpectPlot(FREQ)+
                   colour = "black",alpha = 0.7, outlier.colour = NA,size = 0.8)+
   geom_hline(yintercept=0,size = 1,alpha=0.6)+
   scale_y_continuous(breaks=-10:10,lim = c(-8,8))+
-  ylab('Spektrum, dBA')+
-facet_grid( ~ interval.kat, scales = 'free_x')
+  ylab('Wirkung Spektral, dBA')+
+facet_grid( .~ Zugstyp, scales = 'free_x')
 ```
 
-##### Regio
 
-```{r}
+**Diskussion:**
+
+ - Beim IC Wagen bleibt die Variabilität sher gross in alle bänder und ist in der Grossenordnung der Wirkung. 
+
+ - Die Tendenz Negative werte Zwischen 2000Hz und 6000Hz zu habe bleibt Vorhanden.
+
+ - Beim Regio Züge sind zu wenige messwerte vorhanden um Aussagen zu machen, jedoch sind die spektrale unteschiede mit die IC Wagen nicht erklärbar.
+ - Den Vesuch genauere Resultate zu bekommen anhand vergrösseret Messanzahl ist damit nicht gut gelungen.
+
+----
+
+### Wichtige Erkentnisse
+
+> - 
+
+----
+
+```{r, eval=FALSE}
 X = diffDf%>%filter(band!='tot'&  (interval.kat != 'full')& A=='B2' & Zugstyp =='Regio' )
 SpectPlot(FREQ)+
   geom_line(X,
@@ -135,74 +289,5 @@ facet_grid( ~ interval.kat, scales = 'free_x')
 ```
 
 
-#### Levels
 
-```{r, fig.width = 5, fig.height=4}
-ggplot(data = diffDf%>%
-         filter(band=='tot'&  (interval.kat != 'full')& A=='B2' ),
-       aes(x = Zugstyp, y = level,  color = Zugstyp))+ 
-  geom_point(size = 4, alpha = 0.7 , position='jitter')+
-  geom_boxplot(notch= TRUE,colour = "black",alpha = 0.7,size = 1, outlier.colour = NA)+
-  geom_hline(yintercept=0,size = 1,alpha=0.6)+
-  scale_y_continuous(breaks=-5:5)+
-  ylab('Level dBA')+
-facet_grid( .~ interval.kat )+ theme_bw()+ theme(legend.position="bottom")
-```
 
-###  Gemessne Wirkung  von Schinendämpfer in dBA
-
-Die Indikatoren
-
- - mittelwert `av`
- - median `me`
- - Quantilen `Q25` und `Q75`
- - und Standardabweichung
- 
- sind in die untere Tabellen für verschiedene Kombinationen aus Verkehr und Dämpfern berechnet.
-
-#####  Wirkung nach Dämpfertyp, Zugstyp und Drehgestelltyp
- Berechung für jede Kombination aus Dämpfertyp(Abschnitt), Zugstyp und Drehgestelltyp(Interval Kategorie) 
-```{r,results='asis'}
-library(DT)
-table = diffDf %>%filter(band =='tot'& !is.na(interval.kat))%>%
-  group_by(A,Zugstyp,interval.kat)%>%
-  summarise(av=round(mean(level),1),
-            me = round(median(level),1),
-            Q25=round(quantile(level,0.25),1),
-            Q75 =round(quantile(level,0.75),1),
-            sd = round(sd(level),1)
-            )
-colnames(table)[c(1,3)]= c('Absch.','Drehgestell')
-table$Zugstyp = as.factor(table$Zugstyp)
-table$Drehgestell = as.factor(table$Drehgestell)
-
-if(word){
-  kable(table)
-}else{
-  datatable(table, filter = 'top', rownames = FALSE, options = list(pageLength = nrow(table), dom = 'tip',paging = FALSE))
-}
-```
-
-#####  Wirkung nach Dämpfertyp und Zugstyp
- Berechung für jede Kombination aus Dämpfertyp(Abschnitt) und  Zugstyp
- 
-```{r}
-table = diffDf %>%filter(band == 'tot')%>%
-  group_by(A,Zugstyp)%>%
-  summarise(av=round(mean(level),1),
-            me = round(median(level),1),
-            Q25=round(quantile(level,0.25),1),
-           Q75 =round(quantile(level,0.75),1),
-            sd = round(sd(level),1)
-            )
-
-colnames(table)[c(1)]= c('Absch.')
-table$Zugstyp = as.factor(table$Zugstyp)
-
-if(word){
-  kable(table)
-}else{
-  datatable(table, filter = 'top', rownames = FALSE, options = list(pageLength = nrow(table), dom = 'tip',paging = FALSE))
-}
-
-```

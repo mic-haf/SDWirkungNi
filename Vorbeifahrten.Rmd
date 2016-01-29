@@ -1,5 +1,5 @@
 ---
-title: "Darstellungen der Spektren und Levels"
+title: "Schallpegel und Spektren; erste Darstellungen"
 output:
   html_document:
     fig_caption: yes
@@ -64,17 +64,19 @@ ggplot(X) +
 
 ```
 
+----
 
-Dieser Abschnitt dient um einen Gefühl mit die gemessene/ausgewertete daten zu bekommen.
+In diesem Auswertung-teil werden Schallpegel und Spektren der Vorbeifahrten  für die folgende Punkte:
 
-Als erstens werden die 
+- Tonale Charakteristik von Vorbeifahrten
 
-Dazu wird die Streuung der berechnete Spektren bzw. Levelsuntersucht.
+- Die Streuung von Schallpegeln bzw. Spektren für folgende Gruppen:
 
-- innerhalb die gleichen pass-by, indem unterschiedliche Auswertung Intervalle verglichen werden
-- innerhalb verschiedene pass-by der gleiche Zugs bzw. Geschwindigkeit Kategorie
+    - innerhalb die gleichen Vorbeifahrt, indem unterschiedliche Wagen gleichen Wagentyp verglichen werden
+    - innerhalb verschiedene Vorbeifahrt der gleiche Zugs bzw. Geschwindigkeit Kategorie
 
-**Spektern und Gesamtpegeln sind in dBA angegeben**
+Es muss beachtet werden dass die Mikrophone auf eine total reflektierende Fläche montiert wurden. Der Abstand dieser Fläche aus Gleismitte war nur 2.5m. Als folge sind viel höhere Schallpegeln erwartet im vergleich zur gewöhnlichen Vorbeifahrtmessungen (Details im EMPA Bericht).
+
 
 ```{r }
 # Vorbereiten der daten in long format
@@ -88,110 +90,28 @@ spectDf = spectDf %>%filter(band != "100" & band !="125")
 
 ```
 
-## Abschnitten B5 und B2
+----
 
-Für diese Abschnitte sind Spektren Wagenbezogen berechnet worden. Es ist somit möglich Spektren innerhalb die gleichen pass-by zu vergleichen. Passby  10,13 und 8 sind nicht dargestellt da langsämer gefahren sind. Alle andere passby hatten eine geschwindigkeit von ungefähr 140 km/h 
+### Schallpegeln und Spektren alle Abschnitte im Vergleich
 
-
-### Levels von IC Züge für Intervalle der kategorie `Wagen`
-
-```{r }
-ggplot(droplevels(spectDf%>%
-                    filter(band =='tot'& interval.kat=='Wagen' & (A =='B5'| A=='B2') & Zugstyp == 'IC' ))%>%
-         filter(passby != "10"& passby != "13" & passby != "8"),
-       aes(x = passby, y = level)
-) +
-  geom_boxplot(alpha = 0.7)+
-  geom_point(aes(color = v),size =4,alpha = 0.6,position = "jitter")+
-  ylab('Level dBA')+
-  facet_grid( .~ A)+
-  scale_y_continuous(breaks = seq(80,150,1) )
-```
-
-**Diskussion**:
-
-- eine viel grössere Streuung als erwartet ist zu sehen. Zwischen unterschiedliche Intervalle der gleichen pass-by sind variationen bis 5 dB zu sehen
-
-- Die Variabilität innerhalb ein einziges Zug ist Grösser als die Variabilität Zwischen verschiedene pass-by
-
-- zwischen unterschiedliche pass-by (gleuche Zugstyp mit ähnlichen Geschwindigkeiten) sind bis zu 2-3dB Unterschieden zu sehen
-
-- die Streuung ist nicht konstant für ein gegebens passby auf beide Abschnitte.Damit ist es nichtmöglich die streuung zu Erklären aufgrund unterschidelich Radrauheiten. 
-
-### Spektren von IC Züge für Intervalle der kategorie `Wagen`
-
-```{r }
-SpectPlot(FREQ) + 
-  geom_line(data= spectDf%>%
-              filter(band!='tot'& interval.kat=='Wagen' &  (A =='B5'| A=='B2') & Zugstyp == 'IC' )%>%
-              filter(passby != 10& passby != 13 & passby != 8),
-            mapping = aes(x = as.numeric(band), y = level, group = interaction(passby, A, interval, var), color = passby ),
-            size = 1.5, alpha=0.5) +
-  scale_y_continuous(breaks = seq(20,150,5) )+
-  ylab('Level dBA')+
-  facet_grid(interval.kat ~ A)
-
-```
-Bemerkungen:
-
-- Die Spektren weisen ein sehr hohen tonales Anteil bei $2000 Hz$ auf. Eine mögliche Erklärung ist der  höhe Rauheitswert bei $2\,cm$ Wellenänghe welche umgewandelt in Frequenz (für $140 km/h$) betragt $`r v= 140/3.6; round(v/0.02,-1) ` \, Hz$.
-
-
-
-### Spektren und Levels von Regio Züge
-
-```{r eval=F, }
-# unused plot
-ggplot(droplevels(spectDf%>% filter(band =='tot'& interval.kat!='full'& interval.kat!='vorbei' & (A =='B5'| A=='B2') & Zugstyp == 'Regio' )),aes(x = passby, y = level)) +
-  #geom_boxplot(alpha = 0.7)+
-  geom_point(aes(color = v), size =4,alpha = 0.6)+
- facet_grid( interval.kat~ A)+
-  ylab('Level dBA')+
-  scale_y_continuous(breaks = seq(80,150,1) )
-```
-Levels von Regio Züge für Intervalle der Kategorie `Wagen` und `Trieb/Wagen` sind nicht angezeigt da diese Züge nur aus 6 Wagen bestehen, davon 2 mit Triebfahrzeuge und deshalb hat man innerhalb ein einziges Zug nur wenige Intervalle zu Vergleichen. 
-
-Eine sehr grosse Variabilität der Schalldruckpegel wurde wie für IC Züghe auch festgestellt.
-
-die spektern Spektren  für Intervalle der kategorie `Trieb/Wagen` sind im folgende Bild dragestellt
-
-```{r }
-SpectPlot(FREQ) + 
-  geom_line(data= spectDf%>%
-              filter(band!='tot'& interval.kat=='Wagen' &  (A =='B5'| A=='B2') & Zugstyp == 'Regio' ),
-            mapping = aes(x = as.numeric(band), y = level, group = interaction(passby, A, interval, var), color = passby ),
-            size = 1.5, alpha=0.5) +
-  ylab('Spektrum dBA')+
-  scale_y_continuous(breaks = seq(20,150,5) )+
-  facet_grid(interval.kat ~ A)
-
-```
-
-Diskussion:
-
-- die höhe tonalität bei 2000 Hz ist ausgeprägt wie beim IC Wagen.
-- Diese Züghe sind lauter als IC Züghe
-- dazu ist eine grose Streuung beit tiefe Frequenzen
-
-## Alle Abschnitte
-
-Die Spektren berechnet aus Intervalle `full`  werden hier gezeigt. Da für die Abschnitte B3 und B4 keine LS eingesetzt wurde ist es nicht möglich drehgestellweise auszuwerten. Den Anzahl von Levels ist deswege gering, jedoch gelten die bereits gemachten Bemerkungen über variabilität zwischen unterschiedliche Züghe der gleiche Klasse  auch für die Abschnitten B3 und B4.
+Die Spektren berechnet aus Intervalle `full`  werden hier gezeigt. Da für die Abschnitte B3 und B4 keine LS eingesetzt wurde ist es nicht möglich Wagen bezogene Spektren zu Vergleichen.  IC Vorbeifahrt  10, 13 und 8 und Regio Vorbeifahrt 6 sind nicht dargestellt wegen die zu kleine Geschwindigkeit. Alle andere Vorbeifahrten hatten eine Geschwindigkeit von ungefähr 140 km/h 
 
 ```{r  fig.height=9}
 SpectPlot(FREQ) + 
   geom_line(data= spectDf%>%
-              filter(band!='tot'& interval.kat=='full' &  (A =='B3'| A=='B4')),
-            mapping = aes(x = as.numeric(band), y = level, group = interaction(passby, A, interval, var), color = passby ),
+              filter(band!='tot'& interval.kat=='full' )%>%
+              filter(passby != "10"& passby != "13" & passby != "8"& passby != "6"),
+            mapping = aes(x = as.numeric(band), y = level, group = interaction(passby, A, interval, var), color = Zugstyp ),
             size = 1.5, alpha=0.5) +
   scale_y_continuous(breaks = seq(20,150,5) )+
-  ylab('Level dBA')+
-  facet_grid(Zugstyp ~ A,scales='free_x')
+  ylab('dBA')+
+  facet_wrap (~A,ncol = 2 )
 
 ```
 <!--
 ## Leq vs. Geschwindigkeit für  IC Züghe
 
-Für IC Züghe sind genügende Levels berechnetworden um sinnvoll eine  regression der Level Gegnüber die geschwindigkeit darzustellen. Die Frage die man beantworten will ist :
+Für IC Züghe sind genügende Schallpegel berechnetworden um sinnvoll eine  regression der Level Gegnüber die geschwindigkeit darzustellen. Die Frage die man beantworten will ist :
 
 `Ist die Variabilität erklart aus die Geschwindigkeitunterschiede?`
 
@@ -212,4 +132,74 @@ ggplot(droplevels(spectDf%>%filter(!is.na(v)& band=='tot'& Zugstyp == 'IC')),
   scale_y_continuous(breaks = seq(80,150,5) )+ theme_bw()+ theme(legend.position="bottom")
   
 ```
+  **Diskussion**:
+  
+  - Die  IC Spektren weisen ein sehr hohen tonales Anteil bei $2000 Hz$ auf. Eine mögliche Erklärung ist der höhe Rauheitwert bei $2\,cm$ Wellenlänge welche umgewandelt in Frequenz (für $140 km/h$) entspricht $`r v= 140/3.6; round(v/0.02,-1) ` \, Hz$.
+  
+   - Die  Regio Spektren weisen diesem tonales Anteil nicht. Wir Untersuchen diese in einem weiteren Abschnitt
+  
+  -  Die Variabilität zwischen unterschiedliche IC Züge ist gross. Diese Beobachtung wird in übernächsten Abschnitt weiter untersucht. Den geringe Anzahl Regio Züge ermöglicht keine Aussagen über Variabilität. 
+
+----
+
+###  Wagenbezogenen Schallpegeln von IC wagen in Vergleich
+
+Für diese Abschnitte sind Schallpegeln und Spektren Wagen bezogen berechnet worden. Es ist somit möglich Schallpegeln und Spektren einzelne Wagen auf unterschiedliche Abschnitte Zu Vergleichen. Vorbeifahrt  10, 13 und 8 sind nicht dargestellt wegen die zu kleine Geschwindigkeit. Alle andere Vorbeifahrt hatten eine Geschwindigkeit von ungefähr 140 km/h 
+
+Es werden nur Schallpegeln und Spektren von  *IC Züge*,  Wagentyp `Wagen`, für die Diskussion Verwendet. Schallpegel von Regio Züge für Intervalle der Kategorie `Wagen` und `Trieb/Wagen` sind nicht angezeigt da diese Züge nur aus 6 Wagen bestehen, davon 2 mit Triebfahrzeuge und deshalb hat man innerhalb ein einziges Zug nur wenige Wagen bezogene Spektren der gleichen Wagentyp zu Vergleichen. 
+
+
+```{r }
+ggplot(droplevels(spectDf%>%
+                    filter(band =='tot'& interval.kat=='Wagen' & (A =='B5'| A=='B2') & Zugstyp == 'IC' ))%>%
+         filter(passby != "10"& passby != "13" & passby != "8"),
+       aes(x = A, y = level)
+) +
+  geom_boxplot(alpha = 0.7)+
+  geom_point(aes(color = interval),size =4,alpha = 0.6,position = "jitter")+
+  ylab('dBA')+
+  xlab('Abschnitt')+
+  facet_wrap( ~ passby,nrow=1)+
+  scale_color_discrete(name='Wagen n')+
+  scale_y_continuous(breaks = seq(80,150,1) )
+```
+
+  **Diskussion**:
+  
+  - Die Streuung ist viel grösser als erwartet. Zwischen unterschiedliche Wagen der gleiche Vorbeifahrt sind Variationen bis 5 dBA zu sehen
+  - Die Streuung zwischen unterschiedliche Vorbeifahrt  sind bis zu 2-3dBA Unterschieden zu sehen.
+  - Die Variabilität der Wagen innerhalb ein einziges Zug ist Grösser als die Variabilität Zwischen verschiedene Vorbeifahrt falls die median betrachtet wird.
+  - Die Variabilität eine Vorbeifahrt ist nicht konstant  auf beide Abschnitte. Damit ist es nicht möglich die Streuung zu Erklären aufgrund unterschiedlich Radrauheiten. 
+
+----
+
+### Tonale Charkteristik von Vorbeifhahrten für Wagenbezogene Spktren
+
+Wir wollen die Tonalität Charakteristik der Vorbeifahrten weiter untersuchen. Verantwortlich diese Tonalität Erscheinung ist meistens den Effekt der Überlagerung von SR und Radrauheit. Hier wird es behauptet dass alleine die SR verantwortlich ist. Wir betrachten hier deswegen nur Wagen bezogene Spektren (Abschnitt B5 und B2) von  Wagentyp `wagen` (ohne Triebdrehgestelle). Grund dafür ist die höhe Radrauheit von Triebdrehgestelle.
+
+
+```{r fig.height=9  }
+SpectPlot(FREQ) + 
+  geom_line(data= spectDf%>%
+              filter(band!='tot'& interval.kat=='Wagen' &  (A =='B5'| A=='B2')  )%>%
+              filter(passby != 10& passby != 13 & passby != 8 & passby != 6),
+            mapping = aes(x = as.numeric(band), y = level, group = interaction(passby, A, interval, var), color = passby ),
+            size = 1.5, alpha=0.5) +
+  scale_y_continuous(breaks = seq(20,150,5) )+
+  ylab('dBA')+
+  facet_grid(Zugstyp~ A)+
+   scale_color_discrete(name='Vorbeifahrt')+ theme(legend.direction = "horizontal")
+
+```
+
+  **Diskussion**:
+  
+  - Alle Spektren weisen ein sehr hohen tonales Anteil bei $2000 Hz$ auf.
+  - Wagen bezogenen Spektren der Abschnitt B5  weisen ein höheres tonales Anteil bei $2000 Hz$  gegenüber Spektren Von gesamten Zugdurchfahrten (Vergleiche Bild im Ersten Abschnitt)
+  - Die höhe Tonalität von Regio Wagen bei 2000 Hz ist ausgeprägt wie beim IC Wagen.
+  - Regio Züge sind lauter als IC Züge und haben eine grössere Streuung bei tiefe Frequenzen.
+  -  Die obere Punkten verstärken die Erklärung der Tonalität durch die höhe SR. Mann Kann behaupten dass diese SR (bei 2cm Wellenlänge) in ähnlichen mass auf beide Abschnitten Vorhanden ist 
+
+----
+
 
