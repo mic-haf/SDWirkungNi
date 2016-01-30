@@ -1,6 +1,10 @@
 ---
 title: "Schallpegel und Spektren; erste Darstellungen"
 output:
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 9
   html_document:
     fig_caption: yes
     fig_height: 5
@@ -11,10 +15,6 @@ output:
     self_contained: yes
     theme: united
     toc: yes
-  word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 9
 ---
 ```{r  include = FALSE}
 #knitr options

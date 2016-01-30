@@ -1,6 +1,10 @@
 ---
 title: "Gemessene Schienenrauheit in Niederwangen"
 output:
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 9
   html_document:
     fig_caption: yes
     fig_height: 5
@@ -12,10 +16,6 @@ output:
     theme: united
     toc: yes
     toc_depth: 4
-  word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 9
 ---
 ```{r setup, include = FALSE}
 library(knitr)

@@ -12,6 +12,7 @@ README.markdown_github
 *.xlsx
 #*.pdf
 *.txt
+*.docx
 
 ##Python
 # Byte-compiled / optimized / DLL files

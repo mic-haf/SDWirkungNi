@@ -1,6 +1,10 @@
 ---
 title: "Gemessene track decay rates"
 output:
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 9
   html_document:
     fig_caption: yes
     fig_height: 5
@@ -11,10 +15,6 @@ output:
     self_contained: yes
     theme: united
     toc: yes
-  word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 9
 ---
 ```{r setup, include = FALSE}
 library(knitr)
@@ -142,8 +142,7 @@ geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& damp == TRUE),
 
 ### Wichtige Erkentnisse
 
-> - Die erwartete gemessene Akustische  Wirkung von SD in Niederwangen klein.
-  - Es ist unklar woher der unterschied zwischen S&V und STRAIL zustande kommt.
+> - Es ist unklar woher der unterschied zwischen S&V und STRAIL zustande kommt.
   - Die negative Wirkungen ab 2000Hz fur S&V und Vossloh SD sind nicht durch die TDR erklärbar
 
 ----

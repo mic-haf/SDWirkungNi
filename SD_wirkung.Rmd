@@ -4,6 +4,10 @@ params:
   local: yes
   word: no
 output:
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 9
   html_document:
     fig_caption: yes
     fig_height: 5
@@ -14,14 +18,10 @@ output:
     self_contained: yes
     theme: united
     toc: yes
-  word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 9
 ---
 
 ```{r setup, include = FALSE}
-word = params$word
+word = TRUE
 
 library(knitr)
 opts_chunk$set(
@@ -155,7 +155,12 @@ table = diffDf %>%filter(band == 'tot')%>%
             Q75 =round(quantile(level,0.75),1)
             #sd = round(sd(level),1)
             )
-datatable(table, filter ='none', rownames = FALSE, options = list(pageLength = nrow(table), dom = 'tip',paging = FALSE))
+
+if(word){
+  kable(table)
+}else{
+  datatable(table, filter = 'none', rownames = FALSE, options = list(pageLength = nrow(table), dom = 'tip',paging = FALSE))
+}
 ```
 
 #### SD Wirkung spektral

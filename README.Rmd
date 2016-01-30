@@ -1,5 +1,9 @@
 ---
 output:
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 9
   github_document:
     toc: true
     toc_depth: 3
@@ -12,10 +16,6 @@ output:
     self_contained: yes
     theme: united
     toc: yes
-  word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 9
 params:
   local: TRUE
   word: FALSE
@@ -95,9 +95,8 @@ if(word){
 
 ```   
 
-## Analyse der Messungen
 
-### Akustische Messung
+## Akustische Messung
 
 Das Processing der Mikrophonsignale liefert **Schallpegel und Terzspektren** des Schalldrucks für jede Vorbeifahrt, welche dann weiter in der Auswertung verwendet werden. Schallpegel und Spektren sind in **dBA** angegeben. 
 
@@ -133,17 +132,21 @@ Im [**Auswertungsteil Schienenrauheiten in Niederwangen**](`r paste( html_render
 
 Im [**Auswertungsteil TDR in Niederwangen**](`r paste( html_render, "TDR_Ni.html", sep = "") `) wird die Konsistenz der gemessene SD Wirkung mit der gemessenen TDR untersucht.
 
+----
+
+## Zusammenfassung
+
+...
 
 ----
 
 ## Fazit
+...
 
+## Offene Fragen
 
-
-- Wirkung quantifizieren
-- Variabilität von akustische Messung. Grund Rauheit? zu groß um kleine unterscheide zu messen.
-- die berechnete werte könnten somit Zufall sein
-- Ruhezeit  mich möglich siehe Rauheit 
+- ...
+- ...
 
 -----
 
