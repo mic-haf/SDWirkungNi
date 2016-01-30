@@ -21,11 +21,12 @@
 -   [Abstract](#abstract)
 -   [Einleitung](#einleitung)
 -   [Durchgeführte Messungen](#durchgefuhrte-messungen)
--   [Analyse der Messungen](#analyse-der-messungen)
-    -   [Akustische Messung](#akustische-messung)
+-   [Akustische Messung](#akustische-messung)
     -   [SR](#sr)
     -   [TDR](#tdr)
+-   [Zusammenfassung](#zusammenfassung)
 -   [Fazit](#fazit)
+-   [Offene Fragen](#offene-fragen)
 -   [Anhang](#anhang)
     -   [Berichtsform](#berichtsform)
     -   [Dokumente, Scripts und Daten zum Postprocessing der Zeitsignale](#dokumente-scripts-und-daten-zum-postprocessing-der-zeitsignale)
@@ -81,10 +82,8 @@ In Niederwangen wurden Akustische Messungen und Messungen der track decay rates 
 
 ------------------------------------------------------------------------
 
-Analyse der Messungen
----------------------
-
-### Akustische Messung
+Akustische Messung
+------------------
 
 Das Processing der Mikrophonsignale liefert **Schallpegel und Terzspektren** des Schalldrucks für jede Vorbeifahrt, welche dann weiter in der Auswertung verwendet werden. Schallpegel und Spektren sind in **dBA** angegeben.
 
@@ -119,13 +118,23 @@ Im [**Auswertungsteil TDR in Niederwangen**](https://rawgit.com/e-sr/SDWirkungNi
 
 ------------------------------------------------------------------------
 
+Zusammenfassung
+---------------
+
+...
+
+------------------------------------------------------------------------
+
 Fazit
 -----
 
--   Wirkung quantifizieren
--   Variabilität von akustische Messung. Grund Rauheit? zu groß um kleine unterscheide zu messen.
--   die berechnete werte könnten somit Zufall sein
--   Ruhezeit mich möglich siehe Rauheit
+...
+
+Offene Fragen
+-------------
+
+-   ...
+-   ...
 
 ------------------------------------------------------------------------
 

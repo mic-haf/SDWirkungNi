@@ -1,14 +1,5 @@
 ---
 output:
-  word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 9
-  github_document:
-    toc: true
-    toc_depth: 3
-    includes:
-      before_body: includes/title.html
   html_document:
     highlight: textmate
     includes:
@@ -16,12 +7,21 @@ output:
     self_contained: yes
     theme: united
     toc: yes
+  github_document:
+    includes:
+      before_body: includes/title.html
+    toc: yes
+    toc_depth: 3
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 9
 params:
-  local: TRUE
-  word: FALSE
-  
+  local: yes
+  word: no
 ---
 ```{r echo = F}
+word = params$word
 git_commit = "e-sr/SDWirkungNi/blob/master/"
 if(params$local){
   html_render = "html/"
@@ -83,12 +83,11 @@ In Niederwangen wurden Akustische Messungen und Messungen der track decay rates 
 ----
 
 ```{r, results='hide',echo=FALSE}
-word = F #params$word
-if(word){
-  Vorbeifahrten = knitr::knit_child("Vorbeifahrten.Rmd")
-  TDR = knitr::knit_child("TDR_ni.Rmd")
-  #SR = knitr::knit_child("SR_ni.Rmd")
-}  
+# if(word){
+#   Vorbeifahrten = knitr::knit_child("Vorbeifahrten.Rmd")
+#   TDR = knitr::knit_child("TDR_ni.Rmd")
+#   #SR = knitr::knit_child("SR_ni.Rmd")
+# }  
 
 #`r if(word){paste("## Spektren von Vorbeifahrten\n", Vorbeifahrten)}`
 #`r if(word){paste("## TDR\n", TDR)}`
