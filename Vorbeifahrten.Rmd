@@ -198,9 +198,9 @@ SpectPlot(FREQ) +
   - Wagen bezogenen Spektren der Abschnitt B5 weisen einen höheren tonalen Anteil bei 2000 Hz gegenüber Spektren von gesamten Zugdurchfahrten (vgl. Bild im ersten Abschnitt) auf.
   - Die hohe Tonalität von Regio Wagen bei 2000 Hz ist gleich ausgeprägt wie beim IC Wagen.
   - Regio Züge sind lauter als IC Züge und haben eine grössere Streuung bei tiefen Frequenzen.
-  -  Die oberen Punkten bestätigen die Erklärung der Tonalität durch die hohe SR. Mann kann schliessen, dass diese SR (bei 2cm Wellenlänge) in ähnlichen Mass auf beiden Abschnitten vorhanden ist. 
+  -  Die oberen Punkten bestätigen die Erklärung der Tonalität durch die hohe SR. Mann kann schliessen, dass diese SR (bei 2cm Wellenlänge) in ähnlichem Mass auf beiden Abschnitten vorhanden ist. 
   
-Die Vorbeifahrt nummer 6 besteht aus einem Regio Zug welcher 100 km/h gefahren ist. Dieser Zug muss aufgrund der tiefe  Geschwindigkeit separat betrachtet werden. Im nächsten Bild sind die Spektren dieser Zug angezeigt.
+Die Vorbeifahrt nummer 6 besteht aus einem Regio Zug welcher 100 km/h gefahren ist. Dieser Zug muss aufgrund der tieferen  Geschwindigkeit separat betrachtet werden. Im nächsten Bild sind die Spektren dieses Zugs dargestellt.
 
 ```{r }
 SpectPlot(FREQ) + 
@@ -217,9 +217,9 @@ SpectPlot(FREQ) +
 
   **Diskussion**:
   
-  - Die Wagen Spektren weisen ein sehr hohen tonale Anteil beim 1600Hz Band auf. Das entspricht mit der Anregung der 2cm Wellenlänge, welche umgewandelt in Frequenz (für 100 km/h) `r v= 100/3.6; round(v/0.02,-1) ` \, Hz  entspricht.
-  - Die Antrieb/Wagen Wagentyp haben kein tonales Anteil bei 1600Hz. Diese Wagentyp ist gleichzeitig viel lauter was auf einer dominante Radrauheit deutet.
-  - Weiterhin  kann behauptet werden dass die SR (bei 2cm Wellenlänge) in ähnlichen mass auf beide Abschnitten Vorhanden ist.
+  - Die Wagen Spektren weisen einen sehr hohen tonalen Anteil beim 1600Hz Band auf. Das entspricht der Anregung der 2cm Wellenlänge, welche umgewandelt in Frequenz (für 100 km/h) `r v= 100/3.6; round(v/0.02,-1) ` \, Hz  entspricht.
+  - Der Antrieb/Wagen Wagentyp hat keinen tonalen Anteil bei 1600Hz. Dieser Wagentyp ist gleichzeitig viel lauter, was auf eine dominante Radrauheit hindeutet.
+  - Weiter kann behauptet werden, dass die SR (bei 2cm Wellenlänge) in ähnlichen Mass auf beiden Abschnitten vorhanden ist.
 
 
 ----
