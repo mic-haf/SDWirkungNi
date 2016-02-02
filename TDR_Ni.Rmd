@@ -1,6 +1,10 @@
 ---
-title: "Gemessene track decay rates"
+title: "Gemessene Track Decay Rates"
 output:
+  word_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 9
   html_document:
     fig_caption: yes
     fig_height: 5
@@ -11,10 +15,6 @@ output:
     self_contained: yes
     theme: united
     toc: yes
-  word_document:
-    fig_caption: yes
-    fig_height: 6
-    fig_width: 9
 ---
 ```{r setup, include = FALSE}
 library(knitr)
@@ -37,8 +37,8 @@ In diesem Abschnitt wird die Konsistenz zwischen TDR Messungen und SD Wirkung un
 
 Zur Erinnerung werden einige Überlegungen zum Thema Dämpfer und Gleisschwingungen aufgelistet.  
 
-1. Die Schiene schwingt wenig oberhalb von 2000Hz. Oberhalb 2000Hz dominiert der Emissionsanteil des Rades.
-2. In Niederwangen sind harte Zwischenlagen eingebaut. Die hohen vertikalen TDR bis 800-1000Hz bestätigen das.
+1. Die Schiene schwingt nur wenig oberhalb von 2000Hz.In diesem Bereich dominiert der Emissionsanteil des Rades.
+2. In Niederwangen sind harte Zwischenlagen eingebaut. Die hohen vertikalen TDR bis 800-1000Hz bestätigen dies.
 3. Die SD müssen die Dämpfung der Schiene erhöhen um einen Effekt zu haben: 
 
     - vertikal sollte der SD zwischen 800Hz und 2000 Hz wirken. Wobei 2000Hz die obere Grenze darstellt. 
@@ -141,7 +141,6 @@ geom_line(data= TDRni%>%filter(Author == 'MBBM'& sec !='B1'& damp == TRUE),
 ----
 
 ### Wichtige Erkentnisse
-
 > - Die erwartete akustische Wirkung von SD in Niederwangen ist klein.
   - Es ist unklar, wie der Unterschied zwischen S&V und STRAIL zustande kommt.
   - Die negativen Wirkungen ab 2000Hz für S&V und Vossloh SD sind nicht durch die TDR erklärbar.

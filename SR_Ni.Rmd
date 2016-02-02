@@ -74,42 +74,42 @@ RauheitsPlot()+
 
 **Diskussion:**
 
-  - SR  und Radrauheit  bilden zusammen die Anregungsmechanismus des Rollgeräuschs. Falls die SR weit unterhalb der TSI Kurve (schwarze Kurve) liegt, darf angenommen werden, dass die Radrauheit zur Hauptsache verantwortlich für die Anregung ist. In Niederwangen ist das  für Wellenlängen im Bereich von 1.6-4 cm nicht der Fall und es ist deshalb anzunehmen dass die SR die Hauptanregung bewirkt. Die gemessenen Schallspektren, welche eine stark tonale Komponente bei 2000Hz aufweisen (alle Abschnitte), stützen diese These. Diese tonale Komponente entspricht bei 130 km/h ungefähr die 2 cm Wellenlänge. In vorliegender Auswertung ist die SR speziell bei 1.6-4cm  Wellenlängen zu betrachten.
+  - SR  und Radrauheit  bilden zusammen den Anregungsmechanismus des Rollgeräuschs. Falls die SR weit unterhalb der TSI Kurve (schwarze Kurve) liegt, darf angenommen werden, dass die Radrauheit zur Hauptsache verantwortlich für die Anregung ist. In Niederwangen ist das  für Wellenlängen im Bereich von 1.6-4 cm nicht der Fall und es ist deshalb anzunehmen dass die SR die Hauptanregung bewirkt. Die gemessenen Schallspektren, welche eine stark tonale Komponente bei 2000Hz aufweisen (alle Abschnitte), stützen diese These. Diese tonale Komponente entspricht bei 130 km/h ungefähr die 2 cm Wellenlänge. In vorliegender Auswertung ist die SR speziell bei 1.6-4cm  Wellenlängen zu betrachten.
   
-  - Die SR haben eine Spitze bei 2cm und 1.6 cm Wellenlänge. Die Rauhigkeit bei 2 cm ist durch das Schleifvorgang bedingt, das ist  ein bekannter Effekt. Die genaue Wellenlänge hängt von unterschiedlichen Schleifparametern (Korngrösse der Schleifsteine, Geschwindigkeit , Maschine) ab.
+  - Die SR haben eine Spitze bei 2cm und 1.6 cm Wellenlänge. Die Rauhigkeit bei 2 cm ist durch den Schleifvorgang bedingt, ein bekannter Effekt. Die genaue Wellenlänge hängt von unterschiedlichen Schleifparametern (Korngrösse der Schleifsteine, Geschwindigkeit , Maschine) ab.
   
-  - Diese Spitze ist in jedem Abschnitt zu sehen und nimmt mit der Zeit ab. Die Abnahme ist unterschiedlich von Abschnitt zu Abschnitt. Diese Abnahme ist viele kleiner als erwartet. 2 Jahren später ist immer noch eine Schleifrauheit zu sehen. 
+  - Diese Spitze ist in jedem Abschnitt zu sehen und nimmt mit der Zeit ab. Die Abnahme ist unterschiedlich von Abschnitt zu Abschnitt. Diese Abnahme ist viele kleiner als erwartet. Nach 2 Jahren ist immer noch eine Schleifrauheit zu sehen. 
   
   - ACCON und MBBM messen die Spitze unterschiedlich. Diese Unterschiede sind vor allem in Abschnitt B2 zu sehen. ACCON misst eine grössere Schleifrauheit als MBBM.
   
-  - Die Schallmessung weist für alle Abschnitte eine starke Tonalität auf. Das entspricht nicht mit der kürzlich gemessenen SR überein, wo nur die Referenz die Spitze aufweist.
+  - Die Schallmessung weist für alle Abschnitte eine starke Tonalität auf. Dies entspricht nicht mit der kürzlich gemessenen SR überein, wo nur die Referenz eine solche Spitze aufweist.
   
-  - Die SR ist der Resultat von der Auswertung und Mittelung mehrerer 1m Abschnitte in Längsrichtung (vgl. detaillierte MBBM Berichte für mehr Informationen). Die Variation zwischen den 1m Abschnitten ist unbekannt.
+  - Die SR ist das Resultat der Auswertung und Mittelung mehrerer 1m Abschnitte in Längsrichtung (vgl. detaillierte MBBM Berichte für mehr Informationen). Die Variation zwischen den 1m Abschnitten ist unbekannt.
   
-  - Die SR beziehen sich auf die Fahrspiegelmitte. Eine Variation in transversaler Richtung ist zu erwarten. Es ist zu bemerken, dass die Radposition jedes Drehgestell von dieser Mitte abweichen kann. Konsequenz ist, dass jedes Drehgestell eine andere SR spürt.
+  - Die SR beziehen sich auf die Fahrspiegelmitte. Eine Variation in transversaler Richtung ist zu erwarten. Es ist zu bemerken, dass die Radposition jedes Drehgestell von dieser Mitte abweichen kann. Die Konsequenz daraus ist, dass jedes Drehgestell eine andere SR wahrnimmt.
 
 ----
 
 ### Korrektur von Schallspektren
 
-In Niederwangen werden Schallspektren von mehreren Abschnitten miteinander verglichen. Genauer wird die Differenz zwischen Referenz und Dämpferabschnitt gebildet, um die SD Wirkung abzuschätzen. Da diese Abschnitte unterschiedliche SR aufweisen könnten, kann die gebildete Differenz in der Theorie mithilfe von SR Differenzen korrigiert werden.
+In Niederwangen werden Schallspektren von mehreren Abschnitten miteinander verglichen. Genauer wird die Differenz zwischen Referenz und Dämpferabschnitt gebildet, um die SD Wirkung abzuschätzen. Da diese Abschnitte unterschiedliche SR aufweisen könnten, wird die gebildete Differenz in der Theorie mithilfe von SR Differenzen korrigiert.
 
 Die Ermittlung einer SR Korrektur für die Schallspektren erfolgt in 2 Schritten
  
  1. Auswahl einer repräsentativen SR für jeden Abschnitt
- 2. Schallspektren-Korrektur bilden
+ 2. Bildung der Schallspektren-Korrektur 
 
 #### Auswahl einer representativen SR für Schallspektren-Korrekturen
 
-Da die Schallspektren 2000Hz Spitzen aufweisen, ist die SR vor allem bei 2cm Wellenlänge zu betrachten.
+Da die Schallspektren 2000Hz Spitzen aufweisen, ist die SR vor allem bei der 2cm Wellenlänge zu betrachten.
 
 Als logischer Ansatz würde man die kürzlich vor der Schallmessung gemessene SR verwenden, d.h MBBM Messkampagne 4. 
 Es gibt jedoch Gründe, andere Messkampagnen für die repräsentative SR einzubeziehen: 
 
   - Abnahme der SR ist klein, d.h. vorletzte SR Messkampagne könnte auch noch repräsentativ sein.
-  - Die ACCON-Werte sollen mit verwendet werden (auch noch relativ kürzlich zur Schallmessung), um Unterschiede aufgrund des Messbüros auszuschliessen.
-  - Messkampagne 4 weist nicht bei allen Abschnitte höhere SR Werte bei 2 cm auf. Dies ist inkonsistent mit den 2000Hz Spitze bei den gemessenen Schallspektren.
-  - Variabilität der SR ist gross. Ein Mittelwert scheint deshalb geeigneter/robuster zu sein.
+  - Die ACCON-Werte sollen mit verwendet werden (ebenfalls in einem kurzen zeitlichen Abstand zur Schallmessung), um Unterschiede aufgrund des Messbüros auszuschliessen.
+  - Messkampagne 4 weist nicht bei allen Abschnitten höhere SR Werte bei 2 cm auf. Dies ist inkonsistent mit den 2000Hz Spitze bei den gemessenen Schallspektren.
+  - Variabilität der SR ist gross. Ein Mittelwert über verschiedene Messungen scheint deshalb geeigneter/robuster zu sein.
     
 Als Folge dieser Überlegungen untersuchen wir die folgenden **3 Fälle, um eine repräsentative SR** zu definieren:
 
@@ -171,18 +171,18 @@ Weiter ist zu bemerken, dass der Referenz Abschnitt die grösste SR aufweist. Es
 
 
 #### Korrektur bilden
-Das vorgehen um Schallspektren-Korrekturen aufgrund von Gesamtrauheits-Differenzen zu bilden, ist das folgende:
+Das Vorgehen um Schallspektren-Korrekturen aufgrund von Gesamtrauheits-Differenzen zu bilden, ist das folgende:
 
 1. Umwandeln der Gesamtrauheit von Wellenlänge zur Frequenz Hz (abhängig von der Geschwindigkeit des gemessenen Zugs):
     - $R_{tot,B}(f = \frac{v}{\lambda}) =  R_{tot,B}(\lambda)$
-    - lineare Interpolation um die Werte bei der gewünschte Frequenz zu bekommen
+    - lineare Interpolation um die Werte bei der gewünschten Frequenz zu erhalten
   
-2. Definiere Korrektur Filter bezüglich Referenzabschnitt: 
+2. Definition des Korrektur-ilter bezüglich Referenzabschnitt:
 $$Korr_{B}(f) = -\Delta R_{tot,B}(f) = -\left( R_{tot,B}(f) -  R_{tot,B5}(f) \right)$$
 
-3. Korrigiertes Spektrum für jeden Abschnitt berechnen: 
+3. Berechnung des korrigierten Spektrums für jeden Abschnitt :
 
-$$S_{B}(f) = S_{B}(f) + Korr_{B}(f)$$
+$$S_{B,korr}(f) = S_{B}(f) + Korr_{B}(f)$$
 
 
 Die **Gesamtrauheit** (Schiene + Rad) ist in der Regel notwendig, um diese Korrekturen durchzuführen. In unserem Messsetup ist die Schienenrauheit bei 2 cm jedoch sehr hoch und die Spektren zeigen den grössten Anteil der Energie bei der resultierenden Frequenz. Damit kann man zumindest für die 2cm Wellenlänge annehmen, dass $R_{tot,B} \approx SR_{B}$ und die Schalldruck Korrekturen mit der SR alleine durchgeführt werden dürfen.
@@ -214,25 +214,82 @@ Spect_korr = function(v,freq){
 #     )
 
 ##Example
+# remove unused Frequencies
+FREQ = c(#100, 
+        125, 160, 200, 250, 315, 400, 500, 630, 800, 1000,
+         1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000)
 v = 130
-korr_plot = Spect_korr(v,freqTDR)
+korr_plot = Spect_korr(v,FREQ)
 
 ```
 
-**Beispiel: $130km/h$**
 
-Für eine Geschwindigkeit von `r v` $km/h$ bekommt man für die Abschnitten B2 und B4 die folgende Schallspektren Korrekturen:
+##### **Beispiel**
+
+
+Für eine Geschwindigkeit von `r v` $km/h$ bekommt man die folgende Schallspektren Korrekturen:
 
 ```{r }
-SpectPlot(freqTDR)+
+SpectPlot(FREQ)+
   geom_hline(yintercept = 0, size = 1)+
-  geom_line(data=korr_plot%>%filter(sec !='B3'),
-            aes(x =freq ,y=K,colour=sec,group= interaction(fall,sec)), size=1, alpha = 0.7)+
-  geom_point(data=korr_plot%>%filter(sec !='B3'),
-          aes(x=freq,y=K,  colour = sec, shape = fall),size = 4,alpha = 0.8)+
+  geom_line(data=korr_plot,#%>%filter(sec !='B3'),
+            aes(x =freq ,y=K,colour=fall,group= interaction(fall,sec)), size=1, alpha = 0.7)+
+  #geom_point(data=korr_plot%>%filter(sec !='B3'),
+   #       aes(x=freq,y=K,  colour = sec, shape = fall),size = 4,alpha = 0.8)+
   scale_shape_discrete(name = '')+
-  facet_grid(.~sec)+ guides(colour=FALSE)
+  facet_grid(.~sec)#+ guides(colour=FALSE)
   
+```
+
+Die Anwendung der Korrekturen auf  die ist wie folgt abgeleitet:
+
+Die Wirkung von SD ist definiert als die Differenz zwischen Referenzabschnitt und SD Abschnitt, 
+
+$$W_{B}(f) = S_{R}(f) - S_{B}(f)$$
+
+wobei eine positive Differenz  auf eine positive SD Wirkung hindeutet. Unter verwendung von SR korrigierten Spektren berechnet sich die korrigierte  SD Wirkung mit 
+
+$$W_{B,korr}(f) = S_{R}(f) - S_{B, korr}(f) = W_{B}(f) - Korr_{B}(f)$$ 
+
+Um diesem Verfahren darzustellen wenden wir die Korrekturen für den Abschnitt B2 auf SD Wirkungen berechnet aus IC wagenbezogene Spektren. 
+
+```{r,warning=F,results='hide'}
+# Vorbereiten der daten in long format
+spectDf = spectWideDf %>% gather('var','level', leq.tot:leq.8000) %>% separate(var , c('var','band'))
+
+spectDf = spectDf %>%filter(band != "100" )
+
+## Differenz zwischen Referenz und Abschnitt bilden
+difference = function(df){
+  lRef = filter(df,A =='B5')$level
+  df = filter(df, A!='B5')
+  df$level = -(df$level-lRef)
+  return(df)
+}
+diffDf = droplevels(spectDf %>% group_by(passby, band, interval) %>% do(difference(.)))
+diffDf$SD= factor(diffDf$A, labels = c("S&V","STRAIL","Vossloh"))
+
+# build example Df
+
+exDf = droplevels(diffDf %>% filter(Zugstyp == 'IC' & interval.kat == "Wagen"&A=='B2' & band !='tot'))%>%ungroup()%>%
+  mutate(m = interaction(v,band), freq = as.numeric(band))%>%ungroup()%>%
+  select(passby, Zugstyp, v, A,interval, SD,freq, level,m)
+# 
+speeds = as.numeric(levels(factor(exDf$v)))
+
+corr = do.call(rbind,lapply(speeds, function(v)Spect_korr(v,FREQ)%>%filter(sec =='B2')))%>%
+  ungroup()%>%
+  mutate(m = interaction(v,freq))%>%
+  select(fall,m,K)
+
+exDfKorr = do.call(rbind,
+                   lapply(c('a','b','c'), 
+                          function(fall) exDf%>%
+                            left_join(corr%>%filter(fall == fall), by='m')%>%
+                            ungroup()%>% mutate(Korr = fall, level = level-K)%>%
+                            select(passby, Zugstyp, v, A,interval, SD, Korr, freq, level)
+                   )
+)
 ```
 
 **Diskussion:**
@@ -243,17 +300,38 @@ SpectPlot(freqTDR)+
 
 - Die unterschiedlichen Fälle scheinen ein zufälliges Verhalten zu haben.
 
-- Aufgrund dieser Diskussion wird verzichtet die Korrekturen anzuwenden.
+Als Beispiel wenden wir die Korrekturen des Abschnitt B2 an die wagenbezognen Spektren von IC Züge. Das folgende Bild zeigt den Vergleich Zwischen Korrigierte und nicht Korrigierte SD Wirkungen
+
+```{r,warning=F}
+cb = c( "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7")
+
+SpectPlot(FREQ)+
+  geom_line(exDf,
+            mapping = aes(x = freq, y = level, group = interaction(passby,interval)), color = "darkgrey",size = 1, alpha=0.7)+
+  geom_line(exDfKorr,
+            mapping = aes(x = freq, y = level, group = interaction(passby,interval,Korr), color = Korr),size = 1, alpha = 0.4)+
+  geom_hline(yintercept=0,size = 1,alpha=0.6)+
+  #scale_y_continuous(breaks=-10:10,lim = c(-8,8))+
+  ylab('Wirkung Spektral, dBA')+
+  facet_grid(.~Korr)
+  
+```
+
+**Diskussion:**
+
+- Die SD Wirkung nimmt für jede Korrektur stark ab. Für den relevante 2000Hz Band ist die korrigierte Wirkung stark negatv.
+- Aufgrund dieser Bild wird auf eine Korrektur verzichtet. Eine deutliche lärmerhöung durch SD scheint zu umplausibel.
+- Trotzdem muss beachtet werden dass  die Korrektur, obwohl quantitativ unplausible Werte liefert, auf eine übergeschätzte SD Wirkung hindeutet.
 
 ----
 
 ### Wichtige Erkentnisse
 
->  - SR in Niederwangen haben eine Spitze beim 2cm Wellenlänge.
-   - Die Ausprägung der Spitze ist unterschiedlich von Abschnitt zu Abschnitt. Die zwei Messbüro messen unterschiedliche Werte.
-   - Die SR haben eine grosse Variabilität. Gross im Bezug auf den Effekt der SR auf Schallemissionen.
-   - Auswahl einer repräsentative SR für jeden Abschnitt ist nicht möglich.
-   - Die berechneten Korrekturen zeigen grosse Variationen aufgrund der Auswahl der repräsentativen SR und damit grosse Effekte auf die Schallemissionen. Deswegen wird verzichtet die SR Korrekturen auf Schallspektren anzuwenden.
-   - Die gemessene Wirkung der SD ist dennoch im Kontext der unterschiedlichen SR der Abschnitte zu relativieren.
+>  - SR in Niederwangen haben eine Spitze bei einer Wellenlänge von 2cm.
+   - Die Ausprägung der Spitze ist unterschiedlich von Abschnitt zu Abschnitt. Die beiden Messbüros messen unterschiedliche Werte.
+   - Die SR weisen, im Bezug auf den Effekt der SR auf Schallemissionen, eine grosse Variabilität auf.
+   - Die Auswahl einer repräsentative SR für jeden Abschnitt ist nicht möglich.
+   - Die berechneten Korrekturen zeigen grosse Variationen aufgrund der Auswahl der repräsentativen SR auf  und haben damit grosse Effekte auf die Schallemissionen. Deswegen wird darauf verzichtet die SR Korrekturen auf Schallspektren anzuwenden.
+   - Die gemessene Wirkung der SD muss dennoch im Kontext der unterschiedlichen SR der Abschnitte relativiert werden.Die SR deutet auf eine übergeschätzte SD Wirkung hin. 
 
 ----

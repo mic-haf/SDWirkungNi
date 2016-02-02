@@ -6,12 +6,14 @@ README_files/
 header.markdown_github
 header.md
 README.markdown_github
+sw/
 
 ##Window
 *.zip
 *.xlsx
 #*.pdf
 *.txt
+*.docx
 
 ##Python
 # Byte-compiled / optimized / DLL files
