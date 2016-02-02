@@ -74,15 +74,15 @@ RauheitsPlot()+
 
 **Diskussion:**
 
-  - SR  und Radrauheit  bilden zusammen den Anregungsmechanismus des Rollgeräuschs. Falls die SR weit unterhalb der TSI Kurve (schwarze Kurve) liegt, darf angenommen werden, dass die Radrauheit zur Hauptsache verantwortlich für die Anregung ist. In Niederwangen ist das  für Wellenlängen im Bereich von 1.6-4 cm nicht der Fall und es ist deshalb anzunehmen dass die SR die Hauptanregung bewirkt. Die gemessenen Schallspektren, welche eine stark tonale Komponente bei 2000Hz aufweisen (alle Abschnitte), stützen diese These. Diese tonale Komponente entspricht bei 130 km/h ungefähr die 2 cm Wellenlänge. In vorliegender Auswertung ist die SR speziell bei 1.6-4cm  Wellenlängen zu betrachten.
+  - SR  und Radrauheit  bilden zusammen den Anregungsmechanismus des Rollgeräuschs. Falls die SR weit unterhalb der TSI Kurve (schwarze Kurve) liegt, darf angenommen werden, dass die Radrauheit zur Hauptsache verantwortlich für die Anregung ist. In Niederwangen ist das  für Wellenlängen im Bereich von 1.6-4 cm nicht der Fall und es ist deshalb anzunehmen dass die SR die Hauptanregung bewirkt. Die gemessenen Schallspektren, welche eine stark tonale Komponente bei 2000Hz aufweisen (alle Abschnitte), stützen diese These. Diese tonale Komponente entspricht bei 130 km/h ungefähr der 2 cm Wellenlänge. In vorliegender Auswertung ist die SR speziell bei 1.6-4cm  Wellenlängen zu betrachten.
   
   - Die SR haben eine Spitze bei 2cm und 1.6 cm Wellenlänge. Die Rauhigkeit bei 2 cm ist durch den Schleifvorgang bedingt, ein bekannter Effekt. Die genaue Wellenlänge hängt von unterschiedlichen Schleifparametern (Korngrösse der Schleifsteine, Geschwindigkeit , Maschine) ab.
   
-  - Diese Spitze ist in jedem Abschnitt zu sehen und nimmt mit der Zeit ab. Die Abnahme ist unterschiedlich von Abschnitt zu Abschnitt. Diese Abnahme ist viele kleiner als erwartet. Nach 2 Jahren ist immer noch eine Schleifrauheit zu sehen. 
+  - Diese Spitze ist in jedem Abschnitt zu sehen und nimmt mit der Zeit ab. Die Abnahme ist unterschiedlich von Abschnitt zu Abschnitt. Diese Abnahme ist viel kleiner als erwartet. Nach 2 Jahren ist immer noch eine Schleifrauheit zu sehen. 
   
   - ACCON und MBBM messen die Spitze unterschiedlich. Diese Unterschiede sind vor allem in Abschnitt B2 zu sehen. ACCON misst eine grössere Schleifrauheit als MBBM.
   
-  - Die Schallmessung weist für alle Abschnitte eine starke Tonalität auf. Dies entspricht nicht mit der kürzlich gemessenen SR überein, wo nur die Referenz eine solche Spitze aufweist.
+  - Die Schallmessung weist für alle Abschnitte eine starke Tonalität auf. Dies stimmt nicht mit der kürzlich gemessenen SR überein, wo nur die Referenz eine solche Spitze aufweist.
   
   - Die SR ist das Resultat der Auswertung und Mittelung mehrerer 1m Abschnitte in Längsrichtung (vgl. detaillierte MBBM Berichte für mehr Informationen). Die Variation zwischen den 1m Abschnitten ist unbekannt.
   
@@ -171,7 +171,7 @@ Weiter ist zu bemerken, dass der Referenz Abschnitt die grösste SR aufweist. Es
 
 
 #### Korrektur bilden
-Das Vorgehen um Schallspektren-Korrekturen aufgrund von Gesamtrauheits-Differenzen zu bilden, ist das folgende:
+Das Vorgehen, um Schallspektren-Korrekturen aufgrund von Gesamtrauheits-Differenzen zu bilden, ist das folgende:
 
 1. Umwandeln der Gesamtrauheit von Wellenlänge zur Frequenz Hz (abhängig von der Geschwindigkeit des gemessenen Zugs):
     - $R_{tot,B}(f = \frac{v}{\lambda}) =  R_{tot,B}(\lambda)$
@@ -241,17 +241,17 @@ SpectPlot(FREQ)+
   
 ```
 
-Die Anwendung der Korrekturen auf  die ist wie folgt abgeleitet:
+Die Anwendung der Korrekturen auf die SD-Wirkung ist wie folgt abgeleitet:
 
 Die Wirkung von SD ist definiert als die Differenz zwischen Referenzabschnitt und SD Abschnitt, 
 
 $$W_{B}(f) = S_{R}(f) - S_{B}(f)$$
 
-wobei eine positive Differenz  auf eine positive SD Wirkung hindeutet. Unter verwendung von SR korrigierten Spektren berechnet sich die korrigierte  SD Wirkung mit 
+wobei eine positive Differenz  auf eine positive SD Wirkung hindeutet. Unter verwendung von SR korrigierten Spektren berechnet sich die korrigierte SD Wirkung mit 
 
 $$W_{B,korr}(f) = S_{R}(f) - S_{B, korr}(f) = W_{B}(f) - Korr_{B}(f)$$ 
 
-Um diesem Verfahren darzustellen wenden wir die Korrekturen für den Abschnitt B2 auf SD Wirkungen berechnet aus IC wagenbezogene Spektren. 
+Um dieses Verfahren konkret durchzuführen, wenden wir die Korrekturen für den Abschnitt B2 auf SD Wirkungen berechnet aus IC wagenbezogenen Spektren an. 
 
 ```{r,warning=F,results='hide'}
 # Vorbereiten der daten in long format
@@ -300,7 +300,7 @@ exDfKorr = do.call(rbind,
 
 - Die unterschiedlichen Fälle scheinen ein zufälliges Verhalten zu haben.
 
-Als Beispiel wenden wir die Korrekturen des Abschnitt B2 an die wagenbezognen Spektren von IC Züge. Das folgende Bild zeigt den Vergleich Zwischen Korrigierte und nicht Korrigierte SD Wirkungen
+Als Beispiel wenden wir die Korrekturen des Abschnitt B2 auf die wagenbezogenen Spektren von IC Zügen an. Das folgende Bild zeigt den Vergleich zwischen korrigierter und nicht korrigierter SD Wirkungen
 
 ```{r,warning=F}
 cb = c( "#56B4E9", "#009E73", "#0072B2", "#D55E00", "#CC79A7")
@@ -319,9 +319,9 @@ SpectPlot(FREQ)+
 
 **Diskussion:**
 
-- Die SD Wirkung nimmt für jede Korrektur stark ab. Für den relevante 2000Hz Band ist die korrigierte Wirkung stark negatv.
-- Aufgrund dieser Bild wird auf eine Korrektur verzichtet. Eine deutliche lärmerhöung durch SD scheint zu umplausibel.
-- Trotzdem muss beachtet werden dass  die Korrektur, obwohl quantitativ unplausible Werte liefert, auf eine übergeschätzte SD Wirkung hindeutet.
+- Die SD Wirkung nimmt für jede Korrekturart (Fall a,b und c) stark ab. Für das relevante 2000Hz Band ist die korrigierte Wirkung sogar stark negatv.
+- Aufgrund dieser Konsequenz wird auf eine Korrektur verzichtet. Eine deutliche Lärmerhöhung durch SD scheint zu unplausibel.
+- Trotzdem muss beachtet werden, dass die Korrektur, obwohl sie quantitativ unplausible Werte liefert, auf eine überschätzte SD Wirkung hindeutet.
 
 ----
 
@@ -330,8 +330,8 @@ SpectPlot(FREQ)+
 >  - SR in Niederwangen haben eine Spitze bei einer Wellenlänge von 2cm.
    - Die Ausprägung der Spitze ist unterschiedlich von Abschnitt zu Abschnitt. Die beiden Messbüros messen unterschiedliche Werte.
    - Die SR weisen, im Bezug auf den Effekt der SR auf Schallemissionen, eine grosse Variabilität auf.
-   - Die Auswahl einer repräsentative SR für jeden Abschnitt ist nicht möglich.
-   - Die berechneten Korrekturen zeigen grosse Variationen aufgrund der Auswahl der repräsentativen SR auf  und haben damit grosse Effekte auf die Schallemissionen. Deswegen wird darauf verzichtet die SR Korrekturen auf Schallspektren anzuwenden.
-   - Die gemessene Wirkung der SD muss dennoch im Kontext der unterschiedlichen SR der Abschnitte relativiert werden.Die SR deutet auf eine übergeschätzte SD Wirkung hin. 
+   - Die Auswahl einer repräsentativen SR für jeden Abschnitt ist nicht möglich.
+   - Die berechneten Korrekturen zeigen grosse Variationen aufgrund der Auswahl der repräsentativen SR auf und haben damit grosse Effekte auf die Schallemissionen. Deswegen wird darauf verzichtet die SR Korrekturen auf Schallspektren anzuwenden.
+   - Die gemessene Wirkung der SD muss dennoch im Kontext der unterschiedlichen SR der Abschnitte relativiert werden. Die SR deutet auf eine überschätzte SD Wirkung hin. 
 
 ----
