@@ -24,8 +24,7 @@
 -   [Akustische Messung](#akustische-messung)
     -   [SR](#sr)
     -   [TDR](#tdr)
--   [Zusammenfassung](#zusammenfassung)
--   [Fazit](#fazit)
+-   [Gesamtfazit](#gesamtfazit)
 -   [Offene Fragen](#offene-fragen)
 -   [Anhang](#anhang)
     -   [Berichtsform](#berichtsform)
@@ -37,17 +36,29 @@
 
 #### Abstract
 
-Anlass dieses Berichts ist, die **Wirkung von Schienenstegdämpfern** für die Situation Niederwangen abzuschätzen.
+In Niederwangen wurden versuchsweise vier Typen von Schienendämpfer eingebaut. Dies geschah primär um deren infrastrukturseitige Tauglichkeit zu überprüfen. Gleichzeitig wurden jedoch diverse Erhebungen durchgeführt, um die akustische Wirksamkeit zu beurteilen. Hierzu wurden folgende Parameter von verschiedenen Messbüros erhoben: Lärm (EMPA und Accon), Track Decay Rate (TDR, MBBM und Accon) und Schienenrauheit (MBBM und Accon). Bei den Lärmmessungen wurde jeweils der Zugstyp und dessen Geschwindigkeit gemessen. Die Resultate ergaben folgende Erkenntnisse:
+
+-   Es bestehe eine grosse Streuung in allen Resultaten. Es ist deshalb zum Teil schwierig signifikante Trends zu erkennen.
+
+-   Das Schleifen der Schienen verursachte einen hohen tonalen Anteil bei 2000 Hz. Diese Spitze variiert von Abschnitt zu Abschnitt und wurde zudem von den beiden Messbüros unterschiedlich gemessen. Diese Tonalität beeinflusst die Beurteilung der Resultate, insbesondere deshalb, weil Schienendämpfer genau in diesem Frequenzbereich eine hohe Wirksamkeit aufweisen.
+
+-   Auch variiert die Schienenrauheit sehr stark, sowohl in der Längs- wie auch in der Querrichtung. Deshalb nimmt vermutlich das Rad nicht unbedingt die gemessene Schienenrauheit wahr. Es bestehen zudem Unterschiede in den Messresultaten der beiden Messbüros. Eine Korrektur der Messresultate aufgrund der Schienenrauheit wurde deshalb nicht durchgeführt. Dies erschwert die Beurteilung der Wirksamkeit der Schienendämpfer. Weil der Referenzabschnitt rauer war als die Dämpferabschnitte, wird vermutet, dass die Wirksamkeit der Dämpfer geringer ist, als gemessen wurde.
+
+-   Die gemessene Wirkung der Schienendämpfer in Niederwangen für Regio und IC Züge ergab folgendes Bild: STRAIL zeigte mit 2.4 dBA die grösste Wirkung für beide Zugstypen. Beim Vossloh Schienendämpfer wurde ebenfalls eine ähnliche Wirkung für beide Zugstypen gemessen, jedoch war diese kleiner als 1 dBA. Schliesslich zeigte der S&V Dämpfer bei IC Zügen keine Wirkung und eine Lärmreduktion von 1.3 dBA bei Regionalzügen.
+
+-   Aufgrund der TDR Messungen in Niederwangen ist eine geringe Wirkung von Schienendämpfern zu erwarten. Dies wird für die Produkte von S&V und Vossloh bestätigt, nicht jedoch für das STRAIL Produkt.
+
+Wegen der hohen Streuung und der Variabilität in der Schienenrauheit ist Vorsicht geboten bei der Extrapolation dieser Resultate auf andere Situationen.
 
 ------------------------------------------------------------------------
 
 Einleitung
 ----------
 
-Im Rahmen des Projekts Erprobung Schienendämpfer (SD) wurden zwischen Niederwangen und Bümplitz SD eingebaut. Diese Teststrecke dient hauptsächlich dazu, sicherheitsrelevante infrastrukturseitige Fragen zu überprüfen, jedoch wurden auch akustische Untersuchungen durchgeführt. Die Teststrecke besteht aus 2 Teilen:
+Im Rahmen des Projekts Erprobung Schienendämpfer (SD) wurden zwischen Niederwangen und Bümpliz SD eingebaut. Diese Teststrecke dient hauptsächlich dazu, sicherheitsrelevante infrastrukturseitige Fragen zu überprüfen, jedoch wurden auch akustische Untersuchungen durchgeführt. Die Teststrecke besteht aus 2 Teilen:
 
 -   Niederwangen: Betonschwelle B91,
--   Bümplitz: Holzschwellen
+-   Bümpliz: Holzschwellen
 
 In diesem Bericht wird nur der Teil der Teststrecke mit Betonschwellen diskutiert. Dieser besteht aus 5 Abschnitten an je 108m Länge. Vier Abschnitte (B1,B2,B3,B4) haben eingebaute Dämpfer, der letzte Abschnitt (B5) dient als Referenz. Es besteht die folgende Relation zwischen dem Namen der Abschnitte und den dort eingebauten Dämpfern.
 
@@ -78,14 +89,14 @@ In Niederwangen wurden Akustische Messungen und Messungen der track decay rates 
 
 3.  **SR Messungen**
 
-    SR-Spektren wurden durch die Firma MBBM für alle Abschnitte mehrmals nach einem Schleifvorgang gemessen. Die detallierten Berichte und die Messdaten sind in diesem Repo nur teilweise verfügbar.
+    SR-Spektren wurden durch die Firma MBBM für alle Abschnitte mehrmals nach einem Schleifvorgang gemessen. Die detallierten Berichte und die Messdaten sind in diesem repository([für mehr Info](#berichtsform)) nur teilweise verfügbar.
 
 ------------------------------------------------------------------------
 
 Akustische Messung
 ------------------
 
-Das Processing der Mikrophonsignale liefert **Schallpegel und Terzspektren** des Schalldrucks für jede Vorbeifahrt, welche dann weiter in der Auswertung verwendet werden. Schallpegel und Spektren sind in **dBA** angegeben.
+Das Processing der Mikrofonsignale lieferte **Schallpegel und Terzspektren** des Schalldrucks für jede Vorbeifahrt, welche dann weiter in der Auswertung verwendet wurden. Schallpegel und Spektren sind in **dBA** angegeben.
 
 Die berechneten Schallpegel und Spektren entsprechen den energetisch gemittelten Werten über ein bestimmtes Intervall. Es wurden unterschiedliche Auswertungsintervalle ausgewählt:
 
@@ -94,19 +105,19 @@ Die berechneten Schallpegel und Spektren entsprechen den energetisch gemittelten
 
 Zusätzlich konnten weitere Informationen mithilfe von Lichtschrankensignalen (LS) gewonnen werden:
 
--   *Zugsgeschwindigkeit.* Nur Vorbeifahrten mit ähnlicher Geschwindigkeit auf allen Abschnitten werden berücksichtigt.
+-   *Zugsgeschwindigkeit.* Nur Vorbeifahrten mit ähnlicher Geschwindigkeit auf allen Abschnitten wurden berücksichtigt.
 -   *Zugstyp.* Zwei Klassen von Zügen sind zu unterscheiden:
     1.  Regiozüge; es handelt sich um einen Domino (Triebwagen-Inowa-Steuerwagen) in doppelter Komposition Der Abstand der Triebdrehgestelle ist konstant 2.7m und kann für die Detektion verwendet werden.
     2.  IC Zügen; diese Zügen bestehen aus (EWIV, IC2000, Steuerwagen und Re460). Die Anzahl der Wagen ist variabel. Zugtyp wurde mithilfe der Achsmuster und des Achsabstands detektiert.
--   *Wagentyp.* Die Wagen-bezogenen Schallpegeln und Spektren (mit `n` bezeichnet) können `Trieb` als auch `Wagen` Drehgestelle enthalten. Um Wagen-bezogenen Schallpegel und Spektren aus ähnlichen Drehgestellen zu vergleichen, werden die Intervalle jeder Vorbeifahrt in `Wagen` , `Trieb/Wagen` kategorisiert. Die Kategorisierung erfolgt mithilfe des Achsabstands.
+-   *Wagentyp.* Die auf einzelne Wagen bezogenen Schallpegel und Spektren (mit `n` bezeichnet) können `Trieb` als auch `Wagen` Drehgestelle enthalten. Um wagenbezogene Schallpegel und Spektren aus ähnlichen Drehgestellen zu vergleichen, werden die Intervalle jeder Vorbeifahrt in `Wagen` , `Trieb/Wagen` kategorisiert. Die Kategorisierung erfolgt mithilfe des Achsabstands.
 
 Im Anhang sind weitere Details zum Postprocessing zu finden.
 
 **Mit Schallpegel und Spektren werden folgende Auswertungen durchgeführt:**
 
--   [**Schallpegel und Spektren, erste Darstellungen**](https://rawgit.com/e-sr/SDWirkungNi/master/html/Vorbeifahrten.html) für einen ersten Eindruck und um einen Gefühl für die gemessenen/ausgewerteten Werte zu bekommen.
+-   [**Schallpegel und Spektren, erste Darstellungen**](https://rawgit.com/e-sr/SDWirkungNi/master/html/Vorbeifahrten.html) dienen dazu einen ersten Eindruck für die gemessenen und ausgewerteten Werte zu erhalten.
 
--   [**Abschätzen der SD Wirkung**](https://rawgit.com/e-sr/SDWirkungNi/master/html/SD_wirkung.html). Die Pegeldifferenz zwischen Referenzabschnitt und Dämpferabschnitt wird berechnet und diskutiert.
+-   [**Abschätzen der SD Wirkung**](https://rawgit.com/e-sr/SDWirkungNi/master/html/SD_wirkung.html). Hier werden die Pegeldifferenzen zwischen Referenzabschnitt und Dämpferabschnitt berechnet und diskutiert.
 
 ### SR
 
@@ -118,23 +129,30 @@ Im [**Auswertungsteil TDR in Niederwangen**](https://rawgit.com/e-sr/SDWirkungNi
 
 ------------------------------------------------------------------------
 
-Zusammenfassung
----------------
+Gesamtfazit
+-----------
 
-...
+Zusammenfassend können folgende Schlussfolgerungen gezogen werden:
+
+-   Es bestehe eine grosse Streuung in allen Resultaten. Es ist deshalb zum Teil schwierig signifikante Trends zu erkennen.
+
+-   Das Schleifen der Schienen verursachte einen hohen tonalen Anteil bei 2000 Hz. Diese Spitze variiert von Abschnitt zu Abschnitt und wurde zudem von den beiden Messbüros unterschiedlich gemessen. Diese Tonalität beeinflusst die Beurteilung der Resultate, insbesondere deshalb, weil SD genau in diesem Frequenzbereich eine hohe Wirksamkeit aufweisen.
+
+-   Auch variiert die SR sehr stark, sowohl in der Längs- wie auch in der Querrichtung. Deshalb nimmt vermutlich das Rad nicht unbedingt die gemessene SR wahr. Es bestehen zudem Unterschiede in den Messresultaten der beiden Messbüros. Eine Korrektur der Messresultate aufgrund der SR wurde deshalb nicht durchgeführt. Dies erschwert die Beurteilung der Wirksamkeit der SD. Weil der Referenzabschnitt rauer war als die Dämpferabschnitte, wird vermutet, dass die Wirksamkeit der SD geringer ist, als gemessen wurde.
+
+-   Die gemessene Wirkung der SD in Niederwangen für Regio und IC Züge ergab folgendes Bild: STRAIL zeigte mit 2.4 dBA die grösste Wirkung für beide Zugstypen. Beim Vossloh SD wurde ebenfalls eine ähnliche Wirkung für beide Zugstypen gemessen, jedoch war diese kleiner als 1 dBA. Schliesslich zeigte der S&V SD bei IC Zügen keine Wirkung und eine Lärmreduktion von 1.3 dBA bei Regionalzügen.
+
+-   Aufgrund der TDR Messungen in Niederwangen ist eine geringe Wirkung von SD zu erwarten. Dies wird für die Produkte von S&V und Vossloh bestätigt, nicht jedoch für das STRAIL Produkt. Wegen der hohen Streuung und der Variabilität in der SR ist Vorsicht geboten bei der Extrapolation dieser Resultate auf andere Situationen
 
 ------------------------------------------------------------------------
-
-Fazit
------
-
-...
 
 Offene Fragen
 -------------
 
--   ...
--   ...
+Weitere Untersuchungen müssten folgende Punkte beinhalten:
+
+-   Die TDR Messung war nicht in jedem Fall ein guter Prädiktor für die Wirksamkeit von SD. Dieses Mass muss entweder weiter untersucht oder eine Alternative gefunden werden.
+-   Es besteht eine grosse Streuung in der SR, sowohl in Quer- wie in Längsrichtung. Zudem nimmt das Rad nicht unbedingt die gemessene Schienenrauheit wahr. Dies beeinflusst Lärmmessungen und damit die Beurteilung der Wirksamkeit von SD. Die SR und deren Messung muss deshalb genauer untersucht werden.
 
 ------------------------------------------------------------------------
 
@@ -143,24 +161,24 @@ Anhang
 
 ### Berichtsform
 
-Dieser Bericht besteht aus mehreren Teildokumente, welche in einem [git Repo](https://github.com/e-sr/SDWirkungNi/) (hosted auf GitHub.com) abgelegt sind. Die Dokumente welche welche den Bericht zusammenstallen sind so aufgebaut Die Dokumente sind im Hinblick auf eine möglichst gute Reproduzierbarkeit aufgebaut, d.h Scripts und Daten. auf welchen die Teildokumente basieren, sind auch sofern möglich im Repo zu finden.
+Dieser Bericht besteht aus mehreren Teildokumenten, welche in einem [git](https://de.wikipedia.org/wiki/Git) Repo (hosted auf GitHub), unter folgendem [link](https://github.com/e-sr/SDWirkungNi/) abgelegt sind. Die Dokumente, welche den Bericht bilden, sind im Hinblick auf eine möglichst gute Reproduzierbarkeit aufgebaut, d.h Scripts und Daten, auf welchen die Teildokumente basieren, sind ebenfalls -sofern möglich- im Repo zu finden.
 
 Für die Teildokumente wurden folgende Programme verwendet:
 
--   *Python:* [python](https://de.wikipedia.org/wiki/Python_(Programmiersprache)) ist eine Programmiersprache welche in verschieden Kontexte verwendet wird, unter anderem für wissenschaftliche Programmierung. Die [ipython/jupyter Notebook](http://ipython.org/) (.ipynb) ermöglichen die Integration von Berichterstattung und Python Code (Auswertung) in einem einzigen Dokument. Für das Processing der Zeitsignalen wurde speziell den Modul [python-acoustics](https://github.com/python-acoustics/python-acoustics) verwendet.
+-   *Python:* [python](https://de.wikipedia.org/wiki/Python_(Programmiersprache)) ist eine Programmiersprache welche in verschieden Kontexte verwendet wird, unter anderem für wissenschaftliche Programmierung. Die [ipython/jupyter Notebook](http://ipython.org/) (.ipynb) ermöglichen die Integration von Berichterstattung und Python Code (Auswertung) in einem einzigen Dokument. Für das Processing der Zeitsignalen wurde speziell das Modul [python-acoustics](https://github.com/python-acoustics/python-acoustics) verwendet.
 
--   *R:* [R](https://www.r-project.org/) ist eine Scriptsprache mit Schwerpunkt auf Statistischen Berechnungen. Um die Integration von Bericht und Auswertungen zu ermöglichen, sind die Dokumente in .Rmd Format aufgebaut (ich empfehle R im Verbindung mit [Rstudio](https://www.rstudio.com/) zu verwenden).
+-   *R:* [R](https://www.r-project.org/) ist eine Scriptsprache mit Schwerpunkt auf Statistischen Berechnungen. Um die Integration von Bericht und Auswertungen zu ermöglichen, sind die Dokumente in .Rmd Format aufgebaut (ich empfehle R in Verbindung mit [Rstudio](https://www.rstudio.com/) zu verwenden).
 
 ### Dokumente, Scripts und Daten zum Postprocessing der Zeitsignale
 
 Die EMPA hat folgende Messdaten geliefert:
 
--   *Zeitsignale* ( Die Zeitsignale sind in diesem Repo nicht Verfügbar, da der benötigte Speicherplatz ist zu gross.):
-    -   Die Signale der Mikrophone (in \(Pa\)) für jede Durchfahrt und auf jeden Abschnitt. Die Signale sind als Matlab Format geliefert worden und sind ist im Ordner `/Ereignisse` gespeichert.
+-   *Zeitsignale* ( Die Zeitsignale sind in diesem Repo nicht Verfügbar, da der benötigte Speicherplatz zu gross ist.):
+    -   Die Signale der Mikrofone (in \(Pa\)) für jede Durchfahrt und auf jeden Abschnitt. Die Signale sind als Matlab Format geliefert worden und sind ist im Ordner `/Ereignisse` gespeichert.
     -   Für die mit Lichtschranken versehenen Abschnitte liegen auch die Lichtschrankensignale vor.
 -   *Exceltabellen* mit Informationen zu jeder gültigen Vorbeifahrt. Die Tabellen sind im Ordner `/Tabellen` gespeichert. Diese Tabellen wurden mit zusätzlichen Informationen in das File `pass-by.json` transferiert, um die Daten besser weiter verarbeiten zu können.
 
-Aus den Zeitsignalen werden **Terzspektren und Gesamtpegel** des Schalldruck und zusätzliche Informationen berechnet. Das erfolgt mit den folgenden Dokumenten/Scripts:
+Aus den Zeitsignalen werden **Terzspektren und Gesamtpegel** des Schalldruck und zusätzliche Informationen berechnet. Dies erfolgt mit den folgenden Dokumenten/Scripts:
 
 -   [Darstellungen der Zeitsignale der Mikrophone](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/DSP/darstellungMicSignale.ipynb)
 
@@ -170,7 +188,7 @@ Aus den Zeitsignalen werden **Terzspektren und Gesamtpegel** des Schalldruck und
 
 -   [Auswertung aller Vorbeifahrten](http://nbviewer.jupyter.org/github/e-sr/SDWirkungNi/blob/master/DSP/DSPAuswertung.ipynb)
 
-Der Output der DSP wird im den Datensatz [results.json](DSP/results.json) gespeichert und dann in R weiter verwendet. Die Dokumente/Scripts sind im Ordner `DSP/` abgelegt. Es ist nicht möglich die DSP Auswertungen zu reproduzieren da die Zeitsignale im GitHub Repo nicht abgelegt sind. (Ordner wäre zu gross).
+Der Output der DSP wird im den Datensatz [results.json](DSP/results.json) gespeichert und dann in R weiter verwendet. Die Dokumente/Scripts sind im Ordner `DSP/` abgelegt. Es ist nicht möglich die DSP Auswertungen zu reproduzieren da die Zeitsignale im GitHub Repo nicht abgelegt sind. (Der Ordner wäre zu gross).
 
 ### Dokumente, Scripts und Daten zur Analyse der Messungen
 
